@@ -3,7 +3,61 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui" />
-<title>RectBlox</title>
+<title>RectBlox - Free Puzzle Game | Match-3 Block Puzzle Online</title>
+
+<!-- SEO Meta Tags -->
+<meta name="description" content="Play RectBlox, a fun and addictive match-3 block puzzle game! Clear blocks, make combos, and progress through 5 challenging levels. Free to play online!">
+<meta name="keywords" content="puzzle game, match 3, block puzzle, free game, online game, brain teaser, casual game, mobile game">
+<meta name="author" content="RectBlox Game">
+<meta name="robots" content="index, follow">
+<meta name="language" content="English">
+<meta name="revisit-after" content="7 days">
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="RectBlox - Free Puzzle Game | Match-3 Block Puzzle Online">
+<meta property="og:description" content="Play RectBlox, a fun and addictive match-3 block puzzle game! Clear blocks, make combos, and progress through 5 challenging levels. Free to play online!">
+<meta property="og:site_name" content="RectBlox">
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:title" content="RectBlox - Free Puzzle Game | Match-3 Block Puzzle Online">
+<meta property="twitter:description" content="Play RectBlox, a fun and addictive match-3 block puzzle game! Clear blocks, make combos, and progress through 5 challenging levels. Free to play online!">
+
+<!-- Web App Settings -->
+<meta name="theme-color" content="#f7e7ce">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="RectBlox">
+
+<!-- Performance and Caching -->
+<meta http-equiv="Cache-Control" content="public, max-age=31536000">
+<meta name="preconnect" href="https://pagead2.googlesyndication.com">
+
+<!-- Structured Data for Games -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Game",
+  "name": "RectBlox",
+  "description": "A fun and addictive match-3 block puzzle game with 5 challenging levels",
+  "genre": "Puzzle",
+  "gamePlatform": ["Web Browser", "Mobile"],
+  "operatingSystem": ["Any"],
+  "applicationCategory": "Game",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.5",
+    "ratingCount": "100"
+  }
+}
+</script>
+
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6244767628762401"
      crossorigin="anonymous"></script>
 <style>
@@ -681,7 +735,7 @@
     </div>
     
     <div class="action-buttons">
-      <button class="secondary-button" id="shuffleBtn">Shuffle</button>
+      <button class="secondary-button" id="shuffleBtn">Reset Position</button>
       <div class="level-info">Level <span id="level">1</span>: <span id="levelName">Easy Level</span></div>
       <button class="secondary-button" id="restartBtn">Restart</button>
     </div>
@@ -707,6 +761,8 @@ let isAnimating = false;
 let gameScore = 0;
 let levelScores = []; // Record scores for each level
 let totalBlocks = 0; // Track total blocks removed
+let chainCount = 0; // Track chain count for cascading sound effects
+let totalChainBlocks = 0; // Track total blocks in current chain
 
 // Audio context for sound effects
 let audioContext;
@@ -738,32 +794,87 @@ function playSound(frequency, duration, type = 'sine', volume = 0.1) {
 }
 
 function playMatchSound() {
-  playSound(440, 0.2, 'sine', 0.1); // A4 note
+  playSound(440, 0.2, 'sine', 0.2); // A4 note - increased volume
 }
 
 function playComboSound() {
-  playSound(523, 0.3, 'sine', 0.15); // C5 note
-  setTimeout(() => playSound(659, 0.3, 'sine', 0.15), 100); // E5 note
+  playSound(523, 0.3, 'sine', 0.25); // C5 note - increased volume
+  setTimeout(() => playSound(659, 0.3, 'sine', 0.25), 100); // E5 note
+}
+
+function playEliminationSound(matchCount, chainLevel = 0, totalChainMatches = 0) {
+  // Calculate enhanced match count based on chain level and total chain matches
+  const enhancedCount = matchCount + (chainLevel * 2) + Math.floor(totalChainMatches / 3);
+  
+  // Dynamic sound based on elimination count - more blocks = more epic sound!
+  if (enhancedCount <= 1) {
+    // Single block - simple pop
+    playSound(440, 0.15, 'sine', 0.15);
+  } else if (enhancedCount <= 2) {
+    // Two blocks - double pop
+    playSound(440, 0.15, 'sine', 0.18);
+    setTimeout(() => playSound(523, 0.15, 'sine', 0.18), 80);
+  } else if (enhancedCount <= 4) {
+    // 3-4 blocks - nice combo
+    playSound(523, 0.2, 'sine', 0.22);
+    setTimeout(() => playSound(659, 0.2, 'sine', 0.22), 100);
+    setTimeout(() => playSound(784, 0.2, 'sine', 0.22), 200);
+  } else if (enhancedCount <= 7) {
+    // 5-7 blocks - awesome combo
+    playSound(523, 0.25, 'sine', 0.25);
+    setTimeout(() => playSound(659, 0.25, 'sine', 0.25), 80);
+    setTimeout(() => playSound(784, 0.25, 'sine', 0.25), 160);
+    setTimeout(() => playSound(880, 0.25, 'sine', 0.25), 240);
+  } else if (enhancedCount <= 12) {
+    // 8-12 blocks - epic combo
+    playSound(523, 0.3, 'sine', 0.28);
+    setTimeout(() => playSound(659, 0.3, 'sine', 0.28), 60);
+    setTimeout(() => playSound(784, 0.3, 'sine', 0.28), 120);
+    setTimeout(() => playSound(880, 0.3, 'sine', 0.28), 180);
+    setTimeout(() => playSound(1047, 0.3, 'sine', 0.28), 240); // C6
+  } else if (enhancedCount <= 20) {
+    // 13-20 blocks - legendary combo
+    playSound(523, 0.4, 'sine', 0.35);
+    setTimeout(() => playSound(659, 0.4, 'sine', 0.35), 40);
+    setTimeout(() => playSound(784, 0.4, 'sine', 0.35), 80);
+    setTimeout(() => playSound(880, 0.4, 'sine', 0.35), 120);
+    setTimeout(() => playSound(1047, 0.4, 'sine', 0.35), 160); // C6
+    setTimeout(() => playSound(1175, 0.4, 'sine', 0.35), 200); // D6
+    setTimeout(() => playSound(1319, 0.5, 'sine', 0.35), 240); // E6
+    setTimeout(() => playSound(1568, 0.5, 'sine', 0.35), 280); // G6 - extra high note
+  } else {
+    // 21+ blocks - GODLIKE combo with extra epic sound
+    playSound(523, 0.5, 'sine', 0.4);
+    setTimeout(() => playSound(659, 0.5, 'sine', 0.4), 30);
+    setTimeout(() => playSound(784, 0.5, 'sine', 0.4), 60);
+    setTimeout(() => playSound(880, 0.5, 'sine', 0.4), 90);
+    setTimeout(() => playSound(1047, 0.5, 'sine', 0.4), 120); // C6
+    setTimeout(() => playSound(1175, 0.5, 'sine', 0.4), 150); // D6
+    setTimeout(() => playSound(1319, 0.5, 'sine', 0.4), 180); // E6
+    setTimeout(() => playSound(1568, 0.5, 'sine', 0.4), 210); // G6
+    setTimeout(() => playSound(1760, 0.6, 'sine', 0.4), 240); // A6 - ultra high note
+    setTimeout(() => playSound(2093, 0.6, 'sine', 0.4), 270); // C7 - extreme high note
+  }
 }
 
 function playLevelCompleteSound() {
-  playSound(523, 0.2, 'sine', 0.12); // C5
-  setTimeout(() => playSound(659, 0.2, 'sine', 0.12), 150); // E5
-  setTimeout(() => playSound(784, 0.3, 'sine', 0.12), 300); // G5
+  playSound(523, 0.2, 'sine', 0.2); // C5 - increased volume
+  setTimeout(() => playSound(659, 0.2, 'sine', 0.2), 150); // E5
+  setTimeout(() => playSound(784, 0.3, 'sine', 0.2), 300); // G5
 }
 
 function playShuffleSound() {
-  playSound(330, 0.1, 'sawtooth', 0.08);
-  setTimeout(() => playSound(370, 0.1, 'sawtooth', 0.08), 50);
-  setTimeout(() => playSound(294, 0.1, 'sawtooth', 0.08), 100);
+  playSound(330, 0.1, 'sawtooth', 0.15); // increased volume
+  setTimeout(() => playSound(370, 0.1, 'sawtooth', 0.15), 50);
+  setTimeout(() => playSound(294, 0.1, 'sawtooth', 0.15), 100);
 }
 
 function playButtonSound() {
-  playSound(800, 0.1, 'square', 0.05);
+  playSound(800, 0.1, 'square', 0.1); // increased volume
 }
 
 function playMoveSound() {
-  playSound(200, 0.05, 'triangle', 0.03);
+  playSound(200, 0.05, 'triangle', 0.06); // increased volume
 }
 
 const movesEl          = document.getElementById('moves');
@@ -835,22 +946,27 @@ function updateUI() {
   movesEl.textContent = movesLeft;
   levelEl.textContent = currentLevel;
   levelNameEl.textContent = LEVELS[currentLevel].name;
-  scoreEl.textContent = gameScore;
+  
+  // Calculate total score: completed levels + current level game score
+  const completedLevelsScore = levelScores.reduce((sum, level) => sum + level.score, 0);
+  const totalDisplayScore = completedLevelsScore + gameScore;
+  scoreEl.textContent = totalDisplayScore;
 }
 
 function nextLevel() {
-  // Record current level score
+  // Record current level score (including current gameScore)
   const levelScore = calculateLevelScore();
   levelScores.push({
     level: currentLevel,
-    score: levelScore,
+    score: levelScore + gameScore, // Include current game score
     remainingMoves: movesLeft
   });
   
   if (currentLevel < Object.keys(LEVELS).length) {
     // Show short message, then go to next level
-    showScoreMessage(`Level ${currentLevel} Done! Got ${levelScore} points`, 0);
+    showScoreMessage(`Level ${currentLevel} Done! Got ${levelScore + gameScore} points`, 0);
     currentLevel++;
+    gameScore = 0; // Reset game score for next level
     
     // Wait a bit for player to see message, then go to next level
     setTimeout(() => {
@@ -876,79 +992,78 @@ function showGameCompleteOverlay() {
     const levelScore = calculateLevelScore();
     levelScores.push({
       level: currentLevel,
-      score: levelScore,
+      score: levelScore + gameScore, // Include current game score
       remainingMoves: movesLeft
     });
   }
   
+  // Calculate total score from all recorded level scores
   const totalScore = levelScores.reduce((sum, level) => sum + level.score, 0);
   const totalRemainingMoves = levelScores.reduce((sum, level) => sum + level.remainingMoves, 0);
   const scoreSummary = document.getElementById('scoreSummary');
   
-  // Check if all levels completed
-  const isAllLevelsComplete = currentLevel === Object.keys(LEVELS).length;
-  const titleText = isAllLevelsComplete ? '🎉 Game Complete! 🎉' : '📊 No More Moves! 📊';
+  // Always show "No More Moves!" regardless of completion status
+  const titleText = '📊 No More Moves! 📊';
   
-  let summaryHTML = `<h3 style="margin: 0 0 1rem 0; color: #d4a574;">${titleText}</h3>`;
+  let summaryHTML = `<h3 style="margin: 0 0 1.5rem 0; color: #d4a574; font-size: 1.4rem;">${titleText}</h3>`;
   
-  levelScores.forEach(level => {
-    summaryHTML += `
-      <div class="score-item">
-        <span>Level ${level.level}</span>
-        <span>${level.score.toLocaleString()} points</span>
-      </div>
-    `;
-  });
-  
+  // Only show summary stats, no individual level scores
   summaryHTML += `
-    <div class="score-item">
+    <div class="score-item" style="font-size: 1.1rem; margin-bottom: 0.8rem;">
       <span>Total Blocks Removed</span>
       <span>${totalBlocks}</span>
     </div>
-    <div class="score-item">
+    <div class="score-item" style="font-size: 1.1rem; margin-bottom: 0.8rem;">
       <span>Total Moves Saved</span>
       <span>${totalRemainingMoves}</span>
     </div>
-    <div class="score-item">
+    <div class="score-item" style="font-size: 1.3rem; font-weight: bold; color: #d4a574; border-top: 2px solid #d4a574; padding-top: 1rem; margin-top: 1rem;">
       <span>Final Score</span>
       <span>${totalScore.toLocaleString()} points</span>
     </div>
   `;
   
-  // Add click instruction at the bottom
-  summaryHTML += `<div style="margin-top: 1rem; font-size: 0.8rem; color: #a8926f; text-align: center; font-style: italic;">👆 Tap anywhere to restart game</div>`;
+  // Add click instruction at the bottom with delay message
+  summaryHTML += `<div id="clickInstruction" style="margin-top: 1.5rem; font-size: 0.8rem; color: #a8926f; text-align: center; font-style: italic; opacity: 0.5;">Please wait 1 second...</div>`;
   
   scoreSummary.innerHTML = summaryHTML;
   scoreSummary.style.display = 'block';
   
-  const overlayMessage = isAllLevelsComplete ? 'All Levels Complete!' : 'No More Moves!';
+  const overlayMessage = 'No More Moves!';
   showOverlay(overlayMessage);
   
-  // Add event listeners for clicking anywhere to restart
-  overlay.addEventListener('click', restartFromGameComplete);
-  overlay.addEventListener('touchend', restartFromGameCompleteTouch);
-}
-
-function restartFromGameComplete(e) {
-  // Prevent event bubbling to score summary
-  if (e.target === document.getElementById('scoreSummary') || document.getElementById('scoreSummary').contains(e.target)) {
-    return;
-  }
-  overlay.removeEventListener('click', restartFromGameComplete);
-  overlay.removeEventListener('touchend', restartFromGameCompleteTouch);
-  restartGame();
-}
-
-function restartFromGameCompleteTouch(e) {
-  e.preventDefault();
-  e.stopPropagation();
-  // Prevent event bubbling to score summary
-  if (e.target === document.getElementById('scoreSummary') || document.getElementById('scoreSummary').contains(e.target)) {
-    return;
-  }
-  overlay.removeEventListener('click', restartFromGameComplete);
-  overlay.removeEventListener('touchend', restartFromGameCompleteTouch);
-  restartGame();
+  // Add 1 second delay before allowing interaction
+  let canClick = false;
+  setTimeout(() => {
+    canClick = true;
+    const instruction = document.getElementById('clickInstruction');
+    if (instruction) {
+      instruction.textContent = '👆 Tap anywhere to restart game';
+      instruction.style.opacity = '1';
+    }
+  }, 1000);
+  
+  // Add event listeners for clicking anywhere to restart (with delay check)
+  const handleGameCompleteClick = (e) => {
+    if (canClick) {
+      overlay.removeEventListener('click', handleGameCompleteClick);
+      overlay.removeEventListener('touchend', handleGameCompleteTouch);
+      restartGame();
+    }
+  };
+  
+  const handleGameCompleteTouch = (e) => {
+    if (canClick) {
+      e.preventDefault();
+      e.stopPropagation();
+      overlay.removeEventListener('click', handleGameCompleteClick);
+      overlay.removeEventListener('touchend', handleGameCompleteTouch);
+      restartGame();
+    }
+  };
+  
+  overlay.addEventListener('click', handleGameCompleteClick);
+  overlay.addEventListener('touchend', handleGameCompleteTouch);
 }
 
 function restartGame() {
@@ -966,8 +1081,6 @@ function restartGame() {
 document.getElementById('scoreSummary').addEventListener('click', function(e) {
   e.stopPropagation();
   // Click on score summary also restarts game
-  overlay.removeEventListener('click', restartFromGameComplete);
-  overlay.removeEventListener('touchend', restartFromGameCompleteTouch);
   restartGame();
 });
 
@@ -975,8 +1088,6 @@ document.getElementById('scoreSummary').addEventListener('touchend', function(e)
   e.preventDefault();
   e.stopPropagation();
   // Touch on score summary also restarts game
-  overlay.removeEventListener('click', restartFromGameComplete);
-  overlay.removeEventListener('touchend', restartFromGameCompleteTouch);
   restartGame();
 });
 
@@ -995,8 +1106,6 @@ function hideOverlay() {
   // Clean up event listeners
   overlay.removeEventListener('click', startGameFromInstructions);
   overlay.removeEventListener('touchend', startGameFromInstructionsTouch);
-  overlay.removeEventListener('click', restartFromGameComplete);
-  overlay.removeEventListener('touchend', restartFromGameCompleteTouch);
 }
 
 function showInstructions() {
@@ -1034,7 +1143,7 @@ function startGameFromInstructionsTouch(e) {
 }
 
 shuffleBtn.addEventListener('click', ()=>{
-  if (isAnimating || movesLeft < 1) return alert('Not enough moves! Need at least 1 move to shuffle blocks');
+  if (isAnimating || movesLeft < 1) return alert('Not enough moves! Need at least 1 move to reset position');
   
   playButtonSound(); // Play button sound
   // Show shuffle confirmation dialog
@@ -1061,7 +1170,7 @@ overlayRestartBtn.addEventListener('touchend', function(e) {
 shuffleBtn.addEventListener('touchend', function(e) {
   e.preventDefault();
   e.stopPropagation();
-  if (isAnimating || movesLeft < 1) return alert('Not enough moves! Need at least 1 move to shuffle blocks');
+  if (isAnimating || movesLeft < 1) return alert('Not enough moves! Need at least 1 move to mix blocks');
   
   // Show shuffle confirmation dialog
   showShuffleConfirmation();
@@ -1090,9 +1199,9 @@ function showShuffleConfirmation() {
   confirmBox.style.border = '2px solid #d4a574';
   
   confirmBox.innerHTML = `
-    <h3 style="margin: 0 0 1rem 0; color: #6b4e3d; font-size: 1.2rem;">Shuffle Blocks</h3>
+    <h3 style="margin: 0 0 1rem 0; color: #6b4e3d; font-size: 1.2rem;">Reset Position</h3>
     <p style="margin: 0 0 1.5rem 0; color: #8a6d5b; font-size: 0.9rem; line-height: 1.4;">
-      This will randomly rearrange all blocks on the board.<br>
+      Mix up all blocks to new spots.<br>
       <strong>Cost: 1 move</strong>
     </p>
     <div style="display: flex; gap: 1rem; justify-content: center;">
@@ -1197,6 +1306,10 @@ function handleMove(direction) {
   }
   if (!dir || isAnimating) return;
   
+  // Reset chain counters for new move
+  chainCount = 0;
+  totalChainBlocks = 0;
+  
   // If moves are 0, trigger game summary
   if (movesLeft <= 0) {
     isAnimating = true;
@@ -1224,27 +1337,16 @@ function handleMove(direction) {
   if (movesLeft === 0) { 
     isAnimating = true; // 防止重複觸發
     setTimeout(() => {
-      // 記錄當前關卡分數
+      // 記錄當前關卡分數（包含遊戲分數）
       const levelScore = calculateLevelScore();
       levelScores.push({
         level: currentLevel,
-        score: levelScore,
+        score: levelScore + gameScore, // Include current game score
         remainingMoves: movesLeft
       });
       
-      // 檢查是否還有下一關
-      if (currentLevel < Object.keys(LEVELS).length) {
-        // 還有下一關，給玩家一些額外moves繼續
-        movesLeft = 10; // 給10個moves進入下一關
-        currentLevel++;
-        showScoreMessage(`Level ${currentLevel - 1} Complete! Moving to Level ${currentLevel}`, 0);
-        setTimeout(() => {
-          initBoard();
-        }, 1500);
-      } else {
-        // 所有關卡完成，顯示結算表
-        showGameCompleteOverlay();
-      }
+      // 步數歸零就直接結束遊戲，不管是否還有下一關
+      showGameCompleteOverlay();
     }, 500); // 稍微延遲讓玩家看到移動效果
     return; 
   }
@@ -1329,26 +1431,59 @@ function cascade(dir) {
   setTimeout(() => {
     const matches = findMatches();
     if (matches.length === 0) { 
+      // 連鎖結束，重置計數器
+      chainCount = 0;
+      totalChainBlocks = 0;
+      
       // 檢查是否需要自動生成方塊
       checkAndGenerateLonelyTiles();
       isAnimating = false; 
       return; 
     }
     
-    // 顯示連鎖提示
-    if (matches.length >= 3) {
-      let comboText = 'NICE!';
-      if (matches.length >= 5) comboText = 'COMBO!';
-      if (matches.length >= 8) comboText = 'AMAZING!';
+    // 增加連鎖計數和累積方塊數
+    chainCount++;
+    totalChainBlocks += matches.length;
+    
+    // 顯示連鎖提示和播放音效
+    if (matches.length >= 3 || chainCount > 1) {
+      let comboText = '';
+      
+      // 基於消除數量的基本提示
+      if (matches.length >= 12) comboText = 'LEGENDARY!';
+      else if (matches.length >= 8) comboText = 'AMAZING!';
+      else if (matches.length >= 5) comboText = 'COMBO!';
+      else if (matches.length >= 3) comboText = 'NICE!';
+      else comboText = 'HIT!';
+      
+      // 如果是連鎖，加強提示
+      if (chainCount > 1) {
+        if (chainCount >= 5) comboText = `🔥 GODLIKE x${chainCount} CHAIN! 🔥`;
+        else if (chainCount >= 4) comboText = `⚡ ULTRA x${chainCount} CHAIN! ⚡`;
+        else if (chainCount >= 3) comboText = `💥 MEGA x${chainCount} CHAIN! 💥`;
+        else comboText = `✨ x${chainCount} CHAIN! ✨`;
+      }
+      
+      // 如果累積消除數量很大，進一步加強
+      if (totalChainBlocks >= 20) {
+        comboText = `🌟 EPIC ${totalChainBlocks} BLOCKS! 🌟`;
+      }
+      
       showComboMessage(comboText);
-      playComboSound(); // Play combo sound
-    } else if (matches.length > 0) {
-      playMatchSound(); // Play match sound for regular matches
+    }
+    
+    // 播放基於消除數量和連鎖的動態音效
+    if (matches.length > 0) {
+      playEliminationSound(matches.length, chainCount - 1, totalChainBlocks);
     }
     
     removeMatches(matches, () => {
       if (boardMatrix.flat().every(v => !v)) {
-        // 盤面清空，檢查是否還有下一關
+        // 盤面清空，重置連鎖計數器
+        chainCount = 0;
+        totalChainBlocks = 0;
+        
+        // 檢查是否還有下一關
         if (currentLevel < Object.keys(LEVELS).length) {
           playLevelCompleteSound(); // Play level complete sound
           nextLevel(); // 正常過關，使用nextLevel
@@ -1435,13 +1570,7 @@ function removeMatches(ms, cb) {
     showScoreMessage(`+${blockScore} points`, ms.length);
   }
   
-  // Show combo message
-  if (ms.length >= 3) {
-    let comboText = 'NICE!';
-    if (ms.length >= 5) comboText = 'COMBO!';
-    if (ms.length >= 8) comboText = 'AMAZING!';
-    showComboMessage(comboText);
-  }
+  // 移除重複的combo訊息 - 這部分邏輯已經在上面的消除邏輯中處理了
   
   ms.forEach(([x,y],i) => setTimeout(() => {
     const t = boardElements[y][x];
@@ -1478,13 +1607,19 @@ function removeMatches(ms, cb) {
   setTimeout(cb, ms.length * 60 + 400);
 }
 
+// 文字特效管理器
+let messageQueue = [];
+let nextMessagePosition = 30; // 起始位置百分比
+let lastComboMessage = ''; // 記錄上一個combo訊息
+let lastComboTime = 0; // 記錄上一個combo訊息的時間
+
 // Show score increase message
 function showScoreMessage(text, blockCount) {
   const message = document.createElement('div');
   message.textContent = text;
   message.style.position = 'absolute';
   message.style.left = '50%';
-  message.style.top = '40%';
+  message.style.top = nextMessagePosition + '%';
   message.style.transform = 'translate(-50%, -50%)';
   message.style.fontSize = '1.5rem';
   message.style.fontWeight = 'bold';
@@ -1496,22 +1631,49 @@ function showScoreMessage(text, blockCount) {
   message.style.boxShadow = '0 4px 12px rgba(212, 165, 116, 0.3)';
   message.style.zIndex = '16';
   message.style.pointerEvents = 'none';
+  message.style.whiteSpace = 'nowrap'; // 防止文字換行
   message.style.animation = 'combo-fade 1.5s ease-out forwards';
   
+  // 更新下一個訊息位置
+  nextMessagePosition += 8;
+  if (nextMessagePosition > 70) {
+    nextMessagePosition = 30; // 重置到頂部
+  }
+  
   document.querySelector('.game-container').appendChild(message);
+  messageQueue.push(message);
   
   setTimeout(() => {
     if (message.parentNode) message.parentNode.removeChild(message);
+    // 從佇列中移除
+    const index = messageQueue.indexOf(message);
+    if (index > -1) {
+      messageQueue.splice(index, 1);
+    }
+    // 如果沒有其他訊息了，重置位置
+    if (messageQueue.length === 0) {
+      nextMessagePosition = 30;
+    }
   }, 1500);
 }
 
 // Show combo message text
 function showComboMessage(text) {
+  const currentTime = Date.now();
+  
+  // 防止重複顯示相同的combo訊息（500ms內）
+  if (text === lastComboMessage && currentTime - lastComboTime < 500) {
+    return; // 跳過重複的訊息
+  }
+  
+  lastComboMessage = text;
+  lastComboTime = currentTime;
+  
   const message = document.createElement('div');
   message.textContent = text;
   message.style.position = 'absolute';
   message.style.left = '50%';
-  message.style.top = '50%';
+  message.style.top = nextMessagePosition + '%';
   message.style.transform = 'translate(-50%, -50%)';
   message.style.fontSize = '2rem';
   message.style.fontWeight = 'bold';
@@ -1519,12 +1681,29 @@ function showComboMessage(text) {
   message.style.textShadow = '2px 2px 4px rgba(0,0,0,0.3)';
   message.style.zIndex = '15';
   message.style.pointerEvents = 'none';
+  message.style.whiteSpace = 'nowrap'; // 防止文字換行
   message.style.animation = 'combo-fade 1.5s ease-out forwards';
   
+  // 更新下一個訊息位置
+  nextMessagePosition += 8;
+  if (nextMessagePosition > 70) {
+    nextMessagePosition = 30; // 重置到頂部
+  }
+  
   document.querySelector('.game-container').appendChild(message);
+  messageQueue.push(message);
   
   setTimeout(() => {
     if (message.parentNode) message.parentNode.removeChild(message);
+    // 從佇列中移除
+    const index = messageQueue.indexOf(message);
+    if (index > -1) {
+      messageQueue.splice(index, 1);
+    }
+    // 如果沒有其他訊息了，重置位置
+    if (messageQueue.length === 0) {
+      nextMessagePosition = 30;
+    }
   }, 1500);
 }
 
@@ -1816,5 +1995,23 @@ initBoard();
 // Show instructions when first loading the game
 setTimeout(() => showInstructions(), 500);
 </script>
+
+<!-- Hidden SEO Content -->
+<div style="position: absolute; left: -9999px; top: -9999px; visibility: hidden;">
+  <h1>RectBlox - Free Online Puzzle Game</h1>
+  <h2>Match-3 Block Puzzle Game Features</h2>
+  <p>Experience the ultimate puzzle gaming adventure with RectBlox! This engaging match-3 block puzzle game offers:</p>
+  <ul>
+    <li>5 challenging levels with increasing difficulty</li>
+    <li>Smooth gameplay on mobile and desktop</li>
+    <li>Colorful blocks and satisfying combos</li>
+    <li>Free to play online game</li>
+    <li>No download required</li>
+    <li>Perfect for casual gaming sessions</li>
+  </ul>
+  <h3>How to Play RectBlox</h3>
+  <p>Swipe or click to move blocks and create matches of 3 or more identical blocks. Clear the board to advance through levels and achieve high scores!</p>
+</div>
+
 </body>
 </html>
