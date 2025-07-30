@@ -196,6 +196,9 @@
     justify-content:center; 
     z-index:10;
     border-radius: 20px;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
   }
   
   .overlay.show { display:flex; }
@@ -258,16 +261,23 @@
   .instructions {
     background: rgba(255, 255, 255, 0.9);
     backdrop-filter: blur(10px);
-    border-radius: 16px;
-    padding: 1.5rem;
-    margin: 1rem 0;
+    border-radius: 12px;
+    padding: 1rem;
+    margin: 0.5rem 0;
     color: #6b4e3d;
-    font-size: 1rem;
-    line-height: 1.6;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    font-size: 0.85rem;
+    line-height: 1.4;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
     border: 1px solid rgba(255, 255, 255, 0.3);
-    max-width: 300px;
+    max-width: 250px;
     text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .instructions:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
   }
   .tile { 
     position: absolute; 
@@ -410,6 +420,13 @@
       opacity: 0; 
       transform: translate(-50%, -60%) scale(0.9); 
     }
+  }
+  
+  /* Pulse animation for instructions */
+  @keyframes pulse {
+    0% { opacity: 0.7; }
+    50% { opacity: 1; }
+    100% { opacity: 0.7; }
   }
   /* Color styles - warm milk tea colors */
   .tile-red   { 
@@ -599,8 +616,8 @@
       <div class="level-info">Level <span id="level">1</span>: <span id="levelName">Easy Level</span></div>
       <div class="score-box">Moves Left: <span id="moves">40</span></div>
       <div class="score-box" style="background: linear-gradient(135deg, #a8b47f 0%, #8e9c6e 100%);">Score: <span id="score">0</span></div>
-      <button class="secondary-button" id="shuffleBtn">Mix Blocks (3 moves)</button>
-      <button class="secondary-button" id="restartBtn">Start Over</button>
+      <button class="secondary-button" id="shuffleBtn">Shuffle Blocks (3 moves)</button>
+      <button class="secondary-button" id="restartBtn">Restart Game</button>
     </div>
     
     <div class="game-container" id="game">
@@ -610,10 +627,11 @@
         <div class="text" id="overlayText"></div>
         <div class="score-summary" id="scoreSummary" style="display: none;"></div>
         <div class="instructions" id="instructions" style="display: none;">
-          <div style="margin-bottom: 1rem; font-size: 1.2rem; color: #d4a574; font-weight: bold;">How to Play</div>
-          <div style="margin-bottom: 0.8rem;">💻 Computer: Use arrow keys ⬅️ ➡️ ⬆️ ⬇️</div>
-          <div style="margin-bottom: 1.5rem;">📱 Phone: Swipe in any direction</div>
-          <div style="font-size: 0.9rem; color: #8a6d5b;">Match same colors to remove blocks!</div>
+          <div style="margin-bottom: 0.8rem; font-size: 1rem; color: #d4a574; font-weight: bold;">How to Play</div>
+          <div style="margin-bottom: 0.6rem;">💻 Computer: Arrow keys ⬅️ ➡️ ⬆️ ⬇️</div>
+          <div style="margin-bottom: 1rem;">📱 Mobile: Swipe screen</div>
+          <div style="font-size: 0.8rem; color: #8a6d5b; margin-bottom: 0.8rem;">Match same colors to remove blocks!</div>
+          <div style="font-size: 0.75rem; color: #a8926f; font-style: italic; animation: pulse 2s infinite;">👆 Tap here or anywhere to start game</div>
         </div>
         <button id="overlayRestartBtn">Play Again</button>
         <button id="instructionsBtn" style="display: none;">Start Game</button>
@@ -762,7 +780,7 @@ function showGameCompleteOverlay() {
   
   // Check if all levels completed
   const isAllLevelsComplete = currentLevel === Object.keys(LEVELS).length;
-  const titleText = isAllLevelsComplete ? '🎉 Game Over 🎉' : '📊 Moves Finished, See Score! 📊';
+  const titleText = isAllLevelsComplete ? '🎉 Game Complete! 🎉' : '📊 No More Moves! 📊';
   
   let summaryHTML = `<h3 style="margin: 0 0 1rem 0; color: #d4a574;">${titleText}</h3>`;
   
@@ -793,7 +811,7 @@ function showGameCompleteOverlay() {
   scoreSummary.innerHTML = summaryHTML;
   scoreSummary.style.display = 'block';
   
-  const overlayMessage = isAllLevelsComplete ? 'All Levels Done!' : 'No More Moves!';
+  const overlayMessage = isAllLevelsComplete ? 'All Levels Complete!' : 'No More Moves!';
   showOverlay(overlayMessage);
 }
 
@@ -814,12 +832,38 @@ function showInstructions() {
   overlayText.textContent = '';
   instructionsDiv.style.display = 'block';
   overlayRestartBtn.style.display = 'none';
-  instructionsBtn.style.display = 'inline-block';
+  instructionsBtn.style.display = 'none';
   overlay.classList.add('show');
+  
+  // 點擊overlay任何地方都可以開始遊戲 - 同時支援滑鼠和觸控
+  overlay.addEventListener('click', startGameFromInstructions);
+  overlay.addEventListener('touchend', startGameFromInstructionsTouch);
+}
+
+function startGameFromInstructions(e) {
+  // 防止事件冒泡到instructions div
+  if (e.target === instructionsDiv || instructionsDiv.contains(e.target)) {
+    return;
+  }
+  overlay.removeEventListener('click', startGameFromInstructions);
+  overlay.removeEventListener('touchend', startGameFromInstructionsTouch);
+  hideOverlay();
+}
+
+function startGameFromInstructionsTouch(e) {
+  e.preventDefault();
+  e.stopPropagation();
+  // 防止事件冒泡到instructions div
+  if (e.target === instructionsDiv || instructionsDiv.contains(e.target)) {
+    return;
+  }
+  overlay.removeEventListener('click', startGameFromInstructions);
+  overlay.removeEventListener('touchend', startGameFromInstructionsTouch);
+  hideOverlay();
 }
 
 shuffleBtn.addEventListener('click', ()=>{
-  if (isAnimating || movesLeft < 3) return alert('Not enough moves! Need at least 3 moves to mix blocks');
+  if (isAnimating || movesLeft < 3) return alert('Not enough moves! Need at least 3 moves to shuffle blocks');
   movesLeft -= 3; 
   updateUI(); 
   shuffleTiles();
@@ -868,7 +912,7 @@ overlayRestartBtn.addEventListener('touchend', function(e) {
 shuffleBtn.addEventListener('touchend', function(e) {
   e.preventDefault();
   e.stopPropagation();
-  if (isAnimating || movesLeft < 3) return alert('Not enough moves! Need at least 3 moves to mix blocks');
+  if (isAnimating || movesLeft < 3) return alert('Not enough moves! Need at least 3 moves to shuffle blocks');
   movesLeft -= 3; 
   updateUI(); 
   shuffleTiles();
@@ -1512,6 +1556,26 @@ instructionsBtn.addEventListener('click', () => {
 instructionsBtn.addEventListener('touchend', function(e) {
   e.preventDefault();
   e.stopPropagation();
+  hideOverlay();
+});
+
+// 添加觸控支援給指示畫面
+instructionsDiv.addEventListener('click', function(e) {
+  e.stopPropagation();
+  // 在手機上點擊指示框也能開始遊戲
+  if (window.innerWidth <= 768) {
+    overlay.removeEventListener('click', startGameFromInstructions);
+    overlay.removeEventListener('touchend', startGameFromInstructionsTouch);
+    hideOverlay();
+  }
+});
+
+instructionsDiv.addEventListener('touchend', function(e) {
+  e.preventDefault();
+  e.stopPropagation();
+  // 觸控指示框開始遊戲
+  overlay.removeEventListener('click', startGameFromInstructions);
+  overlay.removeEventListener('touchend', startGameFromInstructionsTouch);
   hideOverlay();
 });
 
