@@ -4,6 +4,8 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui" />
 <title>RectBlox</title>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6244767628762401"
+     crossorigin="anonymous"></script>
 <style>
   html, body { 
     margin: 0; 
@@ -224,6 +226,13 @@
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     border: 1px solid rgba(255, 255, 255, 0.3);
     max-width: 300px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .score-summary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
   }
   
   .score-item {
@@ -795,25 +804,84 @@ function showGameCompleteOverlay() {
   
   summaryHTML += `
     <div class="score-item">
-      <span>Total Blocks</span>
+      <span>Total Blocks Removed</span>
       <span>${totalBlocks}</span>
     </div>
     <div class="score-item">
-      <span>Total Moves Left</span>
+      <span>Total Moves Saved</span>
       <span>${totalRemainingMoves}</span>
     </div>
     <div class="score-item">
-      <span>Total Score</span>
+      <span>Final Score</span>
       <span>${totalScore.toLocaleString()} points</span>
     </div>
   `;
+  
+  // Add click instruction at the bottom
+  summaryHTML += `<div style="margin-top: 1rem; font-size: 0.8rem; color: #a8926f; text-align: center; font-style: italic;">👆 Tap anywhere to restart game</div>`;
   
   scoreSummary.innerHTML = summaryHTML;
   scoreSummary.style.display = 'block';
   
   const overlayMessage = isAllLevelsComplete ? 'All Levels Complete!' : 'No More Moves!';
   showOverlay(overlayMessage);
+  
+  // Add event listeners for clicking anywhere to restart
+  overlay.addEventListener('click', restartFromGameComplete);
+  overlay.addEventListener('touchend', restartFromGameCompleteTouch);
 }
+
+function restartFromGameComplete(e) {
+  // Prevent event bubbling to score summary
+  if (e.target === document.getElementById('scoreSummary') || document.getElementById('scoreSummary').contains(e.target)) {
+    return;
+  }
+  overlay.removeEventListener('click', restartFromGameComplete);
+  overlay.removeEventListener('touchend', restartFromGameCompleteTouch);
+  restartGame();
+}
+
+function restartFromGameCompleteTouch(e) {
+  e.preventDefault();
+  e.stopPropagation();
+  // Prevent event bubbling to score summary
+  if (e.target === document.getElementById('scoreSummary') || document.getElementById('scoreSummary').contains(e.target)) {
+    return;
+  }
+  overlay.removeEventListener('click', restartFromGameComplete);
+  overlay.removeEventListener('touchend', restartFromGameCompleteTouch);
+  restartGame();
+}
+
+function restartGame() {
+  currentLevel = 1;
+  movesLeft = LEVELS[1].initialMoves;
+  gameScore = 0;
+  levelScores = [];
+  totalBlocks = 0;
+  document.getElementById('scoreSummary').style.display = 'none';
+  initBoard();
+  setTimeout(() => showInstructions(), 500);
+}
+}
+
+// Add event listeners for score summary click
+document.getElementById('scoreSummary').addEventListener('click', function(e) {
+  e.stopPropagation();
+  // Click on score summary also restarts game
+  overlay.removeEventListener('click', restartFromGameComplete);
+  overlay.removeEventListener('touchend', restartFromGameCompleteTouch);
+  restartGame();
+});
+
+document.getElementById('scoreSummary').addEventListener('touchend', function(e) {
+  e.preventDefault();
+  e.stopPropagation();
+  // Touch on score summary also restarts game
+  overlay.removeEventListener('click', restartFromGameComplete);
+  overlay.removeEventListener('touchend', restartFromGameCompleteTouch);
+  restartGame();
+});
 
 function showOverlay(msg) { 
   overlayText.textContent = msg; 
@@ -826,6 +894,12 @@ function hideOverlay() {
   instructionsDiv.style.display = 'none';
   overlayRestartBtn.style.display = 'inline-block';
   instructionsBtn.style.display = 'none';
+  
+  // Clean up event listeners
+  overlay.removeEventListener('click', startGameFromInstructions);
+  overlay.removeEventListener('touchend', startGameFromInstructionsTouch);
+  overlay.removeEventListener('click', restartFromGameComplete);
+  overlay.removeEventListener('touchend', restartFromGameCompleteTouch);
 }
 
 function showInstructions() {
@@ -870,43 +944,18 @@ shuffleBtn.addEventListener('click', ()=>{
 });
 
 restartBtn.addEventListener('click', () => {
-  // Reset to first level and reset moves and score
-  currentLevel = 1;
-  movesLeft = LEVELS[1].initialMoves; // Reset moves
-  gameScore = 0;
-  levelScores = [];
-  totalBlocks = 0;
-  initBoard();
-  // Show instructions when restarting
-  setTimeout(() => showInstructions(), 500);
+  restartGame();
 });
 
 overlayRestartBtn.addEventListener('click', () => {
-  // Reset to first level and reset moves and score
-  currentLevel = 1;
-  movesLeft = LEVELS[1].initialMoves; // Reset moves
-  gameScore = 0;
-  levelScores = [];
-  totalBlocks = 0;
-  document.getElementById('scoreSummary').style.display = 'none';
-  initBoard();
-  // Show instructions when restarting
-  setTimeout(() => showInstructions(), 500);
+  restartGame();
 });
 
 // Add touch support for mobile
 overlayRestartBtn.addEventListener('touchend', function(e) {
   e.preventDefault();
   e.stopPropagation();
-  currentLevel = 1;
-  movesLeft = LEVELS[1].initialMoves; // Reset moves
-  gameScore = 0;
-  levelScores = [];
-  totalBlocks = 0;
-  document.getElementById('scoreSummary').style.display = 'none';
-  initBoard();
-  // Show instructions when restarting
-  setTimeout(() => showInstructions(), 500);
+  restartGame();
 });
 
 shuffleBtn.addEventListener('touchend', function(e) {
@@ -921,14 +970,7 @@ shuffleBtn.addEventListener('touchend', function(e) {
 restartBtn.addEventListener('touchend', function(e) {
   e.preventDefault();
   e.stopPropagation();
-  currentLevel = 1;
-  movesLeft = LEVELS[1].initialMoves; // Reset moves
-  gameScore = 0;
-  levelScores = [];
-  totalBlocks = 0;
-  initBoard();
-  // Show instructions when restarting
-  setTimeout(() => showInstructions(), 500);
+  restartGame();
 });
 
 function shuffleTiles() {
