@@ -510,6 +510,17 @@
     border: 1px solid rgba(255, 255, 255, 0.3);
   }
   
+  /* 7th color: bright cyan */
+  .tile-cyan { 
+    background: linear-gradient(135deg, #7dd3fc 0%, #0ea5e9 100%);
+    color: #ffffff; 
+    box-shadow: 
+      0 4px 15px rgba(125, 211, 252, 0.3),
+      0 2px 4px rgba(0, 0, 0, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+  
   /* Responsive design */
   @media screen and (max-width: 768px) {
     .container { 
@@ -682,7 +693,8 @@ const LEVELS = {
   1: { size: 5, colors: ['red', 'green', 'blue'], initialMoves: 40, name: 'Easy Level' },
   2: { size: 6, colors: ['red', 'green', 'blue', 'purple'], name: 'Medium Level' },
   3: { size: 7, colors: ['red', 'green', 'blue', 'purple', 'orange'], name: 'Hard Level' },
-  4: { size: 8, colors: ['red', 'green', 'blue', 'purple', 'orange', 'pink'], name: 'Super Hard' }
+  4: { size: 8, colors: ['red', 'green', 'blue', 'purple', 'orange', 'pink'], name: 'Super Hard' },
+  5: { size: 9, colors: ['red', 'green', 'blue', 'purple', 'orange', 'pink', 'cyan'], name: 'Ultimate Challenge' }
 };
 
 let currentLevel = 1;
@@ -695,6 +707,64 @@ let isAnimating = false;
 let gameScore = 0;
 let levelScores = []; // Record scores for each level
 let totalBlocks = 0; // Track total blocks removed
+
+// Audio context for sound effects
+let audioContext;
+try {
+  audioContext = new (window.AudioContext || window.webkitAudioContext)();
+} catch(e) {
+  console.log('Audio not supported');
+}
+
+// Sound effect functions
+function playSound(frequency, duration, type = 'sine', volume = 0.1) {
+  if (!audioContext) return;
+  
+  const oscillator = audioContext.createOscillator();
+  const gainNode = audioContext.createGain();
+  
+  oscillator.connect(gainNode);
+  gainNode.connect(audioContext.destination);
+  
+  oscillator.frequency.setValueAtTime(frequency, audioContext.currentTime);
+  oscillator.type = type;
+  
+  gainNode.gain.setValueAtTime(0, audioContext.currentTime);
+  gainNode.gain.linearRampToValueAtTime(volume, audioContext.currentTime + 0.01);
+  gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + duration);
+  
+  oscillator.start(audioContext.currentTime);
+  oscillator.stop(audioContext.currentTime + duration);
+}
+
+function playMatchSound() {
+  playSound(440, 0.2, 'sine', 0.1); // A4 note
+}
+
+function playComboSound() {
+  playSound(523, 0.3, 'sine', 0.15); // C5 note
+  setTimeout(() => playSound(659, 0.3, 'sine', 0.15), 100); // E5 note
+}
+
+function playLevelCompleteSound() {
+  playSound(523, 0.2, 'sine', 0.12); // C5
+  setTimeout(() => playSound(659, 0.2, 'sine', 0.12), 150); // E5
+  setTimeout(() => playSound(784, 0.3, 'sine', 0.12), 300); // G5
+}
+
+function playShuffleSound() {
+  playSound(330, 0.1, 'sawtooth', 0.08);
+  setTimeout(() => playSound(370, 0.1, 'sawtooth', 0.08), 50);
+  setTimeout(() => playSound(294, 0.1, 'sawtooth', 0.08), 100);
+}
+
+function playButtonSound() {
+  playSound(800, 0.1, 'square', 0.05);
+}
+
+function playMoveSound() {
+  playSound(200, 0.05, 'triangle', 0.03);
+}
 
 const movesEl          = document.getElementById('moves');
 const levelEl          = document.getElementById('level');
@@ -964,17 +1034,20 @@ function startGameFromInstructionsTouch(e) {
 }
 
 shuffleBtn.addEventListener('click', ()=>{
-  if (isAnimating || movesLeft < 3) return alert('Not enough moves! Need at least 3 moves to shuffle blocks');
-  movesLeft -= 3; 
-  updateUI(); 
-  shuffleTiles();
+  if (isAnimating || movesLeft < 1) return alert('Not enough moves! Need at least 1 move to shuffle blocks');
+  
+  playButtonSound(); // Play button sound
+  // Show shuffle confirmation dialog
+  showShuffleConfirmation();
 });
 
 restartBtn.addEventListener('click', () => {
+  playButtonSound(); // Play button sound
   restartGame();
 });
 
 overlayRestartBtn.addEventListener('click', () => {
+  playButtonSound(); // Play button sound
   restartGame();
 });
 
@@ -988,10 +1061,10 @@ overlayRestartBtn.addEventListener('touchend', function(e) {
 shuffleBtn.addEventListener('touchend', function(e) {
   e.preventDefault();
   e.stopPropagation();
-  if (isAnimating || movesLeft < 3) return alert('Not enough moves! Need at least 3 moves to shuffle blocks');
-  movesLeft -= 3; 
-  updateUI(); 
-  shuffleTiles();
+  if (isAnimating || movesLeft < 1) return alert('Not enough moves! Need at least 1 move to shuffle blocks');
+  
+  // Show shuffle confirmation dialog
+  showShuffleConfirmation();
 });
 
 restartBtn.addEventListener('touchend', function(e) {
@@ -999,6 +1072,79 @@ restartBtn.addEventListener('touchend', function(e) {
   e.stopPropagation();
   restartGame();
 });
+
+function showShuffleConfirmation() {
+  // Create overlay for shuffle confirmation
+  const shuffleOverlay = document.createElement('div');
+  shuffleOverlay.className = 'overlay';
+  shuffleOverlay.style.display = 'flex';
+  shuffleOverlay.style.zIndex = '20';
+  
+  const confirmBox = document.createElement('div');
+  confirmBox.style.background = 'rgba(255, 255, 255, 0.95)';
+  confirmBox.style.borderRadius = '20px';
+  confirmBox.style.padding = '2rem';
+  confirmBox.style.maxWidth = '300px';
+  confirmBox.style.textAlign = 'center';
+  confirmBox.style.boxShadow = '0 10px 30px rgba(0,0,0,0.3)';
+  confirmBox.style.border = '2px solid #d4a574';
+  
+  confirmBox.innerHTML = `
+    <h3 style="margin: 0 0 1rem 0; color: #6b4e3d; font-size: 1.2rem;">Shuffle Blocks</h3>
+    <p style="margin: 0 0 1.5rem 0; color: #8a6d5b; font-size: 0.9rem; line-height: 1.4;">
+      This will randomly rearrange all blocks on the board.<br>
+      <strong>Cost: 1 move</strong>
+    </p>
+    <div style="display: flex; gap: 1rem; justify-content: center;">
+      <button id="shuffleYes" style="
+        background: linear-gradient(135deg, #d4a574 0%, #c8956d 100%);
+        color: white;
+        border: none;
+        padding: 0.8rem 1.5rem;
+        border-radius: 10px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 3px 10px rgba(212, 165, 116, 0.3);
+      ">Yes</button>
+      <button id="shuffleNo" style="
+        background: rgba(212, 165, 116, 0.2);
+        color: #6b4e3d;
+        border: 1px solid #d4a574;
+        padding: 0.8rem 1.5rem;
+        border-radius: 10px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      ">No</button>
+    </div>
+  `;
+  
+  shuffleOverlay.appendChild(confirmBox);
+  document.querySelector('.game-container').appendChild(shuffleOverlay);
+  
+  // Add event listeners for Yes/No buttons
+  document.getElementById('shuffleYes').addEventListener('click', () => {
+    movesLeft -= 1;
+    updateUI();
+    playShuffleSound(); // Play shuffle sound
+    shuffleTiles();
+    document.querySelector('.game-container').removeChild(shuffleOverlay);
+  });
+  
+  document.getElementById('shuffleNo').addEventListener('click', () => {
+    document.querySelector('.game-container').removeChild(shuffleOverlay);
+  });
+  
+  // Close on overlay click
+  shuffleOverlay.addEventListener('click', (e) => {
+    if (e.target === shuffleOverlay) {
+      document.querySelector('.game-container').removeChild(shuffleOverlay);
+    }
+  });
+}
 
 function shuffleTiles() {
   // Collect all current tiles
@@ -1072,6 +1218,7 @@ function handleMove(direction) {
   
   movesLeft--; 
   updateUI();
+  playMoveSound(); // Play move sound
   
   // 檢查步數是否耗盡
   if (movesLeft === 0) { 
@@ -1085,8 +1232,19 @@ function handleMove(direction) {
         remainingMoves: movesLeft
       });
       
-      // 直接顯示結算表，不論是否完成所有關卡
-      showGameCompleteOverlay();
+      // 檢查是否還有下一關
+      if (currentLevel < Object.keys(LEVELS).length) {
+        // 還有下一關，給玩家一些額外moves繼續
+        movesLeft = 10; // 給10個moves進入下一關
+        currentLevel++;
+        showScoreMessage(`Level ${currentLevel - 1} Complete! Moving to Level ${currentLevel}`, 0);
+        setTimeout(() => {
+          initBoard();
+        }, 1500);
+      } else {
+        // 所有關卡完成，顯示結算表
+        showGameCompleteOverlay();
+      }
     }, 500); // 稍微延遲讓玩家看到移動效果
     return; 
   }
@@ -1183,14 +1341,19 @@ function cascade(dir) {
       if (matches.length >= 5) comboText = 'COMBO!';
       if (matches.length >= 8) comboText = 'AMAZING!';
       showComboMessage(comboText);
+      playComboSound(); // Play combo sound
+    } else if (matches.length > 0) {
+      playMatchSound(); // Play match sound for regular matches
     }
     
     removeMatches(matches, () => {
       if (boardMatrix.flat().every(v => !v)) {
         // 盤面清空，檢查是否還有下一關
         if (currentLevel < Object.keys(LEVELS).length) {
+          playLevelCompleteSound(); // Play level complete sound
           nextLevel(); // 正常過關，使用nextLevel
         } else {
+          playLevelCompleteSound(); // Play completion sound
           // 所有關卡完成且盤面清空，顯示結算表
           showGameCompleteOverlay();
         }
@@ -1565,7 +1728,8 @@ function showAutoGenerateMessage(color) {
     'blue': 'Blue',
     'purple': 'Purple',
     'orange': 'Yellow',
-    'pink': 'Pink'
+    'pink': 'Pink',
+    'cyan': 'Cyan'
   };
   
   const message = document.createElement('div');
