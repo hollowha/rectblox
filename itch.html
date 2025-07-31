@@ -1,0 +1,2060 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui" />
+<title>RectBlox Demo - Play Full Version at rectblox.site</title>
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png" />
+<link rel="manifest" href="site.webmanifest" />
+<link rel="icon" type="image/x-icon" href="favicon.ico" />
+
+<!-- SEO Meta Tags -->
+<meta name="description" content="Play RectBlox, a fun and addictive match-3 puzzle game. Combine colorful blocks, plan your strategy, and enjoy free online gameplay on mobile or desktop!">
+<meta name="keywords" content="puzzle game, match 3, block puzzle, free game, online game, brain teaser, casual game, mobile game, RectBlox, match-three puzzle, brain training, puzzle strategy, block matching, tile matching game, puzzle adventure, casual brain game, puzzle mania, HTML5 game, web puzzle, browser game, puzzle challenge, cube puzzle, logic game, free puzzle online, mobile puzzle game, block puzzle online, 益智遊戲, 免費方塊遊戲, 方塊遊戲, 方塊消除, 消消樂, 休閒遊戲, 手機益智遊戲, 拼圖遊戲, 消除方塊, 匹配方塊, juego de puzzle, juego en español, juego de rompecabezas, juego gratis, juego de bloques, jeu de puzzle, jeu de blocs, puzzle gratuit, gioco rompicapo, gioco di puzzle, gioco gratuito di blocchi, Puzzlespiel, kostenloses Puzzle-Spiel, 3-Gewinnt-Spiel, Block-Puzzle, igra-головоломка, бесплатная головоломка, игра три в ряд, لعبة ألغاز, لعبة الغاز مجانية, لعبة مطابقة مربعات, हिंदी पहेली खेल, नि:शुल्क पहेली, ब्लॉक पहेली, 日本のパズルゲーム, 無料パズルゲーム, ブロックパズル, 한국 퍼즐 게임, 무료 퍼즐 게임, 블록 퍼즐, Chinese puzzle game, jogo de quebra-cabeça, jogo de blocos, jogo de quebra cabeca gratis, trò chơi xếp hình, trò chơi ghép hình, game xếp khối, เกมพัซเซิล, เกมตัวต่อฟรี, เกมบล็อกพัซเซิล, permainan puzzle, permainan blok, permainan gratis, permainan teka-teki, permainan blok percuma, bulmaca oyunu, ücretsiz blok oyunu, eşleştirme oyunu, بازی پازل, بازی آنلاین رایگان, بازی بلوک, ধাঁধা খেলা, বিনামূল্যে ব্লক খেলা, ধাঁধা গেম">
+<meta name="author" content="RectBlox Game">
+<meta name="robots" content="index, follow">
+<meta name="language" content="English">
+<meta name="revisit-after" content="7 days">
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="RectBlox Demo - Play Full Version at rectblox.site">
+<meta property="og:description" content="Play RectBlox, a fun and addictive match-3 block puzzle game! Clear blocks, make combos, and progress through 6 challenging levels. Free to play online!">
+<meta property="og:site_name" content="RectBlox">
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:title" content="RectBlox Demo - Play Full Version at rectblox.site">
+<meta property="twitter:description" content="Play RectBlox, a fun and addictive match-3 block puzzle game! Clear blocks, make combos, and progress through 6 challenging levels. Free to play online!">
+
+<!-- Web App Settings -->
+<meta name="theme-color" content="#f7e7ce">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="RectBlox">
+
+<!-- Performance and Caching -->
+<meta http-equiv="Cache-Control" content="public, max-age=31536000">
+<meta name="preconnect" href="https://pagead2.googlesyndication.com">
+
+<!-- Structured Data for Games -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Game",
+  "name": "RectBlox",
+  "description": "A fun and addictive match-3 block puzzle game with 6 challenging levels",
+  "genre": "Puzzle",
+  "gamePlatform": ["Web Browser", "Mobile"],
+  "operatingSystem": ["Any"],
+  "applicationCategory": "Game",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.5",
+    "ratingCount": "100"
+  }
+}
+</script>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6244767628762401"
+     crossorigin="anonymous"></script>
+<style>
+  html, body { 
+    margin: 0; 
+    padding: 0; 
+    background: linear-gradient(135deg, #f7e7ce 0%, #e8c5a0 50%, #f2d7b6 100%);
+    min-height: 100vh;
+    height: 100vh;
+    color: #6b4e3d;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    overflow: hidden; /* 完全禁止滾動 */
+    width: 100vw;
+  }
+  
+  .container { 
+    max-width: min(95vw, 500px);
+    margin: 0 auto;
+    padding: 5px 15px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .game-wrapper {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    padding: 1rem;
+    margin-bottom: 0;
+    box-shadow: 
+      0 6px 25px rgba(212, 165, 116, 0.25),
+      0 2px 6px rgba(200, 149, 109, 0.15),
+      inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(212, 165, 116, 0.15);
+    flex-shrink: 1;
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+    width: 100%;
+    max-width: 480px;
+  }
+  
+  .score-panel { 
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    grid-template-rows: auto;
+    gap: 0.6rem;
+    margin-bottom: 0.8rem;
+    width: 100%;
+    align-items: center;
+  }
+  
+  .level-info {
+    background: linear-gradient(135deg, #b8926f 0%, #a67c52 100%);
+    backdrop-filter: blur(10px);
+    color: #ffffff; 
+    padding: 0.6rem 1rem; 
+    border-radius: 12px; 
+    font-size: 0.8rem;
+    font-weight: 600;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 3px 12px rgba(184, 146, 111, 0.3);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    flex: 1;
+    margin: 0 0.6rem;
+  }
+  
+  .score-logo {
+    grid-column: 2;
+
+    width: 140px;
+    height: 140px;
+
+    border-radius: 16px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease;
+  }
+  
+  .score-logo:hover {
+    transform: scale(1.05);
+  }
+  
+  .score-box {
+    background: linear-gradient(135deg, #d4a574 0%, #c8956d 100%);
+    backdrop-filter: blur(10px);
+    color: #ffffff;
+    padding: 0.9rem 1rem;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 3px 12px rgba(212, 165, 116, 0.3);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    height: 140px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+  }
+  
+  .action-buttons {
+    display: flex;
+    gap: 0.6rem;
+    margin-top: 0.8rem;
+    width: 100%;
+    align-items: center;
+  }
+  
+  .secondary-button { 
+    background: rgba(212, 165, 116, 0.15);
+    backdrop-filter: blur(10px);
+    color: #6b4e3d; 
+    border: none; 
+    padding: 0.6rem 1rem; 
+    border-radius: 10px; 
+    font-size: 0.75rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(212, 165, 116, 0.15);
+    border: 1px solid rgba(212, 165, 116, 0.2);
+    flex: 1;
+    text-align: center;
+  }
+  
+  .secondary-button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(212, 165, 116, 0.25);
+    background: rgba(212, 165, 116, 0.25);
+  }
+  
+  .secondary-button:active {
+    transform: translateY(0px);
+    box-shadow: 0 1px 4px rgba(212, 165, 116, 0.2);
+  }
+  
+  button { 
+    background: linear-gradient(135deg, #d4a574 0%, #c8956d 100%);
+    color: #6b4e3d; 
+    border: none; 
+    padding: 0.75rem 1.25rem; 
+    border-radius: 12px; 
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(212, 165, 116, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(10px);
+  }
+  
+  button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(212, 165, 116, 0.4);
+    background: linear-gradient(135deg, #c8956d 0%, #d4a574 100%);
+  }
+  
+  button:active {
+    transform: translateY(0px);
+    box-shadow: 0 2px 10px rgba(212, 165, 116, 0.3);
+  }
+  .game-container { 
+    position: relative; 
+    width: 100%;
+    aspect-ratio: 1;
+    max-width: 400px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(15px);
+    border-radius: 16px; 
+    padding: 0.8rem; 
+    box-sizing: border-box;
+    box-shadow: 
+      inset 0 1px 0 rgba(255, 255, 255, 0.2),
+      0 3px 12px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    touch-action: none; 
+  }
+  
+  .grid-container { position:absolute; z-index:1; top:0.8rem; left:0.8rem; right:0.8rem; bottom:0.8rem; display:none; }
+  .grid-cell { display:none; }
+  .tile-container { position:absolute; z-index:2; top:0.8rem; left:0.8rem; right:0.8rem; bottom:0.8rem; }
+  
+  .overlay { 
+    position:absolute; 
+    top:0; 
+    left:0; 
+    width:100%; 
+    height:100%; 
+    background: rgba(0,0,0,0.8);
+    backdrop-filter: blur(10px);
+    display:none; 
+    flex-direction:column; 
+    align-items:center; 
+    justify-content:center; 
+    z-index:10;
+    border-radius: 20px;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+  
+  .overlay.show { display:flex; }
+  
+  .overlay .text { 
+    color: #fff; 
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    text-align: center; 
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  }
+  
+  .score-summary {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    padding: 1.5rem;
+    margin: 1rem 0;
+    color: #6b4e3d;
+    font-size: 1rem;
+    line-height: 1.6;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    max-width: 300px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .score-summary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+  }
+  
+  .score-item {
+    display: flex;
+    justify-content: space-between;
+    margin: 0.5rem 0;
+    padding: 0.3rem 0;
+    border-bottom: 1px solid rgba(107, 78, 61, 0.2);
+  }
+  
+  .score-item:last-child {
+    border-bottom: none;
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: #d4a574;
+  }
+  
+  .overlay button { 
+    background: linear-gradient(135deg, #d4a574 0%, #c8956d 100%);
+    color: #6b4e3d;
+    position: relative;
+    z-index: 11;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+    font-size: 1rem;
+    padding: 1rem 2rem;
+    border-radius: 16px;
+    box-shadow: 0 4px 15px rgba(212, 165, 116, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(10px);
+    margin: 0.5rem;
+  }
+  
+  .instructions {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    padding: 1rem;
+    margin: 0.5rem 0;
+    color: #6b4e3d;
+    font-size: 0.85rem;
+    line-height: 1.4;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    max-width: 250px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .instructions:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  }
+  .tile { 
+    position: absolute; 
+    width: 90px; 
+    height: 90px; 
+    border-radius: 12px; 
+    transition: all 150ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    text-align: center;
+    font-weight: 700;
+    font-size: 55px;
+    line-height: 90px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    box-shadow: 
+      0 4px 8px rgba(0, 0, 0, 0.12),
+      0 2px 4px rgba(0, 0, 0, 0.08);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+  
+  .tile:hover {
+    filter: brightness(1.05);
+    transform: translateZ(0) scale(1.02);
+    box-shadow: 
+      0 6px 12px rgba(0, 0, 0, 0.15),
+      0 3px 6px rgba(0, 0, 0, 0.1);
+  }
+  .tile-new { 
+    opacity: 0; 
+    transform: scale(0); 
+    animation: tile-appear 300ms ease-out forwards; 
+  }
+  .tile-remove { 
+    animation: tile-explode 400ms ease-in forwards; 
+    z-index: 10;
+  }
+  
+  /* Appearance animation */
+  @keyframes tile-appear {
+    0% { opacity: 0; transform: scale(0) rotate(180deg); }
+    50% { opacity: 0.8; transform: scale(1.1) rotate(90deg); }
+    100% { opacity: 1; transform: scale(1) rotate(0deg); }
+  }
+  
+  /* Explosion removal animation */
+  @keyframes tile-explode {
+    0% { 
+      opacity: 1; 
+      filter: brightness(1); 
+    }
+    25% { 
+      opacity: 0.9; 
+      filter: brightness(1.5) saturate(1.5); 
+      box-shadow: 0 0 40px 15px currentColor; 
+    }
+    50% { 
+      opacity: 0.7; 
+      filter: brightness(2) saturate(2); 
+      box-shadow: 0 0 60px 20px currentColor; 
+    }
+    75% { 
+      opacity: 0.4; 
+      filter: brightness(3) blur(2px); 
+      box-shadow: 0 0 80px 25px currentColor; 
+    }
+    100% { 
+      opacity: 0; 
+      filter: brightness(0) blur(5px); 
+      box-shadow: 0 0 100px 30px transparent; 
+    }
+  }
+  
+  /* Simplified pulse effect */
+  @keyframes tile-pulse {
+    0% { 
+      opacity: 1;
+      transform: scale(1);
+      filter: brightness(1);
+    }
+    50% { 
+      opacity: 0.3;
+      transform: scale(1.1);
+      filter: brightness(1.5);
+    }
+    100% { 
+      opacity: 0;
+      transform: scale(1);
+      filter: brightness(1);
+    }
+  }
+  
+  /* Simplified particle effects */
+  .particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 15;
+    animation: particle-burst 400ms ease-out forwards;
+  }
+  
+  @keyframes particle-burst {
+    0% { 
+      opacity: 1; 
+      transform: scale(1); 
+    }
+    100% { 
+      opacity: 0; 
+      transform: scale(0) translate(var(--dx, 0), var(--dy, 0)); 
+    }
+  }
+  
+  /* Simplified ripple effect */
+  @keyframes ripple-effect {
+    0% { 
+      opacity: 0.6; 
+      transform: scale(0.8); 
+    }
+    100% { 
+      opacity: 0; 
+      transform: scale(2); 
+    }
+  }
+  
+  /* Combo effects */
+  @keyframes combo-fade {
+    0% { 
+      opacity: 0; 
+      transform: translate(-50%, -50%) scale(0.8); 
+    }
+    20% { 
+      opacity: 1; 
+      transform: translate(-50%, -50%) scale(1.1); 
+    }
+    80% { 
+      opacity: 1; 
+      transform: translate(-50%, -50%) scale(1); 
+    }
+    100% { 
+      opacity: 0; 
+      transform: translate(-50%, -60%) scale(0.9); 
+    }
+  }
+  
+  /* Pulse animation for instructions */
+  @keyframes pulse {
+    0% { opacity: 0.7; }
+    50% { opacity: 1; }
+    100% { opacity: 0.7; }
+  }
+  /* Color styles - warm milk tea colors */
+  .tile-red   { 
+    background: linear-gradient(135deg, #e8a87c 0%, #d27d2d 100%);
+    color: #ffffff; 
+    box-shadow: 
+      0 4px 15px rgba(232, 168, 124, 0.3),
+      0 2px 4px rgba(0, 0, 0, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+  
+  .tile-green { 
+    background: linear-gradient(135deg, #a8b47f 0%, #8e9c6e 100%);
+    color: #ffffff; 
+    box-shadow: 
+      0 4px 15px rgba(168, 180, 127, 0.3),
+      0 2px 4px rgba(0, 0, 0, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+  
+  .tile-blue  { 
+    background: linear-gradient(135deg, #9eb3c2 0%, #7a9bb8 100%);
+    color: #ffffff; 
+    box-shadow: 
+      0 4px 15px rgba(158, 179, 194, 0.3),
+      0 2px 4px rgba(0, 0, 0, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+  
+  /* 4th color: warm purple */
+  .tile-purple { 
+    background: linear-gradient(135deg, #c8a2d8 0%, #b19bc8 100%);
+    color: #ffffff; 
+    box-shadow: 
+      0 4px 15px rgba(200, 162, 216, 0.3),
+      0 2px 4px rgba(0, 0, 0, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+  
+  /* 5th color: bright yellow */
+  .tile-orange { 
+    background: linear-gradient(135deg, #f9c74f 0%, #f8961e 100%);
+    color: #ffffff; 
+    box-shadow: 
+      0 4px 15px rgba(249, 199, 79, 0.3),
+      0 2px 4px rgba(0, 0, 0, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+  
+  /* 6th color: soft pink */
+  .tile-pink { 
+    background: linear-gradient(135deg, #e8a2b8 0%, #d48ba8 100%);
+    color: #ffffff; 
+    box-shadow: 
+      0 4px 15px rgba(232, 162, 184, 0.3),
+      0 2px 4px rgba(0, 0, 0, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+  
+  /* 7th color: bright cyan */
+  .tile-cyan {
+    background: linear-gradient(135deg, #7dd3fc 0%, #0ea5e9 100%);
+    color: #ffffff;
+    box-shadow:
+      0 4px 15px rgba(125, 211, 252, 0.3),
+      0 2px 4px rgba(0, 0, 0, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+
+  /* 8th color: teal */
+  .tile-teal {
+    background: linear-gradient(135deg, #5fb3b3 0%, #2a9d8f 100%);
+    color: #ffffff;
+    box-shadow:
+      0 4px 15px rgba(95, 179, 179, 0.3),
+      0 2px 4px rgba(0, 0, 0, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+  
+  /* Responsive design */
+  @media screen and (max-width: 768px) {
+    .container { 
+      padding: 0.5rem;
+      height: 100vh;
+      box-sizing: border-box;
+    }
+    
+    .game-wrapper {
+      padding: 0.8rem;
+      border-radius: 16px;
+      box-sizing: border-box;
+      max-width: 100%;
+    }
+    
+    .logo {
+      width: 50px;
+      height: 50px;
+      margin-bottom: 0.2rem;
+    }
+    
+    .score-panel { 
+      grid-template-columns: 1fr auto 1fr;
+      grid-template-rows: auto;
+      gap: 0.4rem;
+      margin-bottom: 0.6rem;
+    }
+    
+    .score-logo {
+
+      width: 100px;
+      height: 100px;
+
+
+      border-radius: 12px;
+    }
+    
+    .level-info {
+      font-size: 0.7rem;
+      padding: 0.5rem 0.8rem;
+      margin: 0 0.4rem;
+    }
+    
+    .score-box {
+      padding: 0.5rem 0.6rem;
+      font-size: 0.7rem;
+      height: 100px;
+    }
+    
+    .action-buttons {
+      gap: 0.4rem;
+      margin-top: 0.6rem;
+      align-items: center;
+    }
+    
+    .secondary-button {
+      padding: 0.5rem 0.8rem;
+      font-size: 0.7rem;
+      min-height: 36px;
+    }
+    
+    
+    .game-container { 
+      max-width: 350px;
+      padding: 0.6rem;
+    }
+    
+    .tile-container, .grid-container { 
+      top: 0.6rem; 
+      left: 0.6rem; 
+      right: 0.6rem; 
+      bottom: 0.6rem;
+    }
+    
+    .tile { 
+      border-radius: 8px;
+      font-size: clamp(1rem, 5vw, 1.5rem);
+    }
+    
+    .overlay button {
+      font-size: 0.85rem;
+      padding: 0.8rem 1.5rem;
+      min-height: 44px;
+      margin-top: 0.5rem;
+    }
+    
+    .overlay .text {
+      font-size: clamp(1.1rem, 4.5vw, 1.8rem);
+    }
+  }
+  
+  /* Large screen optimization */
+  @media screen and (min-width: 1200px) {
+    .container {
+      max-width: 700px;
+      box-sizing: border-box;
+      padding: 20px;
+    }
+    
+    .game-wrapper {
+      max-width: 600px;
+      padding: 2rem;
+      box-sizing: border-box;
+    }
+    
+    .game-container {
+      max-width: 550px;
+    }
+  }
+  
+  /* Extra scrollbar protection */
+  * {
+    box-sizing: border-box;
+  }
+  
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  
+  body {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+  
+  /* Make moves counter larger since it's more important */
+  #moves {
+    font-size: 2em;
+    font-weight: bold;
+  }
+
+  #score {
+    font-size: 1.8em;
+    font-weight: bold;
+  }
+  .demo-notice {
+    background: #f7e7ce;
+    text-align: center;
+    padding: 0.5rem;
+    font-size: 0.9rem;
+    color: #5a4a3f;
+  }
+  .demo-notice a { color: #5a4a3f; font-weight: bold; text-decoration: underline; }
+</style>
+</head>
+<body>
+<div class="demo-notice">Play the Full Version with More Features 👉 <a href="https://rectblox.site" target="_blank">rectblox.site</a><br>Want more levels? Full version at <a href="https://rectblox.site" target="_blank">rectblox.site</a></div>
+<div class="container">
+  <div class="game-wrapper">
+      <div class="score-panel">
+        <div class="score-box">
+          <div>Moves</div>
+          <div id="moves">40</div>
+        </div>
+        <img src="minilogo.png" alt="RectBlox Logo" class="score-logo">
+        <div class="score-box" style="background: linear-gradient(135deg, #a8b47f 0%, #8e9c6e 100%);">
+          <div>Score</div>
+          <div id="score">0</div>
+        </div>
+      </div>
+    
+    <div class="game-container" id="game">
+      <div class="grid-container" id="grid"></div>
+      <div class="tile-container" id="tiles"></div>
+      <div class="overlay" id="overlay">
+        <div class="text" id="overlayText"></div>
+        <div class="score-summary" id="scoreSummary" style="display: none;"></div>
+        <div class="instructions" id="instructions" style="display: none;">
+          <div style="margin-bottom: 0.8rem; font-size: 1rem; color: #d4a574; font-weight: bold;">How to Play</div>
+          <div style="margin-bottom: 0.6rem;">💻 Computer: Arrow keys ⬅️ ➡️ ⬆️ ⬇️</div>
+          <div style="margin-bottom: 1rem;">📱 Mobile: Swipe screen</div>
+          <div style="font-size: 0.8rem; color: #8a6d5b; margin-bottom: 0.8rem;">Match same colors to remove blocks!</div>
+            <div style="font-size: 0.75rem; color: #5a4a3f; margin-bottom: 0.8rem;">Demo Version – full game at <a href="https://rectblox.site" target="_blank">rectblox.site</a></div>
+          <div style="font-size: 0.75rem; color: #a8926f; font-style: italic; animation: pulse 2s infinite;">👆 Tap here or anywhere to start game</div>
+        </div>
+        <button id="overlayRestartBtn">Play Again</button>
+        <button id="instructionsBtn" style="display: none;">Start Game</button>
+      </div>
+    </div>
+    
+    <div class="action-buttons">
+      <button class="secondary-button" id="shuffleBtn">Reset Position</button>
+      <div class="level-info">Level <span id="level">1</span>: <span id="levelName">Easy Level</span></div>
+      <button class="secondary-button" id="restartBtn">Restart</button>
+    </div>
+  </div>
+</div>
+<script>
+// Game level settings
+const LEVELS = {
+  1: { size: 5, colors: ['red', 'green', 'blue'], initialMoves: 40, name: 'Easy Level' },
+  2: { size: 6, colors: ['red', 'green', 'blue', 'purple'], name: 'Medium Level' },
+  3: { size: 7, colors: ['red', 'green', 'blue', 'purple', 'orange'], name: 'Hard Level' },
+};
+
+let currentLevel = 1;
+let SIZE = LEVELS[currentLevel].size;
+let PROPS = LEVELS[currentLevel].colors;
+let boardMatrix = [];
+let boardElements = [];
+let movesLeft = LEVELS[currentLevel].initialMoves; // Set initial moves only at start
+let isAnimating = false;
+let gameScore = 0;
+let totalScore = 0; // Accumulated score across levels
+let totalRemainingMoves = 0; // Sum of unused moves
+let levelProcessed = false; // Prevent double counting
+let totalBlocks = 0; // Track total blocks removed
+let chainCount = 0; // Track chain count for cascading sound effects
+let totalChainBlocks = 0; // Track total blocks in current chain
+let shuffleCost = 1; // Cost for using Reset Position, increases each use
+const AUTO_GENERATE_PENALTY = 50; // Points deducted when auto-generating a tile
+
+// Audio context for sound effects
+let audioContext;
+try {
+  audioContext = new (window.AudioContext || window.webkitAudioContext)();
+} catch(e) {
+  console.log('Audio not supported');
+}
+
+// Sound effect functions
+function playSound(frequency, duration, type = 'sine', volume = 0.1) {
+  if (!audioContext) return;
+  
+  const oscillator = audioContext.createOscillator();
+  const gainNode = audioContext.createGain();
+  
+  oscillator.connect(gainNode);
+  gainNode.connect(audioContext.destination);
+  
+  oscillator.frequency.setValueAtTime(frequency, audioContext.currentTime);
+  oscillator.type = type;
+  
+  gainNode.gain.setValueAtTime(0, audioContext.currentTime);
+  gainNode.gain.linearRampToValueAtTime(volume, audioContext.currentTime + 0.01);
+  gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + duration);
+  
+  oscillator.start(audioContext.currentTime);
+  oscillator.stop(audioContext.currentTime + duration);
+}
+
+function playMatchSound() {
+  playSound(440, 0.2, 'sine', 0.2); // A4 note - increased volume
+}
+
+function playComboSound() {
+  playSound(523, 0.3, 'sine', 0.25); // C5 note - increased volume
+  setTimeout(() => playSound(659, 0.3, 'sine', 0.25), 100); // E5 note
+}
+
+function playEliminationSound(matchCount, chainLevel = 0, totalChainMatches = 0) {
+  // Calculate enhanced match count based on chain level and total chain matches
+  const enhancedCount = matchCount + (chainLevel * 2) + Math.floor(totalChainMatches / 3);
+  
+  // Dynamic sound based on elimination count - more blocks = more epic sound!
+  if (enhancedCount <= 1) {
+    // Single block - simple pop
+    playSound(440, 0.15, 'sine', 0.15);
+  } else if (enhancedCount <= 2) {
+    // Two blocks - double pop
+    playSound(440, 0.15, 'sine', 0.18);
+    setTimeout(() => playSound(523, 0.15, 'sine', 0.18), 80);
+  } else if (enhancedCount <= 4) {
+    // 3-4 blocks - nice combo
+    playSound(523, 0.2, 'sine', 0.22);
+    setTimeout(() => playSound(659, 0.2, 'sine', 0.22), 100);
+    setTimeout(() => playSound(784, 0.2, 'sine', 0.22), 200);
+  } else if (enhancedCount <= 7) {
+    // 5-7 blocks - awesome combo
+    playSound(523, 0.25, 'sine', 0.25);
+    setTimeout(() => playSound(659, 0.25, 'sine', 0.25), 80);
+    setTimeout(() => playSound(784, 0.25, 'sine', 0.25), 160);
+    setTimeout(() => playSound(880, 0.25, 'sine', 0.25), 240);
+  } else if (enhancedCount <= 12) {
+    // 8-12 blocks - epic combo
+    playSound(523, 0.3, 'sine', 0.28);
+    setTimeout(() => playSound(659, 0.3, 'sine', 0.28), 60);
+    setTimeout(() => playSound(784, 0.3, 'sine', 0.28), 120);
+    setTimeout(() => playSound(880, 0.3, 'sine', 0.28), 180);
+    setTimeout(() => playSound(1047, 0.3, 'sine', 0.28), 240); // C6
+  } else if (enhancedCount <= 20) {
+    // 13-20 blocks - legendary combo
+    playSound(523, 0.4, 'sine', 0.35);
+    setTimeout(() => playSound(659, 0.4, 'sine', 0.35), 40);
+    setTimeout(() => playSound(784, 0.4, 'sine', 0.35), 80);
+    setTimeout(() => playSound(880, 0.4, 'sine', 0.35), 120);
+    setTimeout(() => playSound(1047, 0.4, 'sine', 0.35), 160); // C6
+    setTimeout(() => playSound(1175, 0.4, 'sine', 0.35), 200); // D6
+    setTimeout(() => playSound(1319, 0.5, 'sine', 0.35), 240); // E6
+    setTimeout(() => playSound(1568, 0.5, 'sine', 0.35), 280); // G6 - extra high note
+  } else {
+    // 21+ blocks - GODLIKE combo with extra epic sound
+    playSound(523, 0.5, 'sine', 0.4);
+    setTimeout(() => playSound(659, 0.5, 'sine', 0.4), 30);
+    setTimeout(() => playSound(784, 0.5, 'sine', 0.4), 60);
+    setTimeout(() => playSound(880, 0.5, 'sine', 0.4), 90);
+    setTimeout(() => playSound(1047, 0.5, 'sine', 0.4), 120); // C6
+    setTimeout(() => playSound(1175, 0.5, 'sine', 0.4), 150); // D6
+    setTimeout(() => playSound(1319, 0.5, 'sine', 0.4), 180); // E6
+    setTimeout(() => playSound(1568, 0.5, 'sine', 0.4), 210); // G6
+    setTimeout(() => playSound(1760, 0.6, 'sine', 0.4), 240); // A6 - ultra high note
+    setTimeout(() => playSound(2093, 0.6, 'sine', 0.4), 270); // C7 - extreme high note
+  }
+}
+
+function playLevelCompleteSound() {
+  playSound(523, 0.2, 'sine', 0.2); // C5 - increased volume
+  setTimeout(() => playSound(659, 0.2, 'sine', 0.2), 150); // E5
+  setTimeout(() => playSound(784, 0.3, 'sine', 0.2), 300); // G5
+}
+
+function playShuffleSound() {
+  playSound(330, 0.1, 'sawtooth', 0.15); // increased volume
+  setTimeout(() => playSound(370, 0.1, 'sawtooth', 0.15), 50);
+  setTimeout(() => playSound(294, 0.1, 'sawtooth', 0.15), 100);
+}
+
+function playButtonSound() {
+  playSound(800, 0.1, 'square', 0.1); // increased volume
+}
+
+function playMoveSound() {
+  playSound(200, 0.05, 'triangle', 0.06); // increased volume
+}
+
+const movesEl          = document.getElementById('moves');
+const levelEl          = document.getElementById('level');
+const levelNameEl      = document.getElementById('levelName');
+const scoreEl          = document.getElementById('score');
+const overlay          = document.getElementById('overlay');
+const overlayText      = document.getElementById('overlayText');
+const tileContainer    = document.getElementById('tiles');
+const shuffleBtn       = document.getElementById('shuffleBtn');
+const restartBtn       = document.getElementById('restartBtn');
+const overlayRestartBtn= document.getElementById('overlayRestartBtn');
+const instructionsDiv  = document.getElementById('instructions');
+const instructionsBtn  = document.getElementById('instructionsBtn');
+
+function initGrid() {
+  // Background grid removed, no need to create
+}
+
+function createTile(x, y, color) {
+  const tile = document.createElement('div');
+  tile.className = `tile tile-${color} tile-new`;
+  
+  // Responsive size calculation - adjust based on current level size
+  const gameContainer = document.querySelector('.game-container');
+  const containerRect = gameContainer.getBoundingClientRect();
+  const containerSize = Math.min(containerRect.width, containerRect.height) - 32; // Remove padding
+  const tileSize = (containerSize - (SIZE-1) * 8) / SIZE; // Calculate dynamically based on SIZE
+  const gap = 8;
+  
+  tile.style.width = `${tileSize}px`;
+  tile.style.height = `${tileSize}px`;
+  tile.style.lineHeight = `${tileSize}px`;
+  tile.style.fontSize = `${Math.min(tileSize * 0.6, 28)}px`;
+  tile.style.transform = `translate(${x * (tileSize + gap)}px, ${y * (tileSize + gap)}px)`;
+  
+  tileContainer.appendChild(tile);
+  requestAnimationFrame(() => tile.classList.remove('tile-new'));
+  return tile;
+}
+
+function updateGameSettings() {
+  SIZE = LEVELS[currentLevel].size;
+  PROPS = LEVELS[currentLevel].colors;
+  // Don't reset moves, let them carry over to next level
+}
+
+function initBoard() {
+  updateGameSettings();
+  shuffleCost = 1; // Reset shuffle cost at the start of each level
+  boardMatrix   = Array.from({length:SIZE}, ()=>Array(SIZE).fill(null));
+  boardElements = Array.from({length:SIZE}, ()=>Array(SIZE).fill(null));
+  tileContainer.innerHTML = '';
+  isAnimating = false;
+  levelProcessed = false;
+  hideOverlay();
+  updateUI();
+  
+  const initial = Math.floor((SIZE*SIZE)/2);
+  for (let i = 0; i < initial; i++) {
+    let x, y;
+    do { x = Math.floor(Math.random()*SIZE); y = Math.floor(Math.random()*SIZE); }
+    while (boardMatrix[y][x] != null);
+    const c = PROPS[Math.floor(Math.random()*PROPS.length)];
+    boardMatrix[y][x] = c;
+    boardElements[y][x] = createTile(x,y,c);
+  }
+}
+
+function updateUI() {
+  movesEl.textContent = movesLeft;
+  levelEl.textContent = currentLevel;
+  levelNameEl.textContent = LEVELS[currentLevel].name;
+
+  // Display total score plus current game score
+  const totalDisplayScore = totalScore + gameScore;
+  scoreEl.textContent = totalDisplayScore;
+}
+
+function nextLevel() {
+  finalizeLevel();
+
+  if (currentLevel < Object.keys(LEVELS).length) {
+    // Show short message, then go to next level
+    showScoreMessage(`Level ${currentLevel} Done!`, 0);
+    currentLevel++;
+
+    // Wait a bit for player to see message, then go to next level
+    setTimeout(() => {
+      initBoard();
+    }, 1500);
+  } else {
+    // Last level done, show final score
+    showGameCompleteOverlay();
+  }
+}
+
+function finalizeLevel() {
+  if (levelProcessed) return;
+  totalScore += gameScore;
+  totalRemainingMoves += movesLeft;
+  gameScore = 0;
+  levelProcessed = true;
+}
+
+function showGameCompleteOverlay() {
+  finalizeLevel();
+  const finalScore = totalScore;
+  const scoreSummary = document.getElementById('scoreSummary');
+  
+  // Always show "No More Moves!" regardless of completion status
+  const titleText = '📊 No More Moves! 📊';
+  
+  let summaryHTML = `<h3 style="margin: 0 0 1.5rem 0; color: #d4a574; font-size: 1.4rem;">${titleText}</h3>`;
+  
+  // Only show summary stats, no individual level scores
+  summaryHTML += `
+    <div class="score-item" style="font-size: 1.1rem; margin-bottom: 0.8rem;">
+      <span>Total Blocks Removed</span>
+      <span>${totalBlocks}</span>
+    </div>
+    <div class="score-item" style="font-size: 1.1rem; margin-bottom: 0.8rem;">
+      <span>Total Moves Saved</span>
+      <span>${totalRemainingMoves}</span>
+    </div>
+    <div class="score-item" style="font-size: 1.3rem; font-weight: bold; color: #d4a574; border-top: 2px solid #d4a574; padding-top: 1rem; margin-top: 1rem;">
+      <span>Final Score</span>
+      <span>${finalScore.toLocaleString()} points</span>
+    </div>
+    <div style="margin-top:1rem;font-size:0.9rem;">Play the Full Version with More Features 👉 <a href="https://rectblox.site" target="_blank">rectblox.site</a></div>
+  `;
+  
+  // Add click instruction at the bottom with delay message
+  summaryHTML += `<div id="clickInstruction" style="margin-top: 1.5rem; font-size: 0.8rem; color: #a8926f; text-align: center; font-style: italic; opacity: 0.5;">Please wait 1 second...</div>`;
+  
+  scoreSummary.innerHTML = summaryHTML;
+  scoreSummary.style.display = 'block';
+  
+  const overlayMessage = 'No More Moves!';
+  showOverlay(overlayMessage);
+  
+  // Add 1 second delay before allowing interaction
+  let canClick = false;
+  setTimeout(() => {
+    canClick = true;
+    const instruction = document.getElementById('clickInstruction');
+    if (instruction) {
+      instruction.textContent = '👆 Tap anywhere to restart game';
+      instruction.style.opacity = '1';
+    }
+  }, 1000);
+  
+  // Add event listeners for clicking anywhere to restart (with delay check)
+  const handleGameCompleteClick = (e) => {
+    if (canClick) {
+      overlay.removeEventListener('click', handleGameCompleteClick);
+      overlay.removeEventListener('touchend', handleGameCompleteTouch);
+      restartGame();
+    }
+  };
+  
+  const handleGameCompleteTouch = (e) => {
+    if (canClick) {
+      e.preventDefault();
+      e.stopPropagation();
+      overlay.removeEventListener('click', handleGameCompleteClick);
+      overlay.removeEventListener('touchend', handleGameCompleteTouch);
+      restartGame();
+    }
+  };
+  
+  overlay.addEventListener('click', handleGameCompleteClick);
+  overlay.addEventListener('touchend', handleGameCompleteTouch);
+}
+
+function restartGame() {
+  currentLevel = 1;
+  movesLeft = LEVELS[1].initialMoves;
+  gameScore = 0;
+  totalScore = 0;
+  totalRemainingMoves = 0;
+  levelProcessed = false;
+  totalBlocks = 0;
+  document.getElementById('scoreSummary').style.display = 'none';
+  initBoard();
+  setTimeout(() => showInstructions(), 500);
+}
+
+// Add event listeners for score summary click
+document.getElementById('scoreSummary').addEventListener('click', function(e) {
+  e.stopPropagation();
+  // Click on score summary also restarts game
+  restartGame();
+});
+
+document.getElementById('scoreSummary').addEventListener('touchend', function(e) {
+  e.preventDefault();
+  e.stopPropagation();
+  // Touch on score summary also restarts game
+  restartGame();
+});
+
+function showOverlay(msg) { 
+  overlayText.textContent = msg; 
+  overlay.classList.add('show'); 
+}
+
+function hideOverlay() { 
+  overlay.classList.remove('show');
+  // Reset overlay elements
+  instructionsDiv.style.display = 'none';
+  overlayRestartBtn.style.display = 'inline-block';
+  instructionsBtn.style.display = 'none';
+  
+  // Clean up event listeners
+  overlay.removeEventListener('click', startGameFromInstructions);
+  overlay.removeEventListener('touchend', startGameFromInstructionsTouch);
+}
+
+function showInstructions() {
+  overlayText.textContent = '';
+  instructionsDiv.style.display = 'block';
+  overlayRestartBtn.style.display = 'none';
+  instructionsBtn.style.display = 'none';
+  overlay.classList.add('show');
+  
+  // 點擊overlay任何地方都可以開始遊戲 - 同時支援滑鼠和觸控
+  overlay.addEventListener('click', startGameFromInstructions);
+  overlay.addEventListener('touchend', startGameFromInstructionsTouch);
+}
+
+function startGameFromInstructions(e) {
+  // 防止事件冒泡到instructions div
+  if (e.target === instructionsDiv || instructionsDiv.contains(e.target)) {
+    return;
+  }
+  overlay.removeEventListener('click', startGameFromInstructions);
+  overlay.removeEventListener('touchend', startGameFromInstructionsTouch);
+  hideOverlay();
+}
+
+function startGameFromInstructionsTouch(e) {
+  e.preventDefault();
+  e.stopPropagation();
+  // 防止事件冒泡到instructions div
+  if (e.target === instructionsDiv || instructionsDiv.contains(e.target)) {
+    return;
+  }
+  overlay.removeEventListener('click', startGameFromInstructions);
+  overlay.removeEventListener('touchend', startGameFromInstructionsTouch);
+  hideOverlay();
+}
+
+
+shuffleBtn.addEventListener('click', ()=>{
+  if (isAnimating || movesLeft < shuffleCost) return alert(`Not enough moves! Need at least ${shuffleCost} move${shuffleCost > 1 ? 's' : ''} to reset position`);
+  
+  playButtonSound(); // Play button sound
+  // Show shuffle confirmation dialog
+  showShuffleConfirmation();
+});
+
+restartBtn.addEventListener('click', () => {
+  playButtonSound(); // Play button sound
+  restartGame();
+});
+
+overlayRestartBtn.addEventListener('click', () => {
+  playButtonSound(); // Play button sound
+  restartGame();
+});
+
+// Add touch support for mobile
+overlayRestartBtn.addEventListener('touchend', function(e) {
+  e.preventDefault();
+  e.stopPropagation();
+  restartGame();
+});
+
+shuffleBtn.addEventListener('touchend', function(e) {
+  e.preventDefault();
+  e.stopPropagation();
+  if (isAnimating || movesLeft < shuffleCost) return alert(`Not enough moves! Need at least ${shuffleCost} move${shuffleCost > 1 ? 's' : ''} to reset position`);
+  
+  // Show shuffle confirmation dialog
+  showShuffleConfirmation();
+});
+
+restartBtn.addEventListener('touchend', function(e) {
+  e.preventDefault();
+  e.stopPropagation();
+  restartGame();
+});
+
+function showShuffleConfirmation() {
+  // Create overlay for shuffle confirmation
+  const shuffleOverlay = document.createElement('div');
+  shuffleOverlay.className = 'overlay';
+  shuffleOverlay.style.display = 'flex';
+  shuffleOverlay.style.zIndex = '20';
+  
+  const confirmBox = document.createElement('div');
+  confirmBox.style.background = 'rgba(255, 255, 255, 0.95)';
+  confirmBox.style.borderRadius = '20px';
+  confirmBox.style.padding = '2rem';
+  confirmBox.style.maxWidth = '300px';
+  confirmBox.style.textAlign = 'center';
+  confirmBox.style.boxShadow = '0 10px 30px rgba(0,0,0,0.3)';
+  confirmBox.style.border = '2px solid #d4a574';
+  
+  confirmBox.innerHTML = `
+    <h3 style="margin: 0 0 1rem 0; color: #6b4e3d; font-size: 1.2rem;">Reset Position</h3>
+    <p style="margin: 0 0 1.5rem 0; color: #8a6d5b; font-size: 0.9rem; line-height: 1.4;">
+      Mix up all blocks to new spots.<br>
+      <strong>Cost: ${shuffleCost} move${shuffleCost > 1 ? 's' : ''}</strong>
+    </p>
+    <div style="display: flex; gap: 1rem; justify-content: center;">
+      <button id="shuffleYes" style="
+        background: linear-gradient(135deg, #d4a574 0%, #c8956d 100%);
+        color: white;
+        border: none;
+        padding: 0.8rem 1.5rem;
+        border-radius: 10px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 3px 10px rgba(212, 165, 116, 0.3);
+      ">Yes</button>
+      <button id="shuffleNo" style="
+        background: rgba(212, 165, 116, 0.2);
+        color: #6b4e3d;
+        border: 1px solid #d4a574;
+        padding: 0.8rem 1.5rem;
+        border-radius: 10px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      ">No</button>
+    </div>
+  `;
+  
+  shuffleOverlay.appendChild(confirmBox);
+  document.querySelector('.game-container').appendChild(shuffleOverlay);
+  
+  // Add event listeners for Yes/No buttons
+  document.getElementById('shuffleYes').addEventListener('click', () => {
+    movesLeft -= shuffleCost;
+    shuffleCost += 1;
+    updateUI();
+    playShuffleSound(); // Play shuffle sound
+    shuffleTiles();
+    document.querySelector('.game-container').removeChild(shuffleOverlay);
+  });
+  
+  document.getElementById('shuffleNo').addEventListener('click', () => {
+    document.querySelector('.game-container').removeChild(shuffleOverlay);
+  });
+  
+  // Close on overlay click
+  shuffleOverlay.addEventListener('click', (e) => {
+    if (e.target === shuffleOverlay) {
+      document.querySelector('.game-container').removeChild(shuffleOverlay);
+    }
+  });
+}
+
+function shuffleTiles() {
+  // Collect all current tiles
+  const allTiles = [];
+  boardMatrix.forEach(row => {
+    row.forEach(cell => {
+      if (cell) allTiles.push(cell);
+    });
+  });
+  
+  // Clear the board
+  tileContainer.innerHTML = '';
+  for (let y = 0; y < SIZE; y++) {
+    for (let x = 0; x < SIZE; x++) {
+      boardMatrix[y][x] = null;
+      boardElements[y][x] = null;
+    }
+  }
+  
+  // Get all possible positions
+  const allPositions = [];
+  for (let y = 0; y < SIZE; y++) {
+    for (let x = 0; x < SIZE; x++) {
+      allPositions.push({x, y});
+    }
+  }
+  
+  // Randomly shuffle positions
+  for (let i = allPositions.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [allPositions[i], allPositions[j]] = [allPositions[j], allPositions[i]];
+  }
+  
+  // Place tiles in new random positions
+  allTiles.forEach((color, index) => {
+    const {x, y} = allPositions[index];
+    boardMatrix[y][x] = color;
+    boardElements[y][x] = createTile(x, y, color);
+  });
+}
+
+// Handle move directions
+function handleMove(direction) {
+  let dir = null;
+  switch(direction) {
+    case 0: dir = {x:0,y:-1,axis:'y'}; break;  // Up
+    case 1: dir = {x:1,y:0, axis:'x'}; break;  // Right
+    case 2: dir = {x:0,y:1, axis:'y'}; break;  // Down
+    case 3: dir = {x:-1,y:0,axis:'x'}; break;  // Left
+  }
+  if (!dir || isAnimating) return;
+  
+  // Reset chain counters for new move
+  chainCount = 0;
+  totalChainBlocks = 0;
+  
+  // If no moves remain before a move, show summary
+  if (movesLeft <= 0) {
+    isAnimating = true;
+    setTimeout(() => {
+      finalizeLevel();
+      showGameCompleteOverlay();
+    }, 500);
+    return;
+  }
+  
+  if (!canMove(dir)) {
+    return; // Don't deduct move if nothing shifts
+  }
+
+  movesLeft--;
+  updateUI();
+  playMoveSound(); // Play move sound
+  
+  isAnimating = true;
+  cascade(dir, () => {
+    if (movesLeft === 0 && boardMatrix.flat().some(v => v)) {
+      finalizeLevel();
+      showGameCompleteOverlay();
+    }
+  });
+}
+
+// 鍵盤事件處理
+document.addEventListener('keydown', e => {
+  let direction = null;
+  if (e.key==='ArrowUp')    { direction = 0; e.preventDefault(); }
+  if (e.key==='ArrowDown')  { direction = 2; e.preventDefault(); }
+  if (e.key==='ArrowLeft')  { direction = 3; e.preventDefault(); }
+  if (e.key==='ArrowRight') { direction = 1; e.preventDefault(); }
+  if (direction !== null) handleMove(direction);
+});
+
+// 觸控滑動支援
+let touchStartX, touchStartY;
+const gameContainer = document.getElementById('game');
+
+// 觸控開始事件
+gameContainer.addEventListener('touchstart', e => {
+  // 如果點擊的是按鈕，就不處理滑動
+  if (e.target.tagName === 'BUTTON') return;
+  
+  if (e.touches.length > 1) return; // 忽略多指觸控
+  touchStartX = e.touches[0].clientX;
+  touchStartY = e.touches[0].clientY;
+  e.preventDefault();
+});
+
+// 觸控移動事件（防止頁面滾動）
+gameContainer.addEventListener('touchmove', e => {
+  // 如果點擊的是按鈕，就不阻止默認行為
+  if (e.target.tagName === 'BUTTON') return;
+  e.preventDefault();
+});
+
+// 防止整個文檔滾動
+document.addEventListener('touchmove', e => {
+  e.preventDefault();
+}, { passive: false });
+
+// 防止滾輪滾動
+document.addEventListener('wheel', e => {
+  e.preventDefault();
+}, { passive: false });
+
+// 觸控結束事件
+gameContainer.addEventListener('touchend', e => {
+  // 如果點擊的是按鈕，就不處理滑動
+  if (e.target.tagName === 'BUTTON') return;
+  
+  if (e.touches.length > 0) return; // 如果還有手指在螢幕上就忽略
+  
+  const touchEndX = e.changedTouches[0].clientX;
+  const touchEndY = e.changedTouches[0].clientY;
+  
+  const dx = touchEndX - touchStartX;
+  const dy = touchEndY - touchStartY;
+  const absDx = Math.abs(dx);
+  const absDy = Math.abs(dy);
+  
+  // 滑動距離必須大於 30 像素才算有效滑動
+  if (Math.max(absDx, absDy) > 30) {
+    let direction;
+    if (absDx > absDy) {
+      // 水平滑動
+      direction = dx > 0 ? 1 : 3; // 右:1, 左:3
+    } else {
+      // 垂直滑動
+      direction = dy > 0 ? 2 : 0; // 下:2, 上:0
+    }
+    handleMove(direction);
+  }
+});
+
+function cascade(dir, callback) {
+  compress(dir);
+  setTimeout(() => {
+    const matches = findMatches();
+    if (matches.length === 0) { 
+      // 連鎖結束，重置計數器
+      chainCount = 0;
+      totalChainBlocks = 0;
+      
+      // 檢查是否需要自動生成方塊
+      checkAndGenerateLonelyTiles();
+      isAnimating = false;
+      if (callback) callback();
+      return;
+    }
+    
+    // 增加連鎖計數和累積方塊數
+    chainCount++;
+    totalChainBlocks += matches.length;
+    
+    // 顯示連鎖提示和播放音效
+    if (matches.length >= 3 || chainCount > 1) {
+      let comboText = '';
+      
+      // 基於消除數量的基本提示
+      if (matches.length >= 12) comboText = 'LEGENDARY!';
+      else if (matches.length >= 8) comboText = 'AMAZING!';
+      else if (matches.length >= 5) comboText = 'COMBO!';
+      else if (matches.length >= 3) comboText = 'NICE!';
+      else comboText = 'HIT!';
+      
+      // 如果是連鎖，加強提示
+      if (chainCount > 1) {
+        if (chainCount >= 5) comboText = `🔥 GODLIKE x${chainCount} CHAIN! 🔥`;
+        else if (chainCount >= 4) comboText = `⚡ ULTRA x${chainCount} CHAIN! ⚡`;
+        else if (chainCount >= 3) comboText = `💥 MEGA x${chainCount} CHAIN! 💥`;
+        else comboText = `✨ x${chainCount} CHAIN! ✨`;
+      }
+      
+      // 如果累積消除數量很大，進一步加強
+      if (totalChainBlocks >= 20) {
+        comboText = `🌟 EPIC ${totalChainBlocks} BLOCKS! 🌟`;
+      }
+      
+      showComboMessage(comboText);
+    }
+    
+    // 播放基於消除數量和連鎖的動態音效
+    if (matches.length > 0) {
+      playEliminationSound(matches.length, chainCount - 1, totalChainBlocks);
+    }
+    
+    removeMatches(matches, () => {
+      if (boardMatrix.flat().every(v => !v)) {
+        // 盤面清空，重置連鎖計數器
+        chainCount = 0;
+        totalChainBlocks = 0;
+        
+        // 檢查是否還有下一關
+        if (currentLevel < Object.keys(LEVELS).length) {
+          playLevelCompleteSound(); // Play level complete sound
+          nextLevel(); // 正常過關，使用nextLevel
+          if (callback) callback();
+          return;
+        } else {
+          playLevelCompleteSound(); // Play completion sound
+          finalizeLevel();
+          // 所有關卡完成且盤面清空，顯示結算表
+          showGameCompleteOverlay();
+          if (callback) callback();
+        }
+      } else {
+        setTimeout(() => cascade(dir, callback), 200); // 稍微延長讓玩家看到效果
+      }
+    });
+  }, 160);
+}
+
+function compress(dir) {
+  const gameContainer = document.querySelector('.game-container');
+  const containerRect = gameContainer.getBoundingClientRect();
+  const containerSize = Math.min(containerRect.width, containerRect.height) - 32;
+  const tileSize = (containerSize - (SIZE-1) * 8) / SIZE; // 根據SIZE動態計算
+  const gap = 8;
+  
+  if (dir.axis==='x') {
+    for (let y=0; y<SIZE; y++) {
+      const elems = boardElements[y].filter(e=>e);
+      const vals  = boardMatrix[y].filter(v=>v);
+      const pad   = Array(SIZE-elems.length).fill(null);
+      boardElements[y] = dir.x>0 ? [...pad,...elems] : [...elems,...pad];
+      boardMatrix[y]   = dir.x>0 ? [...pad,...vals]  : [...vals,...pad];
+      boardElements[y].forEach((t,i)=>{
+        if(t) {
+          const x = i * (tileSize + gap);
+          const y_pos = y * (tileSize + gap);
+          t.style.transform = `translate(${x}px, ${y_pos}px)`;
+          t.style.width = `${tileSize}px`;
+          t.style.height = `${tileSize}px`;
+          t.style.lineHeight = `${tileSize}px`;
+          t.style.fontSize = `${Math.min(tileSize * 0.6, 28)}px`;
+        }
+      });
+    }
+  } else {
+    for (let x=0; x<SIZE; x++) {
+      const elems=[], vals=[];
+      for (let y=0; y<SIZE; y++) if(boardElements[y][x]){ elems.push(boardElements[y][x]); vals.push(boardMatrix[y][x]); }
+      const pad = Array(SIZE-elems.length).fill(null);
+      const newEls = dir.y>0 ? [...pad,...elems] : [...elems,...pad];
+      const newVals= dir.y>0 ? [...pad,...vals]  : [...vals,...pad];
+      for (let y=0; y<SIZE; y++) {
+        boardElements[y][x]=newEls[y]; boardMatrix[y][x]=newVals[y];
+        if (newEls[y]) {
+          const x_pos = x * (tileSize + gap);
+          const y_pos = y * (tileSize + gap);
+          newEls[y].style.transform = `translate(${x_pos}px, ${y_pos}px)`;
+          newEls[y].style.width = `${tileSize}px`;
+          newEls[y].style.height = `${tileSize}px`;
+          newEls[y].style.lineHeight = `${tileSize}px`;
+          newEls[y].style.fontSize = `${Math.min(tileSize * 0.6, 28)}px`;
+        }
+      }
+    }
+  }
+}
+
+function canMove(dir) {
+  // Simulate compress without modifying the board to see if anything would move
+  if (dir.axis === 'x') {
+    for (let y = 0; y < SIZE; y++) {
+      const vals = boardMatrix[y].filter(v => v);
+      const pad = Array(SIZE - vals.length).fill(null);
+      const newRow = dir.x > 0 ? [...pad, ...vals] : [...vals, ...pad];
+      for (let x = 0; x < SIZE; x++) {
+        if (newRow[x] !== boardMatrix[y][x]) return true;
+      }
+    }
+  } else {
+    for (let x = 0; x < SIZE; x++) {
+      const vals = [];
+      for (let y = 0; y < SIZE; y++) {
+        if (boardMatrix[y][x]) vals.push(boardMatrix[y][x]);
+      }
+      const pad = Array(SIZE - vals.length).fill(null);
+      const newCol = dir.y > 0 ? [...pad, ...vals] : [...vals, ...pad];
+      for (let y = 0; y < SIZE; y++) {
+        if (newCol[y] !== boardMatrix[y][x]) return true;
+      }
+    }
+  }
+  return false;
+}
+
+function findMatches() {
+  const m = [];
+  for (let y=0; y<SIZE; y++) for (let x=0; x<SIZE; x++) {
+    const c=boardMatrix[y][x]; if(!c) continue;
+    if (x<SIZE-1 && boardMatrix[y][x+1]===c) m.push([x,y],[x+1,y]);
+    if (y<SIZE-1 && boardMatrix[y+1][x]===c) m.push([x,y],[x,y+1]);
+  }
+  return m.filter((v,i,a)=>a.findIndex(w=>w[0]===v[0]&&w[1]===v[1])===i);
+}
+
+function removeMatches(ms, cb) {
+  // Calculate score with chain multiplier
+  const chainMultiplier = chainCount >= 2 ? chainCount : 1;
+  const blockScore = ms.length * 10 * chainMultiplier; // 10 points per block
+  gameScore += blockScore;
+  totalBlocks += ms.length;
+  updateUI();
+  
+  // Show score increase message
+  if (ms.length > 0) {
+    showScoreMessage(`+${blockScore} points`, ms.length);
+  }
+  
+  // 移除重複的combo訊息 - 這部分邏輯已經在上面的消除邏輯中處理了
+  
+  ms.forEach(([x,y],i) => setTimeout(() => {
+    const t = boardElements[y][x];
+    if (!t) return;
+    
+    // Mobile simplified effects - only show full effects for single or small removals
+    const isMobile = window.innerWidth <= 768;
+    const shouldShowFullEffect = !isMobile || ms.length <= 4;
+    
+    if (shouldShowFullEffect) {
+      // Create flash effect
+      createFlashEffect(t, x, y);
+      
+      // Create particle explosion
+      createParticleExplosion(t, x, y);
+    }
+    
+    // Add vibration (small range only)
+    if (shouldShowFullEffect && navigator.vibrate) {
+      navigator.vibrate(30);
+    }
+    
+    boardElements[y][x] = null;
+    boardMatrix[y][x] = null;
+    t.classList.add('tile-remove');
+    
+    // Remove element
+    setTimeout(() => {
+      if (t.parentNode) t.parentNode.removeChild(t);
+    }, 400);
+    
+  }, i * 60)); // Speed up removal
+  
+  setTimeout(cb, ms.length * 60 + 400);
+}
+
+// 文字特效管理器
+let messageQueue = [];
+let nextMessagePosition = 30; // 起始位置百分比
+let lastComboMessage = ''; // 記錄上一個combo訊息
+let lastComboTime = 0; // 記錄上一個combo訊息的時間
+
+// Show score increase message
+function showScoreMessage(text, blockCount) {
+  const message = document.createElement('div');
+  message.textContent = text;
+  message.style.position = 'absolute';
+  message.style.left = '50%';
+  message.style.top = nextMessagePosition + '%';
+  message.style.transform = 'translate(-50%, -50%)';
+  message.style.fontSize = '1.5rem';
+  message.style.fontWeight = 'bold';
+  message.style.color = '#d4a574';
+  message.style.background = 'rgba(255, 255, 255, 0.9)';
+  message.style.padding = '0.5rem 1rem';
+  message.style.borderRadius = '12px';
+  message.style.textShadow = '1px 1px 2px rgba(0,0,0,0.1)';
+  message.style.boxShadow = '0 4px 12px rgba(212, 165, 116, 0.3)';
+  message.style.zIndex = '16';
+  message.style.pointerEvents = 'none';
+  message.style.whiteSpace = 'nowrap'; // 防止文字換行
+  message.style.animation = 'combo-fade 1.5s ease-out forwards';
+  
+  // 更新下一個訊息位置
+  nextMessagePosition += 8;
+  if (nextMessagePosition > 70) {
+    nextMessagePosition = 30; // 重置到頂部
+  }
+  
+  document.querySelector('.game-container').appendChild(message);
+  messageQueue.push(message);
+  
+  setTimeout(() => {
+    if (message.parentNode) message.parentNode.removeChild(message);
+    // 從佇列中移除
+    const index = messageQueue.indexOf(message);
+    if (index > -1) {
+      messageQueue.splice(index, 1);
+    }
+    // 如果沒有其他訊息了，重置位置
+    if (messageQueue.length === 0) {
+      nextMessagePosition = 30;
+    }
+  }, 1500);
+}
+
+// Show combo message text
+function showComboMessage(text) {
+  const currentTime = Date.now();
+  
+  // 防止重複顯示相同的combo訊息（500ms內）
+  if (text === lastComboMessage && currentTime - lastComboTime < 500) {
+    return; // 跳過重複的訊息
+  }
+  
+  lastComboMessage = text;
+  lastComboTime = currentTime;
+  
+  const message = document.createElement('div');
+  message.textContent = text;
+  message.style.position = 'absolute';
+  message.style.left = '50%';
+  message.style.top = nextMessagePosition + '%';
+  message.style.transform = 'translate(-50%, -50%)';
+  message.style.fontSize = '2rem';
+  message.style.fontWeight = 'bold';
+  message.style.color = '#6b4e3d';
+  message.style.textShadow = '2px 2px 4px rgba(0,0,0,0.3)';
+  message.style.zIndex = '15';
+  message.style.pointerEvents = 'none';
+  message.style.whiteSpace = 'nowrap'; // 防止文字換行
+  message.style.animation = 'combo-fade 1.5s ease-out forwards';
+  
+  // 更新下一個訊息位置
+  nextMessagePosition += 8;
+  if (nextMessagePosition > 70) {
+    nextMessagePosition = 30; // 重置到頂部
+  }
+  
+  document.querySelector('.game-container').appendChild(message);
+  messageQueue.push(message);
+  
+  setTimeout(() => {
+    if (message.parentNode) message.parentNode.removeChild(message);
+    // 從佇列中移除
+    const index = messageQueue.indexOf(message);
+    if (index > -1) {
+      messageQueue.splice(index, 1);
+    }
+    // 如果沒有其他訊息了，重置位置
+    if (messageQueue.length === 0) {
+      nextMessagePosition = 30;
+    }
+  }, 1500);
+}
+
+// Create flash effect - performance optimized
+function createFlashEffect(tile, x, y) {
+  const gameContainer = document.querySelector('.game-container');
+  const containerRect = gameContainer.getBoundingClientRect();
+  const containerSize = Math.min(containerRect.width, containerRect.height) - 32;
+  const tileSize = (containerSize - (SIZE-1) * 8) / SIZE; // 根據SIZE動態計算
+  const gap = 8;
+  
+  const centerX = x * (tileSize + gap);
+  const centerY = y * (tileSize + gap);
+  
+  // Simplified flash effect - remove complex style calculations
+  const flashTile = document.createElement('div');
+  flashTile.className = tile.className.replace('tile-new', '').replace('tile-remove', '');
+  flashTile.style.position = 'absolute';
+  flashTile.style.left = centerX + 'px';
+  flashTile.style.top = centerY + 'px';
+  flashTile.style.width = tileSize + 'px';
+  flashTile.style.height = tileSize + 'px';
+  flashTile.style.borderRadius = '12px';
+  flashTile.style.animation = 'tile-pulse 500ms ease-out 1'; // Shorter animation
+  flashTile.style.zIndex = '20';
+  flashTile.style.pointerEvents = 'none';
+  
+  document.querySelector('.tile-container').appendChild(flashTile);
+  
+  setTimeout(() => {
+    if (flashTile.parentNode) flashTile.parentNode.removeChild(flashTile);
+  }, 500);
+}
+
+// Create particle explosion - performance optimized
+function createParticleExplosion(tile, x, y) {
+  const isMobile = window.innerWidth <= 768;
+  const gameContainer = document.querySelector('.game-container');
+  let centerX, centerY, tileSize;
+  
+  if (isMobile) {
+    const containerWidth = gameContainer.offsetWidth;
+    tileSize = (containerWidth * 0.94 - containerWidth * 0.02 * (SIZE-1)) / SIZE; // Calculate dynamically based on SIZE
+    const gap = containerWidth * 0.02;
+    
+    const tileContainer = document.querySelector('.tile-container');
+    const containerRect = gameContainer.getBoundingClientRect();
+    const tileContainerRect = tileContainer.getBoundingClientRect();
+    
+    const offsetX = tileContainerRect.left - containerRect.left;
+    const offsetY = tileContainerRect.top - containerRect.top;
+    
+    centerX = offsetX + x * (tileSize + gap) + tileSize / 2;
+    centerY = offsetY + y * (tileSize + gap) + tileSize / 2;
+  } else {
+    // Desktop version - calculate dynamically based on SIZE
+    const gameContainer = document.querySelector('.game-container');
+    const containerRect = gameContainer.getBoundingClientRect();
+    const containerSize = Math.min(containerRect.width, containerRect.height) - 32;
+    tileSize = (containerSize - (SIZE-1) * 8) / SIZE;
+    const gap = 8;
+    centerX = 15 + x * (tileSize + gap) + tileSize / 2;
+    centerY = 15 + y * (tileSize + gap) + tileSize / 2;
+  }
+  
+  // Get tile color
+  const computedStyle = window.getComputedStyle(tile);
+  const bgColor = computedStyle.backgroundColor;
+  
+  // Reduce particle count - mobile 6, desktop 8
+  const particleCount = isMobile ? 6 : 8;
+  for (let i = 0; i < particleCount; i++) {
+    const particle = document.createElement('div');
+    particle.className = 'particle';
+    particle.style.background = bgColor;
+    particle.style.left = centerX + 'px';
+    particle.style.top = centerY + 'px';
+    
+    // Random direction and distance - smaller range
+    const angle = (i / particleCount) * Math.PI * 2;
+    const distance = 50 + Math.random() * 30; // Smaller explosion range
+    const dx = Math.cos(angle) * distance + 'px';
+    const dy = Math.sin(angle) * distance + 'px';
+    
+    particle.style.setProperty('--dx', dx);
+    particle.style.setProperty('--dy', dy);
+    
+    gameContainer.appendChild(particle);
+    
+    // Remove particles early
+    setTimeout(() => {
+      if (particle.parentNode) particle.parentNode.removeChild(particle);
+    }, 400);
+  }
+  
+  // Simplified ripple effect - remove complex styles
+  const ripple = document.createElement('div');
+  ripple.style.position = 'absolute';
+  ripple.style.left = (centerX - tileSize/2) + 'px';
+  ripple.style.top = (centerY - tileSize/2) + 'px';
+  ripple.style.width = tileSize + 'px';
+  ripple.style.height = tileSize + 'px';
+  ripple.style.borderRadius = '50%';
+  ripple.style.background = `radial-gradient(circle, ${bgColor}30 0%, transparent 70%)`;
+  ripple.style.animation = 'ripple-effect 300ms ease-out forwards'; // Shorter time
+  ripple.style.pointerEvents = 'none';
+  ripple.style.zIndex = '12';
+  
+  gameContainer.appendChild(ripple);
+  
+  setTimeout(() => {
+    if (ripple.parentNode) ripple.parentNode.removeChild(ripple);
+  }, 300);
+}
+
+// Check lonely tiles and auto-generate
+function checkAndGenerateLonelyTiles() {
+  // Count each color
+  const colorCounts = {};
+  PROPS.forEach(color => colorCounts[color] = 0);
+  
+  for (let y = 0; y < SIZE; y++) {
+    for (let x = 0; x < SIZE; x++) {
+      const color = boardMatrix[y][x];
+      if (color) {
+        colorCounts[color]++;
+      }
+    }
+  }
+  
+  // Find colors with only one tile
+  const lonelyColors = [];
+  Object.keys(colorCounts).forEach(color => {
+    if (colorCounts[color] === 1) {
+      lonelyColors.push(color);
+    }
+  });
+  
+  // Generate new tile for each lonely color
+  lonelyColors.forEach(color => {
+    generateTileForColor(color);
+  });
+}
+
+// Generate new tile for specific color
+function generateTileForColor(color) {
+  // Check if moves remaining
+  if (movesLeft <= 0) return;
+  
+  // Find all empty positions
+  const emptyPositions = [];
+  for (let y = 0; y < SIZE; y++) {
+    for (let x = 0; x < SIZE; x++) {
+      if (boardMatrix[y][x] === null) {
+        emptyPositions.push({x, y});
+      }
+    }
+  }
+  
+  // Don't generate if no empty positions
+  if (emptyPositions.length === 0) return;
+  
+  // Randomly choose an empty position
+  const randomIndex = Math.floor(Math.random() * emptyPositions.length);
+  const position = emptyPositions[randomIndex];
+  
+  // Generate new tile
+  boardMatrix[position.y][position.x] = color;
+  boardElements[position.y][position.x] = createTile(position.x, position.y, color);
+  
+  // Deduct points instead of using a move
+  gameScore -= AUTO_GENERATE_PENALTY;
+  updateUI();
+  
+  // Show message
+  showAutoGenerateMessage(color);
+  
+  // Check if moves finished
+  if (movesLeft === 0) {
+    setTimeout(() => {
+      finalizeLevel();
+      // Show game summary
+      showGameCompleteOverlay();
+    }, 1500); // Let player see generation effect before showing summary
+  }
+}
+
+// Show auto-generate message
+function showAutoGenerateMessage(color) {
+  const colorNames = {
+    'red': 'Red',
+    'green': 'Green', 
+    'blue': 'Blue',
+    'purple': 'Purple',
+    'orange': 'Yellow',
+    'pink': 'Pink',
+    'cyan': 'Cyan',
+    'teal': 'Teal'
+  };
+  
+  const message = document.createElement('div');
+  message.textContent = `New ${colorNames[color]} Block Added (-${AUTO_GENERATE_PENALTY} pts)`;
+  message.style.position = 'absolute';
+  message.style.left = '50%';
+  message.style.top = '30%';
+  message.style.transform = 'translate(-50%, -50%)';
+  message.style.fontSize = '1.2rem';
+  message.style.fontWeight = 'bold';
+  message.style.color = '#6b4e3d';
+  message.style.background = 'rgba(255, 255, 255, 0.9)';
+  message.style.padding = '0.5rem 1rem';
+  message.style.borderRadius = '12px';
+  message.style.textShadow = '1px 1px 2px rgba(0,0,0,0.1)';
+  message.style.boxShadow = '0 4px 12px rgba(0,0,0,0.2)';
+  message.style.zIndex = '15';
+  message.style.pointerEvents = 'none';
+  message.style.animation = 'combo-fade 2s ease-out forwards';
+  
+  document.querySelector('.game-container').appendChild(message);
+  
+  setTimeout(() => {
+    if (message.parentNode) message.parentNode.removeChild(message);
+  }, 2000);
+}
+
+// Recalculate positions when window resizes
+window.addEventListener('resize', () => {
+  const gameContainer = document.querySelector('.game-container');
+  const containerRect = gameContainer.getBoundingClientRect();
+  const containerSize = Math.min(containerRect.width, containerRect.height) - 32;
+  const tileSize = (containerSize - (SIZE-1) * 8) / SIZE; // Calculate dynamically based on SIZE
+  const gap = 8;
+  
+  for (let y = 0; y < SIZE; y++) {
+    for (let x = 0; x < SIZE; x++) {
+      const tile = boardElements[y][x];
+      if (tile) {
+        const x_pos = x * (tileSize + gap);
+        const y_pos = y * (tileSize + gap);
+        tile.style.transform = `translate(${x_pos}px, ${y_pos}px)`;
+        tile.style.width = `${tileSize}px`;
+        tile.style.height = `${tileSize}px`;
+        tile.style.lineHeight = `${tileSize}px`;
+        tile.style.fontSize = `${Math.min(tileSize * 0.6, 28)}px`;
+      }
+    }
+  }
+});
+
+// Instructions button event listener
+instructionsBtn.addEventListener('click', () => {
+  hideOverlay();
+});
+
+instructionsBtn.addEventListener('touchend', function(e) {
+  e.preventDefault();
+  e.stopPropagation();
+  hideOverlay();
+});
+
+// 添加觸控支援給指示畫面
+instructionsDiv.addEventListener('click', function(e) {
+  e.stopPropagation();
+  // 在手機上點擊指示框也能開始遊戲
+  if (window.innerWidth <= 768) {
+    overlay.removeEventListener('click', startGameFromInstructions);
+    overlay.removeEventListener('touchend', startGameFromInstructionsTouch);
+    hideOverlay();
+  }
+});
+
+instructionsDiv.addEventListener('touchend', function(e) {
+  e.preventDefault();
+  e.stopPropagation();
+  // 觸控指示框開始遊戲
+  overlay.removeEventListener('click', startGameFromInstructions);
+  overlay.removeEventListener('touchend', startGameFromInstructionsTouch);
+  hideOverlay();
+});
+
+initBoard();
+// Show instructions when first loading the game
+setTimeout(() => showInstructions(), 500);
+</script>
+
+<!-- Hidden SEO Content -->
+<div style="position: absolute; left: -9999px; top: -9999px; visibility: hidden;">
+  <h1>RectBlox - Free Online Puzzle Game</h1>
+  <h2>Match-3 Block Puzzle Game Features</h2>
+  <p>Experience the ultimate puzzle gaming adventure with RectBlox! This engaging match-3 block puzzle game offers:</p>
+  <ul>
+    <li>6 challenging levels with increasing difficulty</li>
+    <li>Smooth gameplay on mobile and desktop</li>
+    <li>Colorful blocks and satisfying combos</li>
+    <li>Free to play online game</li>
+    <li>No download required</li>
+    <li>Perfect for casual gaming sessions</li>
+  </ul>
+  <h3>How to Play RectBlox</h3>
+  <p>Swipe or click to move blocks and create matches of 3 or more identical blocks. Clear the board to advance through levels and achieve high scores!</p>
+    <p>RectBlox is a free match-three block puzzle game for mobile and desktop. Enjoy quick puzzle sessions, strategic block matching, and brain training fun. Perfect for puzzle fans searching for casual puzzle challenges. 免費方塊消除益智遊戲，支援手機和桌面，隨時挑戰連連看和消消樂。</p>
+    <p>Play this browser puzzle game in multiple languages: English, Español, Français, Deutsch, Português, Italiano, Русский, हिंदी, العربية, 日本語, 한국어, 中文, ภาษาไทย, Tiếng Việt, Bahasa Indonesia, Türkçe, Melayu, فارسی, বাংলা. Join players worldwide and enjoy our free match-3 puzzle challenge on any device!</p>
+  </div>
+</body>
+</html>
