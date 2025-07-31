@@ -134,8 +134,10 @@
   
   .score-logo {
     grid-column: 2;
+
     width: 100px;
     height: 100px;
+
     border-radius: 16px;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
     transition: transform 0.3s ease;
@@ -604,8 +606,11 @@
     }
     
     .score-logo {
+
       width: 60px;
       height: 60px;
+
+
       border-radius: 12px;
     }
     
@@ -759,10 +764,13 @@ let boardElements = [];
 let movesLeft = LEVELS[currentLevel].initialMoves; // Set initial moves only at start
 let isAnimating = false;
 let gameScore = 0;
-let levelScores = []; // Record scores for each level
+let totalScore = 0; // Accumulated score across levels
+let totalRemainingMoves = 0; // Sum of unused moves
+let levelProcessed = false; // Prevent double counting
 let totalBlocks = 0; // Track total blocks removed
 let chainCount = 0; // Track chain count for cascading sound effects
 let totalChainBlocks = 0; // Track total blocks in current chain
+const AUTO_GENERATE_PENALTY = 50; // Points deducted when auto-generating a tile
 
 // Audio context for sound effects
 let audioContext;
@@ -928,7 +936,8 @@ function initBoard() {
   boardElements = Array.from({length:SIZE}, ()=>Array(SIZE).fill(null));
   tileContainer.innerHTML = '';
   isAnimating = false;
-  hideOverlay(); 
+  levelProcessed = false;
+  hideOverlay();
   updateUI();
   
   const initial = Math.floor((SIZE*SIZE)/2);
@@ -946,28 +955,21 @@ function updateUI() {
   movesEl.textContent = movesLeft;
   levelEl.textContent = currentLevel;
   levelNameEl.textContent = LEVELS[currentLevel].name;
-  
-  // Calculate total score: completed levels + current level game score
-  const completedLevelsScore = levelScores.reduce((sum, level) => sum + level.score, 0);
-  const totalDisplayScore = completedLevelsScore + gameScore;
+
+  // Display total score plus current game score
+  const totalDisplayScore = totalScore + gameScore;
   scoreEl.textContent = totalDisplayScore;
 }
 
 function nextLevel() {
-  // Record current level score (including current gameScore)
-  const levelScore = calculateLevelScore();
-  levelScores.push({
-    level: currentLevel,
-    score: levelScore + gameScore, // Include current game score
-    remainingMoves: movesLeft
-  });
-  
+  const levelTotal = calculateLevelScore() + gameScore;
+  finalizeLevel();
+
   if (currentLevel < Object.keys(LEVELS).length) {
     // Show short message, then go to next level
-    showScoreMessage(`Level ${currentLevel} Done! Got ${levelScore + gameScore} points`, 0);
+    showScoreMessage(`Level ${currentLevel} Done! Got ${levelTotal} points`, 0);
     currentLevel++;
-    gameScore = 0; // Reset game score for next level
-    
+
     // Wait a bit for player to see message, then go to next level
     setTimeout(() => {
       initBoard();
@@ -986,20 +988,18 @@ function calculateLevelScore() {
   return Math.floor((baseScore + moveBonus) * levelMultiplier);
 }
 
+function finalizeLevel() {
+  if (levelProcessed) return;
+  const levelScore = calculateLevelScore();
+  totalScore += levelScore + gameScore;
+  totalRemainingMoves += movesLeft;
+  gameScore = 0;
+  levelProcessed = true;
+}
+
 function showGameCompleteOverlay() {
-  // If current level score not recorded yet, record it first
-  if (!levelScores.length || levelScores[levelScores.length - 1].level !== currentLevel) {
-    const levelScore = calculateLevelScore();
-    levelScores.push({
-      level: currentLevel,
-      score: levelScore + gameScore, // Include current game score
-      remainingMoves: movesLeft
-    });
-  }
-  
-  // Calculate total score from all recorded level scores
-  const totalScore = levelScores.reduce((sum, level) => sum + level.score, 0);
-  const totalRemainingMoves = levelScores.reduce((sum, level) => sum + level.remainingMoves, 0);
+  finalizeLevel();
+  const finalScore = totalScore;
   const scoreSummary = document.getElementById('scoreSummary');
   
   // Always show "No More Moves!" regardless of completion status
@@ -1019,7 +1019,7 @@ function showGameCompleteOverlay() {
     </div>
     <div class="score-item" style="font-size: 1.3rem; font-weight: bold; color: #d4a574; border-top: 2px solid #d4a574; padding-top: 1rem; margin-top: 1rem;">
       <span>Final Score</span>
-      <span>${totalScore.toLocaleString()} points</span>
+      <span>${finalScore.toLocaleString()} points</span>
     </div>
   `;
   
@@ -1070,7 +1070,9 @@ function restartGame() {
   currentLevel = 1;
   movesLeft = LEVELS[1].initialMoves;
   gameScore = 0;
-  levelScores = [];
+  totalScore = 0;
+  totalRemainingMoves = 0;
+  levelProcessed = false;
   totalBlocks = 0;
   document.getElementById('scoreSummary').style.display = 'none';
   initBoard();
@@ -1314,16 +1316,7 @@ function handleMove(direction) {
   if (movesLeft <= 0) {
     isAnimating = true;
     setTimeout(() => {
-      // Record current level score if not recorded yet
-      if (!levelScores.length || levelScores[levelScores.length - 1].level !== currentLevel) {
-        const levelScore = calculateLevelScore();
-        levelScores.push({
-          level: currentLevel,
-          score: levelScore,
-          remainingMoves: movesLeft
-        });
-      }
-      // 直接顯示結算表
+      finalizeLevel();
       showGameCompleteOverlay();
     }, 500);
     return;
@@ -1334,21 +1327,13 @@ function handleMove(direction) {
   playMoveSound(); // Play move sound
   
   // 檢查步數是否耗盡
-  if (movesLeft === 0) { 
+  if (movesLeft === 0) {
     isAnimating = true; // 防止重複觸發
     setTimeout(() => {
-      // 記錄當前關卡分數（包含遊戲分數）
-      const levelScore = calculateLevelScore();
-      levelScores.push({
-        level: currentLevel,
-        score: levelScore + gameScore, // Include current game score
-        remainingMoves: movesLeft
-      });
-      
-      // 步數歸零就直接結束遊戲，不管是否還有下一關
+      finalizeLevel();
       showGameCompleteOverlay();
     }, 500); // 稍微延遲讓玩家看到移動效果
-    return; 
+    return;
   }
   
   isAnimating = true;
@@ -1489,6 +1474,7 @@ function cascade(dir) {
           nextLevel(); // 正常過關，使用nextLevel
         } else {
           playLevelCompleteSound(); // Play completion sound
+          finalizeLevel();
           // 所有關卡完成且盤面清空，顯示結算表
           showGameCompleteOverlay();
         }
@@ -1874,8 +1860,8 @@ function generateTileForColor(color) {
   boardMatrix[position.y][position.x] = color;
   boardElements[position.y][position.x] = createTile(position.x, position.y, color);
   
-  // Use one move
-  movesLeft--;
+  // Deduct points instead of using a move
+  gameScore = Math.max(0, gameScore - AUTO_GENERATE_PENALTY);
   updateUI();
   
   // Show message
@@ -1884,15 +1870,7 @@ function generateTileForColor(color) {
   // Check if moves finished
   if (movesLeft === 0) {
     setTimeout(() => {
-      // Record current level score if not recorded yet
-      if (!levelScores.length || levelScores[levelScores.length - 1].level !== currentLevel) {
-        const levelScore = calculateLevelScore();
-        levelScores.push({
-          level: currentLevel,
-          score: levelScore,
-          remainingMoves: movesLeft
-        });
-      }
+      finalizeLevel();
       // Show game summary
       showGameCompleteOverlay();
     }, 1500); // Let player see generation effect before showing summary
@@ -1912,7 +1890,7 @@ function showAutoGenerateMessage(color) {
   };
   
   const message = document.createElement('div');
-  message.textContent = `New ${colorNames[color]} Block Added (-1 move)`;
+  message.textContent = `New ${colorNames[color]} Block Added (-${AUTO_GENERATE_PENALTY} pts)`;
   message.style.position = 'absolute';
   message.style.left = '50%';
   message.style.top = '30%';
