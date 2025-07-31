@@ -782,6 +782,7 @@ let levelProcessed = false; // Prevent double counting
 let totalBlocks = 0; // Track total blocks removed
 let chainCount = 0; // Track chain count for cascading sound effects
 let totalChainBlocks = 0; // Track total blocks in current chain
+let shuffleCost = 1; // Cost for using Reset Position, increases each use
 const AUTO_GENERATE_PENALTY = 500; // Points deducted when auto-generating a tile
 
 // Audio context for sound effects
@@ -944,6 +945,7 @@ function updateGameSettings() {
 
 function initBoard() {
   updateGameSettings();
+  shuffleCost = 1; // Reset shuffle cost at the start of each level
   boardMatrix   = Array.from({length:SIZE}, ()=>Array(SIZE).fill(null));
   boardElements = Array.from({length:SIZE}, ()=>Array(SIZE).fill(null));
   tileContainer.innerHTML = '';
@@ -1146,8 +1148,9 @@ function startGameFromInstructionsTouch(e) {
   hideOverlay();
 }
 
+
 shuffleBtn.addEventListener('click', ()=>{
-  if (isAnimating || movesLeft < 1) return alert('Not enough moves! Need at least 1 move to reset position');
+  if (isAnimating || movesLeft < shuffleCost) return alert(`Not enough moves! Need at least ${shuffleCost} move${shuffleCost > 1 ? 's' : ''} to reset position`);
   
   playButtonSound(); // Play button sound
   // Show shuffle confirmation dialog
@@ -1174,7 +1177,7 @@ overlayRestartBtn.addEventListener('touchend', function(e) {
 shuffleBtn.addEventListener('touchend', function(e) {
   e.preventDefault();
   e.stopPropagation();
-  if (isAnimating || movesLeft < 1) return alert('Not enough moves! Need at least 1 move to mix blocks');
+  if (isAnimating || movesLeft < shuffleCost) return alert(`Not enough moves! Need at least ${shuffleCost} move${shuffleCost > 1 ? 's' : ''} to reset position`);
   
   // Show shuffle confirmation dialog
   showShuffleConfirmation();
@@ -1206,7 +1209,7 @@ function showShuffleConfirmation() {
     <h3 style="margin: 0 0 1rem 0; color: #6b4e3d; font-size: 1.2rem;">Reset Position</h3>
     <p style="margin: 0 0 1.5rem 0; color: #8a6d5b; font-size: 0.9rem; line-height: 1.4;">
       Mix up all blocks to new spots.<br>
-      <strong>Cost: 1 move</strong>
+      <strong>Cost: ${shuffleCost} move${shuffleCost > 1 ? 's' : ''}</strong>
     </p>
     <div style="display: flex; gap: 1rem; justify-content: center;">
       <button id="shuffleYes" style="
@@ -1240,7 +1243,8 @@ function showShuffleConfirmation() {
   
   // Add event listeners for Yes/No buttons
   document.getElementById('shuffleYes').addEventListener('click', () => {
-    movesLeft -= 1;
+    movesLeft -= shuffleCost;
+    shuffleCost += 1;
     updateUI();
     playShuffleSound(); // Play shuffle sound
     shuffleTiles();
