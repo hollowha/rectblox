@@ -567,11 +567,22 @@
   }
   
   /* 7th color: bright cyan */
-  .tile-cyan { 
+  .tile-cyan {
     background: linear-gradient(135deg, #7dd3fc 0%, #0ea5e9 100%);
-    color: #ffffff; 
-    box-shadow: 
+    color: #ffffff;
+    box-shadow:
       0 4px 15px rgba(125, 211, 252, 0.3),
+      0 2px 4px rgba(0, 0, 0, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+
+  /* 8th color: teal */
+  .tile-teal {
+    background: linear-gradient(135deg, #5fb3b3 0%, #2a9d8f 100%);
+    color: #ffffff;
+    box-shadow:
+      0 4px 15px rgba(95, 179, 179, 0.3),
       0 2px 4px rgba(0, 0, 0, 0.1),
       inset 0 1px 0 rgba(255, 255, 255, 0.2);
     border: 1px solid rgba(255, 255, 255, 0.3);
@@ -753,7 +764,8 @@ const LEVELS = {
   2: { size: 6, colors: ['red', 'green', 'blue', 'purple'], name: 'Medium Level' },
   3: { size: 7, colors: ['red', 'green', 'blue', 'purple', 'orange'], name: 'Hard Level' },
   4: { size: 8, colors: ['red', 'green', 'blue', 'purple', 'orange', 'pink'], name: 'Super Hard' },
-  5: { size: 9, colors: ['red', 'green', 'blue', 'purple', 'orange', 'pink', 'cyan'], name: 'Ultimate Challenge' }
+  5: { size: 9, colors: ['red', 'green', 'blue', 'purple', 'orange', 'pink', 'cyan'], name: 'Ultimate Challenge' },
+  6: { size: 10, colors: ['red', 'green', 'blue', 'purple', 'orange', 'pink', 'cyan', 'teal'], name: 'Master Level' }
 };
 
 let currentLevel = 1;
@@ -1876,7 +1888,8 @@ function showAutoGenerateMessage(color) {
     'purple': 'Purple',
     'orange': 'Yellow',
     'pink': 'Pink',
-    'cyan': 'Cyan'
+    'cyan': 'Cyan',
+    'teal': 'Teal'
   };
   
   const message = document.createElement('div');
