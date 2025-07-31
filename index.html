@@ -962,12 +962,11 @@ function updateUI() {
 }
 
 function nextLevel() {
-  const levelTotal = calculateLevelScore() + gameScore;
   finalizeLevel();
 
   if (currentLevel < Object.keys(LEVELS).length) {
     // Show short message, then go to next level
-    showScoreMessage(`Level ${currentLevel} Done! Got ${levelTotal} points`, 0);
+    showScoreMessage(`Level ${currentLevel} Done!`, 0);
     currentLevel++;
 
     // Wait a bit for player to see message, then go to next level
@@ -980,18 +979,9 @@ function nextLevel() {
   }
 }
 
-function calculateLevelScore() {
-  // Calculate score based on remaining moves and level difficulty
-  const baseScore = 1000;
-  const moveBonus = movesLeft * 50; // 50 points per remaining move
-  const levelMultiplier = currentLevel; // Level multiplier
-  return Math.floor((baseScore + moveBonus) * levelMultiplier);
-}
-
 function finalizeLevel() {
   if (levelProcessed) return;
-  const levelScore = calculateLevelScore();
-  totalScore += levelScore + gameScore;
+  totalScore += gameScore;
   totalRemainingMoves += movesLeft;
   gameScore = 0;
   levelProcessed = true;
@@ -1546,7 +1536,7 @@ function findMatches() {
 
 function removeMatches(ms, cb) {
   // Calculate score
-  const blockScore = ms.length * 10 * currentLevel; // 10 points per block, times level multiplier
+  const blockScore = ms.length * 10; // 10 points per block
   gameScore += blockScore;
   totalBlocks += ms.length;
   updateUI();
