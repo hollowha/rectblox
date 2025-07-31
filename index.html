@@ -66,16 +66,43 @@
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6244767628762401"
      crossorigin="anonymous"></script>
 <style>
-  html, body { 
-    margin: 0; 
-    padding: 0; 
-    background: linear-gradient(135deg, #f7e7ce 0%, #e8c5a0 50%, #f2d7b6 100%);
+  html, body {
+    margin: 0;
+    padding: 0;
     min-height: 100vh;
     height: 100vh;
     color: #6b4e3d;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     overflow: hidden; /* 完全禁止滾動 */
     width: 100vw;
+  }
+
+  body {
+    transition: background 0.8s ease;
+  }
+
+  body.level-1 {
+    background: linear-gradient(135deg, #f7e7ce 0%, #e8c5a0 50%, #f2d7b6 100%);
+  }
+
+  body.level-2 {
+    background: linear-gradient(135deg, #f2d7b6 0%, #d8ae7b 50%, #e4c292 100%);
+  }
+
+  body.level-3 {
+    background: linear-gradient(135deg, #eac399 0%, #d19963 50%, #e0b076 100%);
+  }
+
+  body.level-4 {
+    background: linear-gradient(135deg, #e0b076 0%, #c4844e 50%, #d49a63 100%);
+  }
+
+  body.level-5 {
+    background: linear-gradient(135deg, #d49a63 0%, #b56c38 50%, #c88248 100%);
+  }
+
+  body.level-6 {
+    background: linear-gradient(135deg, #c88248 0%, #a45a28 50%, #b96e3a 100%);
   }
   
   .container { 
@@ -735,7 +762,7 @@
   }
 </style>
 </head>
-<body>
+<body class="level-1">
 <div class="container">
   <div class="game-wrapper">
       <div class="score-panel">
@@ -987,6 +1014,14 @@ function updateUI() {
   movesEl.textContent = movesLeft;
   levelEl.textContent = currentLevel;
   levelNameEl.textContent = LEVELS[currentLevel].name;
+
+  // Update background based on level
+  const removeClasses = [];
+  document.body.classList.forEach(cls => {
+    if (cls.startsWith('level-')) removeClasses.push(cls);
+  });
+  removeClasses.forEach(c => document.body.classList.remove(c));
+  document.body.classList.add(`level-${currentLevel}`);
 
   // Display total score plus current game score
   const totalDisplayScore = totalScore + gameScore;
