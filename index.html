@@ -763,6 +763,7 @@ let levelScores = []; // Record scores for each level
 let totalBlocks = 0; // Track total blocks removed
 let chainCount = 0; // Track chain count for cascading sound effects
 let totalChainBlocks = 0; // Track total blocks in current chain
+const AUTO_GENERATE_PENALTY = 50; // Points deducted when auto-generating a tile
 
 // Audio context for sound effects
 let audioContext;
@@ -1874,8 +1875,8 @@ function generateTileForColor(color) {
   boardMatrix[position.y][position.x] = color;
   boardElements[position.y][position.x] = createTile(position.x, position.y, color);
   
-  // Use one move
-  movesLeft--;
+  // Deduct points instead of using a move
+  gameScore = Math.max(0, gameScore - AUTO_GENERATE_PENALTY);
   updateUI();
   
   // Show message
@@ -1912,7 +1913,7 @@ function showAutoGenerateMessage(color) {
   };
   
   const message = document.createElement('div');
-  message.textContent = `New ${colorNames[color]} Block Added (-1 move)`;
+  message.textContent = `New ${colorNames[color]} Block Added (-${AUTO_GENERATE_PENALTY} pts)`;
   message.style.position = 'absolute';
   message.style.left = '50%';
   message.style.top = '30%';
