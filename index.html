@@ -1095,7 +1095,7 @@ function showGameCompleteOverlay() {
   `;
   
   // Add click instruction at the bottom with delay message
-  summaryHTML += `<div id="clickInstruction" style="margin-top: 1.5rem; font-size: 0.8rem; color: #a8926f; text-align: center; font-style: italic; opacity: 0.5;">Please wait 1 second...</div>`;
+  summaryHTML += `<div id="clickInstruction" style="margin-top: 1.5rem; font-size: 0.8rem; color: #a8926f; text-align: center; font-style: italic; opacity: 0.5;">Please wait 2 seconds...</div>`;
   
   scoreSummary.innerHTML = summaryHTML;
   scoreSummary.style.display = 'block';
@@ -1103,7 +1103,7 @@ function showGameCompleteOverlay() {
   const overlayMessage = 'No More Moves!';
   showOverlay(overlayMessage);
   
-  // Add 1 second delay before allowing interaction
+  // Add 2 second delay before allowing interaction
   let canClick = false;
   setTimeout(() => {
     canClick = true;
@@ -1112,7 +1112,7 @@ function showGameCompleteOverlay() {
       instruction.textContent = '👆 Tap anywhere to restart game';
       instruction.style.opacity = '1';
     }
-  }, 1000);
+  }, 2000);
   
   // Add event listeners for clicking anywhere to restart (with delay check)
   const handleGameCompleteClick = (e) => {
