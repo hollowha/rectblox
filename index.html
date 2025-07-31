@@ -1324,7 +1324,11 @@ function handleMove(direction) {
     return;
   }
   
-  movesLeft--; 
+  if (!canMove(dir)) {
+    return; // Don't deduct move if nothing shifts
+  }
+
+  movesLeft--;
   updateUI();
   playMoveSound(); // Play move sound
   
@@ -1534,6 +1538,33 @@ function compress(dir) {
       }
     }
   }
+}
+
+function canMove(dir) {
+  // Simulate compress without modifying the board to see if anything would move
+  if (dir.axis === 'x') {
+    for (let y = 0; y < SIZE; y++) {
+      const vals = boardMatrix[y].filter(v => v);
+      const pad = Array(SIZE - vals.length).fill(null);
+      const newRow = dir.x > 0 ? [...pad, ...vals] : [...vals, ...pad];
+      for (let x = 0; x < SIZE; x++) {
+        if (newRow[x] !== boardMatrix[y][x]) return true;
+      }
+    }
+  } else {
+    for (let x = 0; x < SIZE; x++) {
+      const vals = [];
+      for (let y = 0; y < SIZE; y++) {
+        if (boardMatrix[y][x]) vals.push(boardMatrix[y][x]);
+      }
+      const pad = Array(SIZE - vals.length).fill(null);
+      const newCol = dir.y > 0 ? [...pad, ...vals] : [...vals, ...pad];
+      for (let y = 0; y < SIZE; y++) {
+        if (newCol[y] !== boardMatrix[y][x]) return true;
+      }
+    }
+  }
+  return false;
 }
 
 function findMatches() {
