@@ -17,13 +17,13 @@
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website">
 <meta property="og:title" content="RectBlox - Free Puzzle Game | Match-3 Block Puzzle Online">
-<meta property="og:description" content="Play RectBlox, a fun and addictive match-3 block puzzle game! Clear blocks, make combos, and progress through 5 challenging levels. Free to play online!">
+<meta property="og:description" content="Play RectBlox, a fun and addictive match-3 block puzzle game! Clear blocks, make combos, and progress through 6 challenging levels. Free to play online!">
 <meta property="og:site_name" content="RectBlox">
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image">
 <meta property="twitter:title" content="RectBlox - Free Puzzle Game | Match-3 Block Puzzle Online">
-<meta property="twitter:description" content="Play RectBlox, a fun and addictive match-3 block puzzle game! Clear blocks, make combos, and progress through 5 challenging levels. Free to play online!">
+<meta property="twitter:description" content="Play RectBlox, a fun and addictive match-3 block puzzle game! Clear blocks, make combos, and progress through 6 challenging levels. Free to play online!">
 
 <!-- Web App Settings -->
 <meta name="theme-color" content="#f7e7ce">
@@ -41,7 +41,7 @@
   "@context": "https://schema.org",
   "@type": "Game",
   "name": "RectBlox",
-  "description": "A fun and addictive match-3 block puzzle game with 5 challenging levels",
+  "description": "A fun and addictive match-3 block puzzle game with 6 challenging levels",
   "genre": "Puzzle",
   "gamePlatform": ["Web Browser", "Mobile"],
   "operatingSystem": ["Any"],
@@ -1332,7 +1332,7 @@ function handleMove(direction) {
   chainCount = 0;
   totalChainBlocks = 0;
   
-  // If moves are 0, trigger game summary
+  // If no moves remain before a move, show summary
   if (movesLeft <= 0) {
     isAnimating = true;
     setTimeout(() => {
@@ -1350,18 +1350,13 @@ function handleMove(direction) {
   updateUI();
   playMoveSound(); // Play move sound
   
-  // 檢查步數是否耗盡
-  if (movesLeft === 0) {
-    isAnimating = true; // 防止重複觸發
-    setTimeout(() => {
+  isAnimating = true;
+  cascade(dir, () => {
+    if (movesLeft === 0 && boardMatrix.flat().some(v => v)) {
       finalizeLevel();
       showGameCompleteOverlay();
-    }, 500); // 稍微延遲讓玩家看到移動效果
-    return;
-  }
-  
-  isAnimating = true;
-  cascade(dir);
+    }
+  });
 }
 
 // 鍵盤事件處理
@@ -1435,7 +1430,7 @@ gameContainer.addEventListener('touchend', e => {
   }
 });
 
-function cascade(dir) {
+function cascade(dir, callback) {
   compress(dir);
   setTimeout(() => {
     const matches = findMatches();
@@ -1446,8 +1441,9 @@ function cascade(dir) {
       
       // 檢查是否需要自動生成方塊
       checkAndGenerateLonelyTiles();
-      isAnimating = false; 
-      return; 
+      isAnimating = false;
+      if (callback) callback();
+      return;
     }
     
     // 增加連鎖計數和累積方塊數
@@ -1496,14 +1492,17 @@ function cascade(dir) {
         if (currentLevel < Object.keys(LEVELS).length) {
           playLevelCompleteSound(); // Play level complete sound
           nextLevel(); // 正常過關，使用nextLevel
+          if (callback) callback();
+          return;
         } else {
           playLevelCompleteSound(); // Play completion sound
           finalizeLevel();
           // 所有關卡完成且盤面清空，顯示結算表
           showGameCompleteOverlay();
+          if (callback) callback();
         }
       } else {
-        setTimeout(() => cascade(dir), 200); // 稍微延長讓玩家看到效果
+        setTimeout(() => cascade(dir, callback), 200); // 稍微延長讓玩家看到效果
       }
     });
   }, 160);
@@ -2033,7 +2032,7 @@ setTimeout(() => showInstructions(), 500);
   <h2>Match-3 Block Puzzle Game Features</h2>
   <p>Experience the ultimate puzzle gaming adventure with RectBlox! This engaging match-3 block puzzle game offers:</p>
   <ul>
-    <li>5 challenging levels with increasing difficulty</li>
+    <li>6 challenging levels with increasing difficulty</li>
     <li>Smooth gameplay on mobile and desktop</li>
     <li>Colorful blocks and satisfying combos</li>
     <li>Free to play online game</li>

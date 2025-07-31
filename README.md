@@ -22,6 +22,8 @@
   * **Level 2（Medium）**：6×6 棋盤，新增紫色方塊
   * **Level 3（Hard）**：7×7 棋盤，更多顏色與挑戰
   * **Level 4（Super Hard）**：8×8 極限難度！
+  * **Level 5（Ultimate Challenge）**：9×9 棋盤，多達 7 種顏色
+  * **Level 6（Master Level）**：10×10 棋盤，挑戰巔峰
 * **策略元素**：
 
   * 限制 **移動次數**，每一步都要謹慎思考
