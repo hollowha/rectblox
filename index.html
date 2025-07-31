@@ -1595,8 +1595,9 @@ function findMatches() {
 }
 
 function removeMatches(ms, cb) {
-  // Calculate score
-  const blockScore = ms.length * 10; // 10 points per block
+  // Calculate score with chain multiplier
+  const chainMultiplier = chainCount >= 2 ? chainCount : 1;
+  const blockScore = ms.length * 10 * chainMultiplier; // 10 points per block
   gameScore += blockScore;
   totalBlocks += ms.length;
   updateUI();
