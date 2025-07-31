@@ -760,6 +760,14 @@
     font-size: 1.8em;
     font-weight: bold;
   }
+  #scoreBox.penalty-flash {
+    animation: penalty-flash 0.6s ease;
+  }
+
+  @keyframes penalty-flash {
+    0%,100% { background: linear-gradient(135deg, #ffb3b3 0%, #e06666 100%); }
+    50% { background: linear-gradient(135deg, #ff6666 0%, #cc0000 100%); }
+  }
 </style>
 </head>
 <body class="level-1">
@@ -771,7 +779,7 @@
           <div id="moves">40</div>
         </div>
         <img src="minilogo.png" alt="RectBlox Logo" class="score-logo">
-        <div class="score-box" style="background: linear-gradient(135deg, #a8b47f 0%, #8e9c6e 100%);">
+        <div id="scoreBox" class="score-box" style="background: linear-gradient(135deg, #a8b47f 0%, #8e9c6e 100%);">
           <div>Score</div>
           <div id="score">0</div>
         </div>
@@ -947,6 +955,7 @@ const movesEl          = document.getElementById('moves');
 const levelEl          = document.getElementById('level');
 const levelNameEl      = document.getElementById('levelName');
 const scoreEl          = document.getElementById('score');
+const scoreBox          = document.getElementById("scoreBox");
 const overlay          = document.getElementById('overlay');
 const overlayText      = document.getElementById('overlayText');
 const tileContainer    = document.getElementById('tiles');
@@ -955,6 +964,11 @@ const restartBtn       = document.getElementById('restartBtn');
 const overlayRestartBtn= document.getElementById('overlayRestartBtn');
 const instructionsDiv  = document.getElementById('instructions');
 const instructionsBtn  = document.getElementById('instructionsBtn');
+
+function triggerPenaltyFlash() {
+  scoreBox.classList.add("penalty-flash");
+  setTimeout(() => scoreBox.classList.remove("penalty-flash"), 600);
+}
 
 function initGrid() {
   // Background grid removed, no need to create
@@ -1953,6 +1967,7 @@ function generateTileForColor(color) {
   // Deduct points instead of using a move
   gameScore -= AUTO_GENERATE_PENALTY;
   updateUI();
+  triggerPenaltyFlash();
   
   // Show message
   showAutoGenerateMessage(color);
@@ -1981,15 +1996,15 @@ function showAutoGenerateMessage(color) {
   };
   
   const message = document.createElement('div');
-  message.textContent = `New ${colorNames[color]} Block Added (-${AUTO_GENERATE_PENALTY} pts)`;
+  message.textContent = `Penalty! New ${colorNames[color]} Block (-${AUTO_GENERATE_PENALTY} pts)`;
   message.style.position = 'absolute';
   message.style.left = '50%';
   message.style.top = '30%';
   message.style.transform = 'translate(-50%, -50%)';
   message.style.fontSize = '1.2rem';
   message.style.fontWeight = 'bold';
-  message.style.color = '#6b4e3d';
-  message.style.background = 'rgba(255, 255, 255, 0.9)';
+  message.style.color = '#b10000';
+  message.style.background = 'rgba(255,235,235,0.95)';
   message.style.padding = '0.5rem 1rem';
   message.style.borderRadius = '12px';
   message.style.textShadow = '1px 1px 2px rgba(0,0,0,0.1)';
