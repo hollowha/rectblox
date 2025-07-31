@@ -837,6 +837,7 @@ let chainCount = 0; // Track chain count for cascading sound effects
 let totalChainBlocks = 0; // Track total blocks in current chain
 let shuffleCost = 1; // Cost for using Reset Position, increases each use
 const AUTO_GENERATE_PENALTY = 50; // Points deducted when auto-generating a tile
+let canRestartGame = false; // Gate restarting on game complete screen
 
 // Audio context for sound effects
 let audioContext;
@@ -1104,9 +1105,9 @@ function showGameCompleteOverlay() {
   showOverlay(overlayMessage);
   
   // Add 2 second delay before allowing interaction
-  let canClick = false;
+  canRestartGame = false;
   setTimeout(() => {
-    canClick = true;
+    canRestartGame = true;
     const instruction = document.getElementById('clickInstruction');
     if (instruction) {
       instruction.textContent = '👆 Tap anywhere to restart game';
@@ -1116,7 +1117,7 @@ function showGameCompleteOverlay() {
   
   // Add event listeners for clicking anywhere to restart (with delay check)
   const handleGameCompleteClick = (e) => {
-    if (canClick) {
+    if (canRestartGame) {
       overlay.removeEventListener('click', handleGameCompleteClick);
       overlay.removeEventListener('touchend', handleGameCompleteTouch);
       restartGame();
@@ -1124,7 +1125,7 @@ function showGameCompleteOverlay() {
   };
   
   const handleGameCompleteTouch = (e) => {
-    if (canClick) {
+    if (canRestartGame) {
       e.preventDefault();
       e.stopPropagation();
       overlay.removeEventListener('click', handleGameCompleteClick);
@@ -1138,6 +1139,7 @@ function showGameCompleteOverlay() {
 }
 
 function restartGame() {
+  canRestartGame = false;
   currentLevel = 1;
   movesLeft = LEVELS[1].initialMoves;
   gameScore = 0;
@@ -1153,15 +1155,17 @@ function restartGame() {
 // Add event listeners for score summary click
 document.getElementById('scoreSummary').addEventListener('click', function(e) {
   e.stopPropagation();
-  // Click on score summary also restarts game
-  restartGame();
+  if (canRestartGame) {
+    restartGame();
+  }
 });
 
 document.getElementById('scoreSummary').addEventListener('touchend', function(e) {
   e.preventDefault();
   e.stopPropagation();
-  // Touch on score summary also restarts game
-  restartGame();
+  if (canRestartGame) {
+    restartGame();
+  }
 });
 
 function showOverlay(msg) { 
@@ -1231,14 +1235,18 @@ restartBtn.addEventListener('click', () => {
 
 overlayRestartBtn.addEventListener('click', () => {
   playButtonSound(); // Play button sound
-  restartGame();
+  if (canRestartGame) {
+    restartGame();
+  }
 });
 
 // Add touch support for mobile
 overlayRestartBtn.addEventListener('touchend', function(e) {
   e.preventDefault();
   e.stopPropagation();
-  restartGame();
+  if (canRestartGame) {
+    restartGame();
+  }
 });
 
 shuffleBtn.addEventListener('touchend', function(e) {
