@@ -1397,43 +1397,64 @@ function showShuffleConfirmation() {
 }
 
 function shuffleTiles() {
-  // Collect all current tiles
-  const allTiles = [];
-  boardMatrix.forEach(row => {
-    row.forEach(cell => {
-      if (cell) allTiles.push(cell);
-    });
-  });
-  
-  // Clear the board
-  tileContainer.innerHTML = '';
+  // Prevent other actions during shuffle
+  isAnimating = true;
+
+  // Collect tiles with their DOM elements
+  const tiles = [];
   for (let y = 0; y < SIZE; y++) {
     for (let x = 0; x < SIZE; x++) {
+      const color = boardMatrix[y][x];
+      const el = boardElements[y][x];
+      if (color && el) {
+        tiles.push({color, el});
+      }
+      // Clear current matrix
       boardMatrix[y][x] = null;
       boardElements[y][x] = null;
     }
   }
-  
-  // Get all possible positions
+
+  // Calculate tile size for transform values
+  const gameContainer = document.querySelector('.game-container');
+  const containerRect = gameContainer.getBoundingClientRect();
+  const containerSize = Math.min(containerRect.width, containerRect.height) - 32;
+  const tileSize = (containerSize - (SIZE - 1) * 8) / SIZE;
+  const gap = 8;
+
+  // Get all possible positions and shuffle them
   const allPositions = [];
   for (let y = 0; y < SIZE; y++) {
     for (let x = 0; x < SIZE; x++) {
       allPositions.push({x, y});
     }
   }
-  
-  // Randomly shuffle positions
   for (let i = allPositions.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [allPositions[i], allPositions[j]] = [allPositions[j], allPositions[i]];
   }
-  
-  // Place tiles in new random positions
-  allTiles.forEach((color, index) => {
+
+  // Move each tile to its new random position with animation
+  tiles.forEach(({color, el}, index) => {
     const {x, y} = allPositions[index];
+    const tx = x * (tileSize + gap);
+    const ty = y * (tileSize + gap);
+
     boardMatrix[y][x] = color;
-    boardElements[y][x] = createTile(x, y, color);
+    boardElements[y][x] = el;
+
+    el.dataset.x = tx;
+    el.dataset.y = ty;
+    el.style.transition = 'transform 0.5s cubic-bezier(0.22,1,0.36,1)';
+    requestAnimationFrame(() => {
+      el.style.transform = `translate(${tx}px, ${ty}px)`;
+    });
   });
+
+  // End animation state after movement completes
+  setTimeout(() => {
+    isAnimating = false;
+  }, 500);
 }
 
 // Handle move directions
