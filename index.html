@@ -1040,11 +1040,15 @@ function createTile(x, y, color) {
   const tileSize = (containerSize - (SIZE-1) * 8) / SIZE; // Calculate dynamically based on SIZE
   const gap = 8;
   
-  tile.style.width = `${tileSize}px`;
-  tile.style.height = `${tileSize}px`;
-  tile.style.lineHeight = `${tileSize}px`;
-  tile.style.fontSize = `${Math.min(tileSize * 0.6, 28)}px`;
-  tile.style.transform = `translate(${x * (tileSize + gap)}px, ${y * (tileSize + gap)}px)`;
+      tile.style.width = `${tileSize}px`;
+      tile.style.height = `${tileSize}px`;
+      tile.style.lineHeight = `${tileSize}px`;
+      tile.style.fontSize = `${Math.min(tileSize * 0.6, 28)}px`;
+      const tx = x * (tileSize + gap);
+      const ty = y * (tileSize + gap);
+      tile.dataset.x = tx;
+      tile.dataset.y = ty;
+      tile.style.transform = `translate(${tx}px, ${ty}px)`;
   
   tileContainer.appendChild(tile);
   requestAnimationFrame(() => tile.classList.remove('tile-new'));
@@ -1639,13 +1643,15 @@ function compress(dir) {
       boardMatrix[y]   = dir.x>0 ? [...pad,...vals]  : [...vals,...pad];
       boardElements[y].forEach((t,i)=>{
         if(t) {
-          const x = i * (tileSize + gap);
-          const y_pos = y * (tileSize + gap);
-          t.style.transform = `translate(${x}px, ${y_pos}px)`;
-          t.style.width = `${tileSize}px`;
-          t.style.height = `${tileSize}px`;
-          t.style.lineHeight = `${tileSize}px`;
-          t.style.fontSize = `${Math.min(tileSize * 0.6, 28)}px`;
+              const x = i * (tileSize + gap);
+              const y_pos = y * (tileSize + gap);
+              t.dataset.x = x;
+              t.dataset.y = y_pos;
+              t.style.transform = `translate(${x}px, ${y_pos}px)`;
+              t.style.width = `${tileSize}px`;
+              t.style.height = `${tileSize}px`;
+              t.style.lineHeight = `${tileSize}px`;
+              t.style.fontSize = `${Math.min(tileSize * 0.6, 28)}px`;
         }
       });
     }
@@ -1661,11 +1667,13 @@ function compress(dir) {
         if (newEls[y]) {
           const x_pos = x * (tileSize + gap);
           const y_pos = y * (tileSize + gap);
-          newEls[y].style.transform = `translate(${x_pos}px, ${y_pos}px)`;
-          newEls[y].style.width = `${tileSize}px`;
-          newEls[y].style.height = `${tileSize}px`;
-          newEls[y].style.lineHeight = `${tileSize}px`;
-          newEls[y].style.fontSize = `${Math.min(tileSize * 0.6, 28)}px`;
+              newEls[y].dataset.x = x_pos;
+              newEls[y].dataset.y = y_pos;
+              newEls[y].style.transform = `translate(${x_pos}px, ${y_pos}px)`;
+              newEls[y].style.width = `${tileSize}px`;
+              newEls[y].style.height = `${tileSize}px`;
+              newEls[y].style.lineHeight = `${tileSize}px`;
+              newEls[y].style.fontSize = `${Math.min(tileSize * 0.6, 28)}px`;
         }
       }
     }
@@ -1745,18 +1753,14 @@ function removeMatches(ms, cb) {
       navigator.vibrate(30);
     }
     
-    boardElements[y][x] = null;
-    boardMatrix[y][x] = null;
-    t.classList.add('tile-remove');
-    
-    // Remove element
-    setTimeout(() => {
-      if (t.parentNode) t.parentNode.removeChild(t);
-    }, 400);
+        boardElements[y][x] = null;
+        boardMatrix[y][x] = null;
+
+        animateTileToScore(t);
     
   }, i * 60)); // Speed up removal
   
-  setTimeout(cb, ms.length * 60 + 400);
+      setTimeout(cb, ms.length * 60 + 500);
 }
 
 // 文字特效管理器
@@ -1963,12 +1967,36 @@ function createParticleExplosion(tile, x, y) {
   ripple.style.animation = 'ripple-effect 300ms ease-out forwards'; // Shorter time
   ripple.style.pointerEvents = 'none';
   ripple.style.zIndex = '12';
-  
+
   gameContainer.appendChild(ripple);
   
   setTimeout(() => {
-    if (ripple.parentNode) ripple.parentNode.removeChild(ripple);
+  if (ripple.parentNode) ripple.parentNode.removeChild(ripple);
   }, 300);
+}
+
+// Animate removed tile flying toward the score box
+function animateTileToScore(tile) {
+  const scoreRect = scoreBox.getBoundingClientRect();
+  const tileRect = tile.getBoundingClientRect();
+  const dx = scoreRect.left + scoreRect.width / 2 - (tileRect.left + tileRect.width / 2);
+  const dy = scoreRect.top + scoreRect.height / 2 - (tileRect.top + tileRect.height / 2);
+
+  const startX = parseFloat(tile.dataset.x || 0);
+  const startY = parseFloat(tile.dataset.y || 0);
+  const endX = startX + dx;
+  const endY = startY + dy;
+
+  requestAnimationFrame(() => {
+    tile.style.transition = 'transform 0.5s cubic-bezier(0.22,1,0.36,1), opacity 0.5s ease-out, filter 0.5s';
+    tile.style.transform = `translate(${endX}px, ${endY}px) scale(0.3) rotate(45deg)`;
+    tile.style.opacity = '0';
+    tile.style.filter = 'brightness(1.2)';
+  });
+
+  setTimeout(() => {
+    if (tile.parentNode) tile.parentNode.removeChild(tile);
+  }, 500);
 }
 
 // Check lonely tiles and auto-generate
@@ -2094,13 +2122,15 @@ window.addEventListener('resize', () => {
     for (let x = 0; x < SIZE; x++) {
       const tile = boardElements[y][x];
       if (tile) {
-        const x_pos = x * (tileSize + gap);
-        const y_pos = y * (tileSize + gap);
-        tile.style.transform = `translate(${x_pos}px, ${y_pos}px)`;
-        tile.style.width = `${tileSize}px`;
-        tile.style.height = `${tileSize}px`;
-        tile.style.lineHeight = `${tileSize}px`;
-        tile.style.fontSize = `${Math.min(tileSize * 0.6, 28)}px`;
+            const x_pos = x * (tileSize + gap);
+            const y_pos = y * (tileSize + gap);
+            tile.dataset.x = x_pos;
+            tile.dataset.y = y_pos;
+            tile.style.transform = `translate(${x_pos}px, ${y_pos}px)`;
+            tile.style.width = `${tileSize}px`;
+            tile.style.height = `${tileSize}px`;
+            tile.style.lineHeight = `${tileSize}px`;
+            tile.style.fontSize = `${Math.min(tileSize * 0.6, 28)}px`;
       }
     }
   }
