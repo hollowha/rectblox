@@ -1633,9 +1633,10 @@ function cascade(dir, callback) {
       totalChainBlocks = 0;
       
       // 檢查是否需要自動生成方塊
-      checkAndGenerateLonelyTiles();
-      isAnimating = false;
-      if (callback) callback();
+      checkAndGenerateLonelyTiles(() => {
+        isAnimating = false;
+        if (callback) callback();
+      });
       return;
     }
     
@@ -2117,7 +2118,7 @@ function animateScoreToTile(color, pos, cb) {
 }
 
 // Check lonely tiles and auto-generate
-function checkAndGenerateLonelyTiles() {
+function checkAndGenerateLonelyTiles(done) {
   // Count each color
   const colorCounts = {};
   PROPS.forEach(color => colorCounts[color] = 0);
@@ -2139,18 +2140,31 @@ function checkAndGenerateLonelyTiles() {
     }
   });
   
-  // Generate new tile for each lonely color
+  if (lonelyColors.length === 0) {
+    if (done) done();
+    return false;
+  }
+
+  isAnimating = true;
+  let remaining = lonelyColors.length;
   lonelyColors.forEach((color, idx) => {
-    setTimeout(() => generateTileForColor(color), idx * 650);
+    setTimeout(() => {
+      generateTileForColor(color, () => {
+        remaining--;
+        if (remaining === 0) {
+          isAnimating = false;
+          if (done) done();
+        }
+      });
+    }, idx * 650);
   });
+  return true;
 }
 
 // Generate new tile for specific color
-function generateTileForColor(color) {
+function generateTileForColor(color, cb) {
   // Check if moves remaining
-  if (movesLeft <= 0) return;
-  if (isAnimating) return;
-  isAnimating = true;
+  if (movesLeft <= 0) { if (cb) cb(); return; }
   
   // Find all empty positions
   const emptyPositions = [];
@@ -2173,7 +2187,7 @@ function generateTileForColor(color) {
   boardMatrix[position.y][position.x] = color;
   animateScoreToTile(color, position, () => {
     boardElements[position.y][position.x] = createTile(position.x, position.y, color);
-    isAnimating = false;
+    if (cb) cb();
   });
   
   // Deduct points instead of using a move
