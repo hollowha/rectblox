@@ -421,8 +421,8 @@
     transform: scale(0); 
     animation: tile-appear 300ms ease-out forwards; 
   }
-  .tile-remove { 
-    animation: tile-explode 400ms ease-in forwards; 
+  .tile-remove {
+    animation: tile-fade-out 400ms ease-out forwards;
     z-index: 10;
   }
   
@@ -433,47 +433,43 @@
     100% { opacity: 1; transform: scale(1) rotate(0deg); }
   }
   
-  /* Explosion removal animation */
-  @keyframes tile-explode {
-    0% { 
-      opacity: 1; 
-      filter: brightness(1); 
+  /* Fade-out removal animation */
+  @keyframes tile-fade-out {
+    0% {
+      opacity: 1;
+      filter: brightness(1);
     }
-    25% { 
-      opacity: 0.9; 
-      filter: brightness(1.5) saturate(1.5); 
-      box-shadow: 0 0 40px 15px currentColor; 
+    20% {
+      opacity: 0.9;
+      filter: brightness(1.15);
     }
-    50% { 
-      opacity: 0.7; 
-      filter: brightness(2) saturate(2); 
-      box-shadow: 0 0 60px 20px currentColor; 
+    40% {
+      opacity: 0.85;
+      filter: brightness(1);
     }
-    75% { 
-      opacity: 0.4; 
-      filter: brightness(3) blur(2px); 
-      box-shadow: 0 0 80px 25px currentColor; 
+    60% {
+      opacity: 0.7;
     }
-    100% { 
-      opacity: 0; 
-      filter: brightness(0) blur(5px); 
-      box-shadow: 0 0 100px 30px transparent; 
+    100% {
+      opacity: 0;
+      transform: scale(0.8);
+      filter: brightness(0.8);
     }
   }
   
   /* Simplified pulse effect */
   @keyframes tile-pulse {
-    0% { 
+    0% {
       opacity: 1;
       transform: scale(1);
       filter: brightness(1);
     }
-    50% { 
-      opacity: 0.3;
-      transform: scale(1.1);
-      filter: brightness(1.5);
+    50% {
+      opacity: 0.6;
+      transform: scale(1.05);
+      filter: brightness(1.2);
     }
-    100% { 
+    100% {
       opacity: 0;
       transform: scale(1);
       filter: brightness(1);
