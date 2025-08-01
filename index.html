@@ -768,6 +768,60 @@
     0%,100% { background: linear-gradient(135deg, #ffb3b3 0%, #e06666 100%); }
     50% { background: linear-gradient(135deg, #ff6666 0%, #cc0000 100%); }
   }
+
+  .footer-links {
+    margin-top: 0.5rem;
+    font-size: 0.75rem;
+    text-align: center;
+  }
+
+  .footer-links a {
+    color: #6b4e3d;
+    text-decoration: none;
+    margin: 0 0.5rem;
+  }
+
+  .footer-links a:hover {
+    text-decoration: underline;
+  }
+
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.8);
+    backdrop-filter: blur(10px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 20;
+    padding: 1rem;
+  }
+
+  .modal:target {
+    display: flex;
+  }
+
+  .modal-content {
+    background: #ffffff;
+    color: #6b4e3d;
+    padding: 1.5rem;
+    border-radius: 12px;
+    max-width: 400px;
+    text-align: center;
+    position: relative;
+  }
+
+  .close-modal {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.75rem;
+    text-decoration: none;
+    font-size: 1.2rem;
+    color: #6b4e3d;
+  }
 </style>
 </head>
 <body class="level-1">
@@ -803,13 +857,17 @@
       </div>
     </div>
     
-    <div class="action-buttons">
-      <button class="secondary-button" id="shuffleBtn">Reset Position</button>
-      <div class="level-info">Level <span id="level">1</span>: <span id="levelName">Easy Level</span></div>
-      <button class="secondary-button" id="restartBtn">Restart</button>
+      <div class="action-buttons">
+        <button class="secondary-button" id="shuffleBtn">Reset Position</button>
+        <div class="level-info">Level <span id="level">1</span>: <span id="levelName">Easy Level</span></div>
+        <button class="secondary-button" id="restartBtn">Restart</button>
+      </div>
+      <div class="footer-links">
+        <a href="#about">關於我們</a> |
+        <a href="#contact">聯絡我們</a>
+      </div>
     </div>
   </div>
-</div>
 <script>
 // Game level settings
 const LEVELS = {
@@ -2083,13 +2141,29 @@ instructionsDiv.addEventListener('touchend', function(e) {
   hideOverlay();
 });
 
-initBoard();
-// Show instructions when first loading the game
-setTimeout(() => showInstructions(), 500);
-</script>
+  initBoard();
+  // Show instructions when first loading the game
+  setTimeout(() => showInstructions(), 500);
+  </script>
 
-<!-- Hidden SEO Content -->
-<div style="position: absolute; left: -9999px; top: -9999px; visibility: hidden;">
+  <div id="about" class="modal">
+    <div class="modal-content">
+      <a href="#" class="close-modal">✕</a>
+      <h2>關於我們</h2>
+      <p>我們是來自台灣的小型遊戲開發團隊，由一群熱血的大學生組成。</p>
+    </div>
+  </div>
+
+  <div id="contact" class="modal">
+    <div class="modal-content">
+      <a href="#" class="close-modal">✕</a>
+      <h2>聯絡我們</h2>
+      <p>歡迎寄信到 <a href="mailto:2catfish1105@gmail.com">2catfish1105@gmail.com</a> 與我們聯絡。</p>
+    </div>
+  </div>
+
+  <!-- Hidden SEO Content -->
+  <div style="position: absolute; left: -9999px; top: -9999px; visibility: hidden;">
   <h1>RectBlox - Free Online Puzzle Game</h1>
   <h2>Match-3 Block Puzzle Game Features</h2>
   <p>Experience the ultimate puzzle gaming adventure with RectBlox! This engaging match-3 block puzzle game offers:</p>
