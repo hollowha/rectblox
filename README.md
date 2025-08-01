@@ -46,4 +46,12 @@
 📌 **目標：** 用有限的步數達成最高分，並一路突破所有關卡！
 💡 **溫馨提示：** 別忘了善用 **Mix Blocks**，可能就是逆轉勝的關鍵！
 
+### **About Us**
+
+RectBlox is the brainchild of a small group of puzzle lovers who met during a weekend game jam. What started as a quick prototype grew into a shared mission to create a relaxing yet mentally stimulating experience. Our team members now collaborate from different corners of the world, united by a fondness for minimal design and clever mechanics. We hope the game brings you a moment of joy every time you pick it up.
+
+### **Contact Us**
+
+We’re eager to hear your feedback and stories! Reach us at <2catfish1105@gmail.com> if you encounter any issues or simply want to say hi. You can also find the latest updates on Twitter by following [@RectBloxGame](https://twitter.com/RectBloxGame).
+
 
