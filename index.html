@@ -1977,6 +1977,7 @@ function createParticleExplosion(tile, x, y) {
 
 // Animate removed tile flying toward the score box
 function animateTileToScore(tile) {
+  tile.style.zIndex = '25';
   const scoreRect = scoreBox.getBoundingClientRect();
   const tileRect = tile.getBoundingClientRect();
   const dx = scoreRect.left + scoreRect.width / 2 - (tileRect.left + tileRect.width / 2);
@@ -2010,6 +2011,7 @@ function animateScoreToTile(color, pos, cb) {
 
   const temp = document.createElement('div');
   temp.className = `tile tile-${color}`;
+  temp.style.zIndex = '25';
   temp.style.width = `${tileSize}px`;
   temp.style.height = `${tileSize}px`;
   temp.style.lineHeight = `${tileSize}px`;
