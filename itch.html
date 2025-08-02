@@ -923,6 +923,11 @@ function playMoveSound() {
   playSound(200, 0.05, 'triangle', 0.06); // increased volume
 }
 
+function playPenaltySound() {
+  playSound(200, 0.15, 'sawtooth', 0.2);
+  setTimeout(() => playSound(120, 0.2, 'sawtooth', 0.2), 100);
+}
+
 const movesEl          = document.getElementById('moves');
 const levelEl          = document.getElementById('level');
 const levelNameEl      = document.getElementById('levelName');
@@ -1926,7 +1931,8 @@ function generateTileForColor(color) {
   // Deduct points instead of using a move
   gameScore -= AUTO_GENERATE_PENALTY;
   updateUI();
-  
+  playPenaltySound();
+
   // Show message
   showAutoGenerateMessage(color);
   
