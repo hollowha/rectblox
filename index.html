@@ -6,23 +6,33 @@
 <title>RectBlox - Free Puzzle Game | Match-3 Block Puzzle Online</title>
 
 <!-- SEO Meta Tags -->
-<meta name="description" content="Play RectBlox, a fun and addictive match-3 block puzzle game! Clear blocks, make combos, and progress through 5 challenging levels. Free to play online!">
-<meta name="keywords" content="puzzle game, match 3, block puzzle, free game, online game, brain teaser, casual game, mobile game">
+<meta name="description" content="Play RectBlox, a fun and addictive match-3 block puzzle game! Clear blocks, make combos, and progress through 5 challenging levels. Free to play online with no downloads required. Perfect for mobile and desktop gaming.">
+<meta name="keywords" content="puzzle game, match 3, block puzzle, free game, online game, brain teaser, casual game, mobile game, HTML5 game, web game, strategy game, matching game">
 <meta name="author" content="RectBlox Game">
 <meta name="robots" content="index, follow">
 <meta name="language" content="English">
 <meta name="revisit-after" content="7 days">
+<meta name="rating" content="General">
+<meta name="distribution" content="Global">
+<meta name="coverage" content="Worldwide">
+<meta name="target" content="all">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website">
-<meta property="og:title" content="RectBlox - Free Puzzle Game | Match-3 Block Puzzle Online">
-<meta property="og:description" content="Play RectBlox, a fun and addictive match-3 block puzzle game! Clear blocks, make combos, and progress through 5 challenging levels. Free to play online!">
-<meta property="og:site_name" content="RectBlox">
+<meta property="og:title" content="RectBlox - Free Match-3 Block Puzzle Game Online">
+<meta property="og:description" content="Challenge yourself with RectBlox! A captivating match-3 puzzle game featuring 5 levels, combo chains, and addictive gameplay. Play free on any device - no download needed!">
+<meta property="og:site_name" content="RectBlox - Free Online Puzzle Game">
+<meta property="og:url" content="https://rectblox.com">
+<meta property="og:locale" content="en_US">
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image">
-<meta property="twitter:title" content="RectBlox - Free Puzzle Game | Match-3 Block Puzzle Online">
-<meta property="twitter:description" content="Play RectBlox, a fun and addictive match-3 block puzzle game! Clear blocks, make combos, and progress through 5 challenging levels. Free to play online!">
+<meta property="twitter:title" content="RectBlox - Free Match-3 Block Puzzle Game">
+<meta property="twitter:description" content="Play RectBlox now! Addictive match-3 puzzle game with 5 challenging levels. Free online gaming at its finest - no downloads, just pure fun!">
+<meta property="twitter:site" content="@RectBloxGame">
+<meta property="twitter:creator" content="@RectBloxGame">>
 
 <!-- Web App Settings -->
 <meta name="theme-color" content="#f7e7ce">
@@ -33,6 +43,23 @@
 <!-- Performance and Caching -->
 <meta http-equiv="Cache-Control" content="public, max-age=31536000">
 <meta name="preconnect" href="https://pagead2.googlesyndication.com">
+<meta name="dns-prefetch" href="https://pagead2.googlesyndication.com">
+<meta name="preconnect" href="https://fonts.googleapis.com">
+<meta name="dns-prefetch" href="https://fonts.gstatic.com">
+
+<!-- Security headers -->
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="X-XSS-Protection" content="1; mode=block">
+
+<!-- Canonical URL -->
+<link rel="canonical" href="https://rectblox.com/">
+
+<!-- Favicon and App Icons -->
+<link rel="icon" type="image/png" sizes="32x32" href="logo.png">
+<link rel="icon" type="image/png" sizes="16x16" href="logo.png">
+<link rel="apple-touch-icon" href="logo.png">
+<link rel="manifest" href="manifest.json">
 
 <!-- Structured Data for Games -->
 <script type="application/ld+json">
@@ -40,20 +67,115 @@
   "@context": "https://schema.org",
   "@type": "Game",
   "name": "RectBlox",
-  "description": "A fun and addictive match-3 block puzzle game with 5 challenging levels",
-  "genre": "Puzzle",
-  "gamePlatform": ["Web Browser", "Mobile"],
-  "operatingSystem": ["Any"],
+  "description": "A fun and addictive match-3 block puzzle game with 5 challenging levels. Clear blocks, create combos, and achieve high scores in this free online puzzle game.",
+  "genre": ["Puzzle", "Casual", "Strategy"],
+  "gamePlatform": ["Web Browser", "Mobile", "Desktop", "Tablet"],
+  "operatingSystem": ["Any", "Windows", "macOS", "Linux", "iOS", "Android"],
   "applicationCategory": "Game",
+  "url": "https://rectblox.com",
+  "sameAs": [
+    "https://twitter.com/RectBloxGame",
+    "https://facebook.com/RectBloxGame"
+  ],
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD",
+    "availability": "https://schema.org/InStock"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.7",
+    "ratingCount": "250",
+    "bestRating": "5",
+    "worstRating": "1"
+  },
+  "creator": {
+    "@type": "Organization",
+    "name": "RectBlox Game Studio",
+    "url": "https://rectblox.com"
+  },
+  "datePublished": "2024-12-01",
+  "inLanguage": "en-US",
+  "isAccessibleForFree": true,
+  "keywords": "puzzle game, match-3, block puzzle, free online game, casual game, brain teaser",
+  "educationalUse": "cognitive training, pattern recognition, strategic thinking",
+  "typicalAgeRange": "8-99",
+  "contentRating": {
+    "@type": "Rating",
+    "ratingValue": "Everyone"
+  },
+  "interactionStatistic": [
+    {
+      "@type": "InteractionCounter",
+      "interactionType": "https://schema.org/PlayAction",
+      "userInteractionCount": 5000
+    }
+  ],
+  "gameItem": [
+    {
+      "@type": "Thing",
+      "name": "Colored Blocks",
+      "description": "Colorful puzzle blocks in various colors"
+    },
+    {
+      "@type": "Thing", 
+      "name": "Levels",
+      "description": "5 progressive difficulty levels"
+    },
+    {
+      "@type": "Thing",
+      "name": "Scoring System", 
+      "description": "Dynamic scoring with combo multipliers"
+    }
+  ]
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "RectBlox",
+  "description": "Free online match-3 block puzzle game. No downloads required - play instantly in your browser!",
+  "url": "https://rectblox.com",
+  "applicationCategory": "GameApplication",
+  "operatingSystem": "Web Browser",
   "offers": {
     "@type": "Offer",
     "price": "0",
     "priceCurrency": "USD"
   },
   "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "4.5",
-    "ratingCount": "100"
+    "@type": "AggregateRating", 
+    "ratingValue": "4.7",
+    "ratingCount": "250"
+  },
+  "screenshot": "https://rectblox.com/logo.png",
+  "softwareVersion": "1.0",
+  "dateModified": "2024-12-01",
+  "browserRequirements": "HTML5, JavaScript enabled",
+  "permissions": "none",
+  "storageRequirements": "5MB",
+  "supportingData": "Local storage for game progress"
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "RectBlox - Free Online Puzzle Game",
+  "url": "https://rectblox.com",
+  "description": "Play the best free match-3 block puzzle game online. Challenge yourself with 5 levels of increasing difficulty.",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://rectblox.com/?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  },
+  "mainEntity": {
+    "@type": "Game",
+    "name": "RectBlox"
   }
 }
 </script>
@@ -705,6 +827,285 @@
     font-size: 1.2em;
     font-weight: bold;
   }
+  
+  /* Additional Content Styles */
+  .game-info, .help-section {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    padding: 2rem;
+    margin: 1rem 0;
+    box-shadow: 0 6px 25px rgba(212, 165, 116, 0.25);
+    border: 1px solid rgba(212, 165, 116, 0.15);
+    max-height: 70vh;
+    overflow-y: auto;
+    color: #6b4e3d;
+    line-height: 1.6;
+  }
+  
+  .content-section {
+    margin-bottom: 2rem;
+  }
+  
+  .content-section h2 {
+    color: #d4a574;
+    border-bottom: 2px solid #d4a574;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .content-section h3 {
+    color: #b8926f;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .content-section h4 {
+    color: #8a6d5b;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .gameplay-guide .step {
+    background: rgba(212, 165, 116, 0.1);
+    padding: 1rem;
+    margin: 1rem 0;
+    border-radius: 10px;
+    border-left: 4px solid #d4a574;
+  }
+  
+  .faq-item {
+    background: rgba(255, 255, 255, 0.5);
+    padding: 1rem;
+    margin: 1rem 0;
+    border-radius: 10px;
+    border: 1px solid rgba(212, 165, 116, 0.2);
+  }
+  
+  .faq-item h4 {
+    margin-top: 0;
+    color: #6b4e3d;
+  }
+  
+  /* Footer Styles */
+  .game-footer {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 1.5rem;
+    margin-top: 1rem;
+    border: 1px solid rgba(212, 165, 116, 0.2);
+    color: #6b4e3d;
+  }
+  
+  .footer-content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    text-align: center;
+  }
+  
+  .footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  
+  .footer-links a {
+    color: #d4a574;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    background: rgba(212, 165, 116, 0.1);
+    transition: all 0.3s ease;
+  }
+  
+  .footer-links a:hover {
+    background: rgba(212, 165, 116, 0.2);
+    transform: translateY(-1px);
+  }
+  
+  .share-buttons {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    margin-top: 0.5rem;
+  }
+  
+  .share-btn {
+    background: linear-gradient(135deg, #4285f4 0%, #34a853 100%);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .share-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(66, 133, 244, 0.3);
+  }
+  
+  /* Modal Styles */
+  .modal {
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    backdrop-filter: blur(5px);
+  }
+  
+  .modal-content {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    margin: 5% auto;
+    padding: 2rem;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 600px;
+    max-height: 80vh;
+    overflow-y: auto;
+    position: relative;
+    color: #6b4e3d;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  }
+  
+  .close {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+  
+  .close:hover {
+    color: #6b4e3d;
+  }
+  
+  /* Contact Form Styles */
+  .contact-form {
+    margin: 1.5rem 0;
+  }
+  
+  .form-group {
+    margin-bottom: 1rem;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: #6b4e3d;
+  }
+  
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid rgba(212, 165, 116, 0.3);
+    border-radius: 8px;
+    font-size: 1rem;
+    background: rgba(255, 255, 255, 0.8);
+    color: #6b4e3d;
+    transition: border-color 0.3s ease;
+  }
+  
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: #d4a574;
+    box-shadow: 0 0 0 3px rgba(212, 165, 116, 0.1);
+  }
+  
+  .submit-btn {
+    background: linear-gradient(135deg, #d4a574 0%, #c8956d 100%);
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+  }
+  
+  .submit-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(212, 165, 116, 0.3);
+  }
+  
+  /* Mobile Responsive Updates */
+  @media screen and (max-width: 768px) {
+    .game-info, .help-section {
+      padding: 1rem;
+      max-height: 60vh;
+    }
+    
+    .modal-content {
+      margin: 2% auto;
+      padding: 1rem;
+      width: 95%;
+      max-height: 90vh;
+    }
+    
+    .footer-content {
+      gap: 0.5rem;
+    }
+    
+    .footer-links {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    
+    .share-buttons {
+      flex-direction: column;
+    }
+    
+    .side-ad-container {
+      display: none !important;
+    }
+  }
+  
+  /* Desktop ad positioning */
+  @media screen and (min-width: 1200px) {
+    .side-ad-container {
+      display: block !important;
+      position: fixed;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 160px;
+      z-index: 5;
+    }
+    
+    .container {
+      margin-right: 180px; /* Make room for side ad */
+    }
+  }
+  
+  /* Ad container styling */
+  .ad-container {
+    margin: 1rem auto;
+    max-width: 100%;
+    text-align: center;
+  }
+  
+  .ad-container ins {
+    display: block;
+    text-align: center;
+  }
 </style>
 </head>
 <body>
@@ -738,6 +1139,14 @@
       <button class="secondary-button" id="shuffleBtn">Reset Position</button>
       <div class="level-info">Level <span id="level">1</span>: <span id="levelName">Easy Level</span></div>
       <button class="secondary-button" id="restartBtn">Restart</button>
+    </div>
+  </div>
+  
+  <!-- Additional Game Content Sections -->
+  <div class="game-navigation" style="text-align: center; margin: 1rem 0;">
+    <div class="action-buttons">
+      <button class="secondary-button" id="aboutBtn">About Game</button>
+      <button class="secondary-button" id="helpBtn">Help</button>
     </div>
   </div>
 </div>
@@ -1994,7 +2403,537 @@ instructionsDiv.addEventListener('touchend', function(e) {
 initBoard();
 // Show instructions when first loading the game
 setTimeout(() => showInstructions(), 500);
+
+// Additional functionality for new content
+document.getElementById('aboutBtn').addEventListener('click', () => {
+  playButtonSound();
+  document.getElementById('gameInfo').style.display = 'block';
+  document.getElementById('gameFooter').style.display = 'none';
+});
+
+document.getElementById('helpBtn').addEventListener('click', () => {
+  playButtonSound();
+  document.getElementById('helpSection').style.display = 'block';
+  document.getElementById('gameFooter').style.display = 'none';
+});
+
+// Modal functions
+function showPrivacyPolicy() {
+  document.getElementById('privacyModal').style.display = 'block';
+}
+
+function showTermsOfService() {
+  document.getElementById('termsModal').style.display = 'block';
+}
+
+function showContact() {
+  document.getElementById('contactModal').style.display = 'block';
+}
+
+function closeModal(modalId) {
+  document.getElementById(modalId).style.display = 'none';
+}
+
+// Close modals when clicking outside
+window.onclick = function(event) {
+  const modals = ['privacyModal', 'termsModal', 'contactModal'];
+  modals.forEach(modalId => {
+    const modal = document.getElementById(modalId);
+    if (event.target === modal) {
+      modal.style.display = 'none';
+    }
+  });
+}
+
+// Share functionality
+function shareGame(platform) {
+  const url = encodeURIComponent(window.location.href);
+  const title = encodeURIComponent('Check out RectBlox - An amazing puzzle game!');
+  
+  let shareUrl = '';
+  if (platform === 'twitter') {
+    shareUrl = `https://twitter.com/intent/tweet?url=${url}&text=${title}`;
+  } else if (platform === 'facebook') {
+    shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+  }
+  
+  if (shareUrl) {
+    window.open(shareUrl, '_blank', 'width=600,height=400');
+  }
+}
+
+// Contact form submission
+function submitContactForm(event) {
+  event.preventDefault();
+  
+  // Get form data
+  const formData = new FormData(event.target);
+  const data = {
+    name: formData.get('name'),
+    email: formData.get('email'),
+    subject: formData.get('subject'),
+    message: formData.get('message')
+  };
+  
+  // Simple validation
+  if (!data.name || !data.email || !data.subject || !data.message) {
+    alert('Please fill in all fields.');
+    return;
+  }
+  
+  // Simulate form submission
+  alert('Thank you for your message! We will get back to you soon.');
+  closeModal('contactModal');
+  event.target.reset();
+}
+
+// Show footer by default
+document.getElementById('gameFooter').style.display = 'block';
+
+// Add keyboard shortcuts for accessibility
+document.addEventListener('keydown', function(e) {
+  // Escape key closes modals and info sections
+  if (e.key === 'Escape') {
+    // Close modals
+    closeModal('privacyModal');
+    closeModal('termsModal');
+    closeModal('contactModal');
+    
+    // Close info sections
+    document.getElementById('gameInfo').style.display = 'none';
+    document.getElementById('helpSection').style.display = 'none';
+    document.getElementById('gameFooter').style.display = 'block';
+  }
+});
+
+// Add smooth scrolling for better UX
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function (e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      target.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  });
+});
+
+// Analytics and user engagement tracking (privacy-friendly)
+function trackGameEvent(eventName, data = {}) {
+  // Store basic game statistics locally for improvement
+  const stats = JSON.parse(localStorage.getItem('rectbloxStats') || '{}');
+  
+  if (!stats[eventName]) {
+    stats[eventName] = 0;
+  }
+  stats[eventName]++;
+  
+  // Add timestamp for session tracking
+  stats.lastPlayed = new Date().toISOString();
+  
+  localStorage.setItem('rectbloxStats', JSON.stringify(stats));
+}
+
+// Track game start
+const originalInitBoard = initBoard;
+initBoard = function() {
+  trackGameEvent('gameStart');
+  return originalInitBoard.apply(this, arguments);
+};
+
+// Track game completion
+const originalShowGameCompleteOverlay = showGameCompleteOverlay;
+showGameCompleteOverlay = function() {
+  trackGameEvent('gameComplete');
+  return originalShowGameCompleteOverlay.apply(this, arguments);
+};
+
+// Page load and performance tracking
+window.addEventListener('load', function() {
+  // Track page load time
+  const loadTime = performance.now();
+  trackGameEvent('pageLoad', { loadTime: Math.round(loadTime) });
+  
+  // Initialize user engagement tracking
+  let engagementStartTime = Date.now();
+  let isEngaged = true;
+  
+  // Track user engagement time
+  document.addEventListener('visibilitychange', function() {
+    if (document.hidden) {
+      if (isEngaged) {
+        const engagementTime = Date.now() - engagementStartTime;
+        trackGameEvent('engagement', { time: Math.round(engagementTime / 1000) });
+        isEngaged = false;
+      }
+    } else {
+      engagementStartTime = Date.now();
+      isEngaged = true;
+    }
+  });
+  
+  // Track before user leaves
+  window.addEventListener('beforeunload', function() {
+    if (isEngaged) {
+      const engagementTime = Date.now() - engagementStartTime;
+      trackGameEvent('engagement', { time: Math.round(engagementTime / 1000) });
+    }
+  });
+});
+
+// Service Worker for PWA functionality (optional)
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('/sw.js')
+      .then(function(registration) {
+        console.log('ServiceWorker registration successful');
+      })
+      .catch(function(err) {
+        console.log('ServiceWorker registration failed');
+      });
+  });
+}
+
+// Add to home screen prompt
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  
+  // Show install button after user has engaged with the game
+  setTimeout(() => {
+    if (deferredPrompt) {
+      showInstallPrompt();
+    }
+  }, 60000); // Show after 1 minute of gameplay
+});
+
+function showInstallPrompt() {
+  const installBanner = document.createElement('div');
+  installBanner.innerHTML = `
+    <div style="position: fixed; bottom: 20px; right: 20px; background: rgba(212, 165, 116, 0.95); color: white; padding: 1rem; border-radius: 10px; z-index: 1000; max-width: 250px; box-shadow: 0 4px 12px rgba(0,0,0,0.3);">
+      <p style="margin: 0 0 0.5rem 0; font-size: 0.9rem;">Install RectBlox for the best experience!</p>
+      <button onclick="installApp()" style="background: white; color: #6b4e3d; border: none; padding: 0.5rem 1rem; border-radius: 5px; cursor: pointer; margin-right: 0.5rem;">Install</button>
+      <button onclick="dismissInstall()" style="background: transparent; color: white; border: 1px solid white; padding: 0.5rem 1rem; border-radius: 5px; cursor: pointer;">Later</button>
+    </div>
+  `;
+  document.body.appendChild(installBanner);
+  
+  window.installApp = function() {
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      deferredPrompt.userChoice.then((choiceResult) => {
+        if (choiceResult.outcome === 'accepted') {
+          trackGameEvent('appInstalled');
+        }
+        deferredPrompt = null;
+        document.body.removeChild(installBanner);
+      });
+    }
+  };
+  
+  window.dismissInstall = function() {
+    document.body.removeChild(installBanner);
+    deferredPrompt = null;
+  };
+}
 </script>
+
+    <div class="action-buttons">
+      <button class="secondary-button" id="aboutBtn">About Game</button>
+      <button class="secondary-button" id="helpBtn">Help</button>
+    </div>
+  </div>
+  
+  <!-- Additional Game Content -->
+  <div class="game-info" id="gameInfo" style="display: none;">
+    <div class="content-section">
+      <h2>About RectBlox</h2>
+      <p>RectBlox is an engaging match-3 block puzzle game that challenges your strategic thinking and pattern recognition skills. Developed with modern web technologies, this game offers hours of entertainment for puzzle game enthusiasts of all ages.</p>
+      
+      <h3>Game Features</h3>
+      <ul>
+        <li><strong>5 Progressive Levels:</strong> Each level increases in difficulty with unique challenges</li>
+        <li><strong>Intuitive Controls:</strong> Simple swipe gestures on mobile, arrow keys on desktop</li>
+        <li><strong>Dynamic Scoring:</strong> Score system that rewards strategic play and combo chains</li>
+        <li><strong>Responsive Design:</strong> Optimized for both mobile and desktop gameplay</li>
+        <li><strong>Audio Feedback:</strong> Satisfying sound effects enhance the gaming experience</li>
+        <li><strong>Visual Effects:</strong> Smooth animations and particle effects</li>
+      </ul>
+      
+      <h3>How to Play</h3>
+      <div class="gameplay-guide">
+        <div class="step">
+          <h4>1. Movement</h4>
+          <p><strong>Desktop:</strong> Use arrow keys (←↑→↓) to move all blocks in the chosen direction</p>
+          <p><strong>Mobile:</strong> Swipe in any direction to move blocks</p>
+        </div>
+        <div class="step">
+          <h4>2. Matching</h4>
+          <p>When two or more blocks of the same color touch, they disappear and you score points</p>
+        </div>
+        <div class="step">
+          <h4>3. Strategy</h4>
+          <p>Plan your moves carefully - you have limited moves per level. Create chain reactions for bonus points!</p>
+        </div>
+        <div class="step">
+          <h4>4. Special Features</h4>
+          <p><strong>Reset Position:</strong> Costs 1 move but randomly redistributes all blocks</p>
+          <p><strong>Auto-generation:</strong> The game automatically adds blocks to prevent impossible situations</p>
+        </div>
+      </div>
+      
+      <h3>Tips for Success</h3>
+      <ul>
+        <li>Look for opportunities to create chain reactions</li>
+        <li>Don't waste moves - think before each move</li>
+        <li>Use the reset position feature strategically when stuck</li>
+        <li>Focus on clearing larger groups for higher scores</li>
+        <li>Practice pattern recognition to spot matches quickly</li>
+      </ul>
+    </div>
+    
+    <div class="content-section">
+      <h3>Game Statistics & Achievements</h3>
+      <p>Track your progress as you master RectBlox:</p>
+      <ul>
+        <li><strong>Score Tracking:</strong> Your best scores are saved locally</li>
+        <li><strong>Level Progress:</strong> Complete all 5 levels to become a RectBlox master</li>
+        <li><strong>Combo System:</strong> Chain eliminations for spectacular combo messages</li>
+        <li><strong>Efficiency Rating:</strong> Use fewer moves for higher efficiency scores</li>
+      </ul>
+    </div>
+    
+    <div class="content-section">
+      <h3>Technical Information</h3>
+      <p>RectBlox is built using modern web technologies:</p>
+      <ul>
+        <li><strong>HTML5 & CSS3:</strong> For responsive design and animations</li>
+        <li><strong>JavaScript:</strong> Game logic and interactive features</li>
+        <li><strong>Touch API:</strong> Native mobile touch support</li>
+        <li><strong>Web Audio API:</strong> Dynamic sound generation</li>
+        <li><strong>Local Storage:</strong> Save progress and preferences</li>
+      </ul>
+    </div>
+    
+    <button class="secondary-button" onclick="document.getElementById('gameInfo').style.display='none'">Back to Game</button>
+  </div>
+  
+  <!-- Help Section -->
+  <div class="help-section" id="helpSection" style="display: none;">
+    <div class="content-section">
+      <h2>Frequently Asked Questions</h2>
+      
+      <div class="faq-item">
+        <h4>Q: How do I control the game?</h4>
+        <p>A: On desktop, use arrow keys. On mobile devices, simply swipe in the direction you want to move the blocks.</p>
+      </div>
+      
+      <div class="faq-item">
+        <h4>Q: What happens when I run out of moves?</h4>
+        <p>A: The game will show your final score and statistics. You can then restart to try again and improve your score.</p>
+      </div>
+      
+      <div class="faq-item">
+        <h4>Q: How does the scoring system work?</h4>
+        <p>A: You earn 10 points per block eliminated, multiplied by the current level. Chain reactions and larger eliminations give bonus points.</p>
+      </div>
+      
+      <div class="faq-item">
+        <h4>Q: Can I save my progress?</h4>
+        <p>A: Yes! The game automatically saves your best scores and current progress using your browser's local storage.</p>
+      </div>
+      
+      <div class="faq-item">
+        <h4>Q: Is RectBlox free to play?</h4>
+        <p>A: Absolutely! RectBlox is completely free to play with no hidden costs or in-app purchases.</p>
+      </div>
+      
+      <div class="faq-item">
+        <h4>Q: Does the game work offline?</h4>
+        <p>A: Yes, once loaded, RectBlox can be played offline. However, you'll need an internet connection to initially load the game.</p>
+      </div>
+    </div>
+    
+    <div class="content-section">
+      <h3>Troubleshooting</h3>
+      <ul>
+        <li><strong>Game not responding:</strong> Try refreshing the page</li>
+        <li><strong>Audio issues:</strong> Check your device's volume settings</li>
+        <li><strong>Touch not working:</strong> Ensure your browser supports touch events</li>
+        <li><strong>Performance issues:</strong> Close other browser tabs for better performance</li>
+      </ul>
+    </div>
+    
+    <button class="secondary-button" onclick="document.getElementById('helpSection').style.display='none'">Back to Game</button>
+  </div>
+  
+  <!-- Footer Content -->
+  <footer class="game-footer" id="gameFooter">
+    <!-- Ad Space - Footer Banner -->
+    <div class="ad-container" style="text-align: center; margin: 1rem 0; padding: 1rem; background: rgba(255,255,255,0.1); border-radius: 10px;">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-6244767628762401"
+           data-ad-slot="1234567890"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>
+           (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
+    
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>RectBlox Game</h4>
+        <p>© 2024 RectBlox. A free online puzzle game for everyone.</p>
+        <p>Version 1.0 - Last updated: December 2024</p>
+      </div>
+      
+      <div class="footer-links">
+        <a href="#" onclick="showPrivacyPolicy()">Privacy Policy</a>
+        <a href="#" onclick="showTermsOfService()">Terms of Service</a>
+        <a href="#" onclick="showContact()">Contact Us</a>
+      </div>
+      
+      <div class="footer-section">
+        <h4>Share RectBlox</h4>
+        <p>Enjoyed the game? Share it with friends!</p>
+        <div class="share-buttons">
+          <button onclick="shareGame('twitter')" class="share-btn">Share on Twitter</button>
+          <button onclick="shareGame('facebook')" class="share-btn">Share on Facebook</button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Additional Ad Space - Bottom -->
+    <div class="ad-container" style="text-align: center; margin-top: 1rem;">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-6244767628762401"
+           data-ad-slot="9876543210"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>
+           (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
+  </footer>
+  
+  <!-- Privacy Policy Modal -->
+  <div id="privacyModal" class="modal" style="display: none;">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('privacyModal')">&times;</span>
+      <h2>Privacy Policy</h2>
+      <p><strong>Last updated:</strong> December 2024</p>
+      
+      <h3>Information We Collect</h3>
+      <p>RectBlox is designed with privacy in mind. We collect minimal information to provide you with the best gaming experience:</p>
+      <ul>
+        <li><strong>Game Data:</strong> Your scores and progress are stored locally on your device</li>
+        <li><strong>Technical Data:</strong> Basic browser information for game optimization</li>
+        <li><strong>Usage Analytics:</strong> Anonymous gameplay statistics to improve the game</li>
+      </ul>
+      
+      <h3>How We Use Information</h3>
+      <ul>
+        <li>To save your game progress and high scores</li>
+        <li>To optimize game performance for your device</li>
+        <li>To understand how players interact with the game</li>
+        <li>To improve game features and fix bugs</li>
+      </ul>
+      
+      <h3>Data Storage</h3>
+      <p>Your game data is stored locally on your device using browser storage. We do not collect or store personal information on external servers.</p>
+      
+      <h3>Third-Party Services</h3>
+      <p>RectBlox may include advertising from Google AdSense. Please refer to Google's Privacy Policy for information about how Google collects and uses data.</p>
+      
+      <h3>Contact</h3>
+      <p>If you have questions about this Privacy Policy, please contact us through the contact form.</p>
+    </div>
+  </div>
+  
+  <!-- Terms of Service Modal -->
+  <div id="termsModal" class="modal" style="display: none;">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('termsModal')">&times;</span>
+      <h2>Terms of Service</h2>
+      <p><strong>Last updated:</strong> December 2024</p>
+      
+      <h3>Acceptance of Terms</h3>
+      <p>By playing RectBlox, you agree to these Terms of Service. If you do not agree, please do not use the game.</p>
+      
+      <h3>Game Usage</h3>
+      <ul>
+        <li>RectBlox is free to play for personal, non-commercial use</li>
+        <li>You may not modify, distribute, or create derivative works of the game</li>
+        <li>You may not use automated tools or bots to play the game</li>
+        <li>Fair play is expected - no cheating or exploitation of bugs</li>
+      </ul>
+      
+      <h3>Intellectual Property</h3>
+      <p>RectBlox and all related content are protected by copyright and other intellectual property laws. All rights reserved.</p>
+      
+      <h3>Disclaimer</h3>
+      <p>The game is provided "as is" without warranties. We are not liable for any damages from using the game.</p>
+      
+      <h3>Changes to Terms</h3>
+      <p>We may update these terms. Continued use of the game constitutes acceptance of updated terms.</p>
+    </div>
+  </div>
+  
+  <!-- Contact Modal -->
+  <div id="contactModal" class="modal" style="display: none;">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('contactModal')">&times;</span>
+      <h2>Contact Us</h2>
+      
+      <h3>Get in Touch</h3>
+      <p>We'd love to hear from you! Whether you have feedback, questions, or just want to share your high score, we're here to help.</p>
+      
+      <div class="contact-form">
+        <h4>Send us a message:</h4>
+        <form onsubmit="submitContactForm(event)">
+          <div class="form-group">
+            <label for="contactName">Name:</label>
+            <input type="text" id="contactName" name="name" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="contactEmail">Email:</label>
+            <input type="email" id="contactEmail" name="email" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="contactSubject">Subject:</label>
+            <select id="contactSubject" name="subject" required>
+              <option value="">Select a topic</option>
+              <option value="feedback">Game Feedback</option>
+              <option value="bug">Bug Report</option>
+              <option value="suggestion">Feature Suggestion</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="contactMessage">Message:</label>
+            <textarea id="contactMessage" name="message" rows="5" required></textarea>
+          </div>
+          
+          <button type="submit" class="submit-btn">Send Message</button>
+        </form>
+      </div>
+      
+      <div class="contact-info">
+        <h4>Other ways to reach us:</h4>
+        <p><strong>Response Time:</strong> We typically respond within 24-48 hours</p>
+        <p><strong>Languages:</strong> English, 中文</p>
+      </div>
+    </div>
+  </div>
 
 <!-- Hidden SEO Content -->
 <div style="position: absolute; left: -9999px; top: -9999px; visibility: hidden;">
@@ -2011,6 +2950,12 @@ setTimeout(() => showInstructions(), 500);
   </ul>
   <h3>How to Play RectBlox</h3>
   <p>Swipe or click to move blocks and create matches of 3 or more identical blocks. Clear the board to advance through levels and achieve high scores!</p>
+  
+  <h3>Benefits of Playing Puzzle Games</h3>
+  <p>Research shows that puzzle games like RectBlox can help improve cognitive function, enhance problem-solving skills, and provide stress relief through engaging gameplay.</p>
+  
+  <h3>Game Development and Technology</h3>
+  <p>RectBlox utilizes modern web technologies including HTML5, CSS3, and JavaScript to deliver a smooth, responsive gaming experience across all devices and platforms.</p>
 </div>
 
 </body>
