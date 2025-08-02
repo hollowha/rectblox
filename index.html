@@ -396,7 +396,7 @@
     width: 90px; 
     height: 90px; 
     border-radius: 12px; 
-    transition: transform 250ms cubic-bezier(0.25, 0.8, 0.5, 1), filter 250ms ease;
+    transition: transform 250ms cubic-bezier(0.25, 0.8, 0.5, 1), filter 250ms ease, background 0.6s ease;
     text-align: center;
     font-weight: 700;
     font-size: 55px;
@@ -1080,9 +1080,12 @@ function initGrid() {
   // Background grid removed, no need to create
 }
 
-function createTile(x, y, color) {
+function createTile(x, y, color, penalty = false) {
   const tile = document.createElement('div');
   tile.className = `tile tile-${color} tile-new`;
+  if (penalty) {
+    tile.style.background = 'linear-gradient(135deg, #8b0000 0%, #660000 100%)';
+  }
   
   // Responsive size calculation - adjust based on current level size
   const gameContainer = document.querySelector('.game-container');
@@ -1102,7 +1105,12 @@ function createTile(x, y, color) {
       tile.style.transform = `translate(${tx}px, ${ty}px)`;
   
   tileContainer.appendChild(tile);
-  requestAnimationFrame(() => tile.classList.remove('tile-new'));
+  requestAnimationFrame(() => {
+    tile.classList.remove('tile-new');
+    if (penalty) {
+      setTimeout(() => { tile.style.background = ''; }, 50);
+    }
+  });
   return tile;
 }
 
@@ -2087,6 +2095,7 @@ function animateScoreToTile(color, pos, cb) {
   const temp = document.createElement('div');
   temp.className = `tile tile-${color}`;
   temp.style.zIndex = '25';
+  temp.style.background = 'linear-gradient(135deg, #8b0000 0%, #660000 100%)';
   temp.style.width = `${tileSize}px`;
   temp.style.height = `${tileSize}px`;
   temp.style.lineHeight = `${tileSize}px`;
@@ -2102,13 +2111,15 @@ function animateScoreToTile(color, pos, cb) {
   temp.style.transform = `translate(${startX}px, ${startY}px) scale(0.3) rotate(-45deg)`;
   temp.style.opacity = '0';
   temp.style.filter = 'brightness(1.5)';
+  temp.style.transition = 'background 0.6s ease';
   tileContainer.appendChild(temp);
 
   requestAnimationFrame(() => {
-    temp.style.transition = 'transform 0.6s cubic-bezier(0.175,0.885,0.32,1.275), opacity 0.6s ease-out, filter 0.6s';
+    temp.style.transition = 'transform 0.6s cubic-bezier(0.175,0.885,0.32,1.275), opacity 0.6s ease-out, filter 0.6s, background 0.6s ease';
     temp.style.opacity = '1';
     temp.style.transform = `translate(${endX}px, ${endY}px) scale(1) rotate(0deg)`;
     temp.style.filter = 'brightness(1)';
+    setTimeout(() => { temp.style.background = ''; }, 50);
   });
 
   setTimeout(() => {
@@ -2185,10 +2196,10 @@ function generateTileForColor(color, cb) {
   
   // Reserve position in matrix and animate from score box
   boardMatrix[position.y][position.x] = color;
-  animateScoreToTile(color, position, () => {
-    boardElements[position.y][position.x] = createTile(position.x, position.y, color);
-    if (cb) cb();
-  });
+    animateScoreToTile(color, position, () => {
+      boardElements[position.y][position.x] = createTile(position.x, position.y, color, true);
+      if (cb) cb();
+    });
   
   // Deduct points instead of using a move
   gameScore -= AUTO_GENERATE_PENALTY;
