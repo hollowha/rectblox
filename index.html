@@ -1045,6 +1045,11 @@ function playInvalidMoveSound() {
   playSound(120, 0.2, 'sawtooth', 0.15);
 }
 
+function playPenaltySound() {
+  playSound(200, 0.15, 'sawtooth', 0.2);
+  setTimeout(() => playSound(120, 0.2, 'sawtooth', 0.2), 100);
+}
+
 const movesEl          = document.getElementById('moves');
 const levelEl          = document.getElementById('level');
 const levelNameEl      = document.getElementById('levelName');
@@ -1068,6 +1073,7 @@ function triggerInvalidBounce(dir) {
 }
 
 function triggerPenaltyFlash() {
+  playPenaltySound();
   scoreBox.classList.add("penalty-flash");
   scoreBox.classList.add("penalty-pop");
   setTimeout(() => {
