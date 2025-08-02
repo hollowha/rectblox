@@ -1,6 +1,10 @@
 User-agent: *
 Allow: /
 
+# Important pages for indexing
+Allow: /privacy.html
+Allow: /terms.html
+
 # Optimize crawling
 Crawl-delay: 1
 
