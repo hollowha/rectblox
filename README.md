@@ -13,12 +13,17 @@
   * 手機玩家可透過 **滑動手勢** 控制方塊
 * **核心目標**：
   移動方塊並讓相同顏色相鄰，形成連鎖消除，獲得積分並解鎖更高關卡。
+  現在的得分與關卡無關，僅依照消除方塊數與連鎖次數計算。
+  從 **2 連鎖** 起，消除的分數會乘上連鎖數，
+  例如 4 連鎖時，基本分 20 會變成 20 × 4 = 80。
 * **多樣關卡**：
 
   * **Level 1（Easy）**：5×5 棋盤，3 種顏色
   * **Level 2（Medium）**：6×6 棋盤，新增紫色方塊
   * **Level 3（Hard）**：7×7 棋盤，更多顏色與挑戰
   * **Level 4（Super Hard）**：8×8 極限難度！
+  * **Level 5（Ultimate Challenge）**：9×9 棋盤，多達 7 種顏色
+  * **Level 6（Master Level）**：10×10 棋盤，挑戰巔峰
 * **策略元素**：
 
   * 限制 **移動次數**，每一步都要謹慎思考
@@ -40,5 +45,13 @@
 
 📌 **目標：** 用有限的步數達成最高分，並一路突破所有關卡！
 💡 **溫馨提示：** 別忘了善用 **Mix Blocks**，可能就是逆轉勝的關鍵！
+
+### **About Us**
+
+RectBlox is the brainchild of a small group of puzzle lovers who met during a weekend game jam. What started as a quick prototype grew into a shared mission to create a relaxing yet mentally stimulating experience. Our team members now collaborate from different corners of the world, united by a fondness for minimal design and clever mechanics. We hope the game brings you a moment of joy every time you pick it up.
+
+### **Contact Us**
+
+We’re eager to hear your feedback and stories! Reach us at <2catfish1105@gmail.com> if you encounter any issues or simply want to say hi. You can also find the latest updates on Twitter by following [@RectBloxGame](https://twitter.com/RectBloxGame).
 
 
