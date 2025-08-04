@@ -66,9 +66,9 @@
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6244767628762401"
      crossorigin="anonymous"></script>
 <style>
-  html, body { 
-    margin: 0; 
-    padding: 0; 
+  html, body {
+    margin: 0;
+    padding: 0;
     background: linear-gradient(135deg, #f7e7ce 0%, #e8c5a0 50%, #f2d7b6 100%);
     min-height: 100vh;
     height: 100vh;
@@ -77,12 +77,24 @@
     overflow: hidden; /* 完全禁止滾動 */
     width: 100vw;
   }
-  
-  .container { 
+
+  body {
+    transition: background 0.8s ease;
+  }
+
+  :root {
+    --banner-height: 0px;
+  }
+
+  body.has-cookie-banner {
+    --banner-height: 60px;
+  }
+
+  .container {
     max-width: min(95vw, 500px);
     margin: 0 auto;
     padding: 5px 15px;
-    height: 100vh;
+    height: calc(100vh - var(--banner-height, 0px));
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -207,10 +219,26 @@
     transform: translateY(0px);
     box-shadow: 0 1px 4px rgba(212, 165, 116, 0.2);
   }
-  
-  button { 
+
+  #shuffleBtn {
+    position: relative;
+  }
+
+  .shuffle-tip {
+    display: none;
+    position: absolute;
+    top: -1.2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.7rem;
+    color: #a8926f;
+    pointer-events: none;
+    animation: pulse 2s infinite;
+  }
+
+  button {
     background: linear-gradient(135deg, #d4a574 0%, #c8956d 100%);
-    color: #6b4e3d; 
+    color: #6b4e3d;
     border: none; 
     padding: 0.75rem 1.25rem; 
     border-radius: 12px; 
@@ -601,9 +629,9 @@
   
   /* Responsive design */
   @media screen and (max-width: 768px) {
-    .container { 
+    .container {
       padding: 0.5rem;
-      height: 100vh;
+      height: calc(100vh - var(--banner-height, 0px));
       box-sizing: border-box;
     }
     
@@ -659,9 +687,14 @@
       font-size: 0.7rem;
       min-height: 36px;
     }
-    
-    
-    .game-container { 
+
+    .shuffle-tip {
+      top: -1rem;
+      font-size: 0.6rem;
+    }
+
+
+    .game-container {
       max-width: 350px;
       padding: 0.6rem;
     }
@@ -741,6 +774,42 @@
     color: #5a4a3f;
   }
   .demo-notice a { color: #5a4a3f; font-weight: bold; text-decoration: underline; }
+
+  .cookie-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+    z-index: 1000;
+  }
+
+  .cookie-banner button {
+    margin-left: 0.5rem;
+    background: #c8956d;
+    border: none;
+    color: #fff;
+    padding: 0.3rem 0.8rem;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .cookie-banner a {
+    margin-left: 0.5rem;
+    color: #fff;
+    text-decoration: underline;
+  }
+
+  .cookie-banner.hidden {
+    display: none;
+  }
 </style>
 </head>
 <body>
@@ -779,7 +848,10 @@
     </div>
     
     <div class="action-buttons">
-      <button class="secondary-button" id="shuffleBtn">Reset Position</button>
+      <button class="secondary-button" id="shuffleBtn">
+        Reset Position
+        <div id="shuffleTip" class="shuffle-tip">Stuck? Try Reset Position!</div>
+      </button>
       <div class="level-info">Level <span id="level">1</span>: <span id="levelName">Easy Level</span></div>
       <button class="secondary-button" id="restartBtn">Restart</button>
     </div>
@@ -807,6 +879,7 @@ let levelProcessed = false; // Prevent double counting
 let totalBlocks = 0; // Track total blocks removed
 let chainCount = 0; // Track chain count for cascading sound effects
 let totalChainBlocks = 0; // Track total blocks in current chain
+let consecutiveNoClearMoves = 0; // Track consecutive moves without clears
 let shuffleCost = 1; // Cost for using Reset Position, increases each use
 const AUTO_GENERATE_PENALTY = 50; // Points deducted when auto-generating a tile
 
@@ -976,6 +1049,8 @@ function updateGameSettings() {
 function initBoard() {
   updateGameSettings();
   shuffleCost = 1; // Reset shuffle cost at the start of each level
+  consecutiveNoClearMoves = 0;
+  hideShuffleTip();
   boardMatrix   = Array.from({length:SIZE}, ()=>Array(SIZE).fill(null));
   boardElements = Array.from({length:SIZE}, ()=>Array(SIZE).fill(null));
   tileContainer.innerHTML = '';
@@ -1003,6 +1078,14 @@ function updateUI() {
   // Display total score plus current game score
   const totalDisplayScore = totalScore + gameScore;
   scoreEl.textContent = totalDisplayScore;
+}
+
+function showShuffleTip() {
+  document.getElementById('shuffleTip').style.display = 'block';
+}
+
+function hideShuffleTip() {
+  document.getElementById('shuffleTip').style.display = 'none';
 }
 
 function nextLevel() {
@@ -1295,6 +1378,8 @@ function showShuffleConfirmation() {
 }
 
 function shuffleTiles() {
+  consecutiveNoClearMoves = 0;
+  hideShuffleTip();
   // Collect all current tiles
   const allTiles = [];
   boardMatrix.forEach(row => {
@@ -1451,19 +1536,31 @@ function cascade(dir, callback) {
   compress(dir);
   setTimeout(() => {
     const matches = findMatches();
-    if (matches.length === 0) { 
+    if (matches.length === 0) {
+      if (chainCount === 0) {
+        consecutiveNoClearMoves++;
+        if (consecutiveNoClearMoves >= 2) {
+          showShuffleTip();
+        }
+      } else {
+        consecutiveNoClearMoves = 0;
+        hideShuffleTip();
+      }
+
       // 連鎖結束，重置計數器
       chainCount = 0;
       totalChainBlocks = 0;
-      
+
       // 檢查是否需要自動生成方塊
       checkAndGenerateLonelyTiles();
       isAnimating = false;
       if (callback) callback();
       return;
     }
-    
+
     // 增加連鎖計數和累積方塊數
+    consecutiveNoClearMoves = 0;
+    hideShuffleTip();
     chainCount++;
     totalChainBlocks += matches.length;
     
@@ -2042,6 +2139,29 @@ instructionsDiv.addEventListener('touchend', function(e) {
 initBoard();
 // Show instructions when first loading the game
 setTimeout(() => showInstructions(), 500);
+</script>
+
+<div id="cookie-banner" class="cookie-banner">
+  <span>We use cookies to enhance your gaming experience and show relevant ads. By continuing to play, you consent to our use of cookies.</span>
+  <button id="acceptCookies">Accept</button>
+  <a href="privacy.html">Privacy Policy</a>
+</div>
+
+<script>
+  (function() {
+    const banner = document.getElementById('cookie-banner');
+    const accept = document.getElementById('acceptCookies');
+    if (localStorage.getItem('rbCookiesAccepted')) {
+      banner.classList.add('hidden');
+    } else {
+      document.body.classList.add('has-cookie-banner');
+    }
+    accept.addEventListener('click', function () {
+      localStorage.setItem('rbCookiesAccepted', '1');
+      banner.classList.add('hidden');
+      document.body.classList.remove('has-cookie-banner');
+    });
+  })();
 </script>
 
 <!-- Hidden SEO Content -->
