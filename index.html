@@ -843,43 +843,6 @@
     text-decoration: underline;
   }
 
-  .modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.8);
-    backdrop-filter: blur(10px);
-    display: none;
-    align-items: center;
-    justify-content: center;
-    z-index: 20;
-    padding: 1rem;
-  }
-
-  .modal:target {
-    display: flex;
-  }
-
-  .modal-content {
-    background: #ffffff;
-    color: #6b4e3d;
-    padding: 1.5rem;
-    border-radius: 12px;
-    max-width: 400px;
-    text-align: center;
-    position: relative;
-  }
-
-  .close-modal {
-    position: absolute;
-    top: 0.5rem;
-    right: 0.75rem;
-    text-decoration: none;
-    font-size: 1.2rem;
-    color: #6b4e3d;
-  }
 
   .tile-container.bounce-left { animation: bounce-left 0.3s ease; }
   .tile-container.bounce-right { animation: bounce-right 0.3s ease; }
@@ -987,8 +950,8 @@
       </div>
       <div class="footer-links">
         <a href="howtoplay.html">How to Play</a> |
-        <a href="#about">About Us</a> |
-        <a href="#contact">Contact Us</a> |
+        <a href="about.html">About Us</a> |
+        <a href="contact.html">Contact Us</a> |
         <a href="privacy.html">Privacy Policy</a> |
         <a href="terms.html">Terms of Service</a>
       </div>
@@ -2447,38 +2410,6 @@ instructionsDiv.addEventListener('touchend', function(e) {
   setTimeout(() => showInstructions(), 500);
   </script>
 
-  <div id="about" class="modal">
-    <div class="modal-content">
-      <a href="#" class="close-modal">✕</a>
-      <h2>About RectBlox</h2>
-      <p>RectBlox began as a weekend hobby between friends who share a love of puzzle games. Our small team now spans several countries, but we stay connected through our passion for cozy design and clever gameplay.</p>
-      
-      <p>We believe in creating games that bring joy and relaxation to players of all ages. RectBlox combines classic match-3 mechanics with modern design principles to deliver an experience that's both familiar and fresh.</p>
-      
-      <h3>Our Mission</h3>
-      <p>To create accessible, enjoyable puzzle games that provide moments of calm and satisfaction in our busy digital world. We hope every level brings you the same joy we felt while creating it.</p>
-      
-      <h3>Game Features</h3>
-      <ul style="text-align: left; margin: 20px 0;">
-        <li>6 progressive difficulty levels</li>
-        <li>Intuitive swipe and click controls</li>
-        <li>Beautiful glass-morphism design</li>
-        <li>Cross-platform compatibility</li>
-        <li>No ads interrupting gameplay</li>
-        <li>Regular updates and improvements</li>
-      </ul>
-      
-      <p>Thank you for playing RectBlox and being part of our puzzle-loving community!</p>
-    </div>
-  </div>
-
-  <div id="contact" class="modal">
-    <div class="modal-content">
-      <a href="#" class="close-modal">✕</a>
-      <h2>Contact Us</h2>
-      <p>We’d love to hear from you! Email us at <a href="mailto:2catfish1105@gmail.com">2catfish1105@gmail.com</a> with feedback, bug reports, or stories of your highest scores. You can also follow <a href="https://twitter.com/RectBloxGame">@RectBloxGame</a> for news and updates.</p>
-  </div>
-  </div>
 
   <div id="cookie-banner" class="cookie-banner">
     <span>We use cookies to enhance your gaming experience and show relevant ads. By continuing to play, you consent to our use of cookies.</span>
