@@ -4,6 +4,8 @@ Allow: /
 # Important pages for indexing
 Allow: /privacy.html
 Allow: /terms.html
+Allow: /about.html
+Allow: /contact.html
 
 # Optimize crawling
 Crawl-delay: 1
